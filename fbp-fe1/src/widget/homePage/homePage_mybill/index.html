@@ -1,0 +1,82 @@
+<div id="gadget-site-content-HR131" class="innerHtml collapse in">
+    <div>
+        <div id="homePage_mybill" class="approval home-list widget">
+          <div class="title">
+            <div  style="font-size: 16px;font-weight: 600;">我的业务</div>
+              <!--下拉单-->
+            <div class="billtype">
+
+                <span
+                      v-for="(item,key,index) in billTypeMap"
+                      @click="change(key)"
+                >
+                     {{item}}
+                </span>
+                <!--v-if="billTypeArr.length <= 3"-->
+
+
+                <!--
+                    billTypeMap:{ @change="change"
+                      "6111":"人员转正",
+                      "61112":"人员借调"
+                    }
+                -->
+            </div>
+          </div>
+          <div class="container" style="height: 302px; margin-top: 1px;position: relative;">
+            <ul class="list-content" style="height: 296px;" v-if="!newEmps">
+              <li class="list-content-Li"  v-for="item in todoListValue" @click="showDetail(item.billtype,item.billid)">
+                <p>
+                  <span>{{item.billtypeName}}</span>
+                  <span>{{item.time}}</span>
+                </p>
+                <div class="list-content-Div">
+                  <div>
+                    <p>{{item.billresume}}</p>
+                    <p>{{item.period}}</p>
+                  </div>
+                  <div class="list-content-Btn">
+                     <div v-if="item.status == -1" class="state1">
+                        <div @click="edit(item.billtype,item.billid)" class="reg" style="color:#75787B;cursor:pointer !important;">修改</div>
+                        <div @click="submit(item.billtype,item.billid)" style="cursor:pointer !important;">提交</div>
+                     </div>
+                     <div v-else-if="item.status == 3" class="state2" @click="callback(item.billtype,item.billid)" style="cursor:pointer !important;">收回</div>
+                      <!--审批通过-->
+                      <div v-else-if="item.status == 1" class="state3 stateUI">
+                          <i class="ifbp-icon-through-examination-and-approval" style="font-size: 50px;color:#FFA900;line-height: 50px"></i>
+                      </div>
+                      <!--审批进行中 OK-->
+                      <div v-else-if="item.status == 2" class="state4">
+                          <i class="ifbp-icon-in-approve" style="color:#DCEBFD !important;line-height: 35px"></i>
+                          <div><span>审批中</span></div>
+                      </div>
+                      <!--审批未通过-->
+                      <div v-else-if="item.status == 0" class="state0 stateUI">
+                      <i class="hr-icon-not-pass" style="font-size: 50px;color:#FA605D !important"></i>
+                      </div>
+                      <!--已执行-->
+                      <div v-else-if="item.status == 102" class="state102 stateUI">
+                      <i class="hr-icon-executed" style="font-size: 50px;color:#2FB37D !important;line-height: 50px"></i>
+                      </div>
+                      <!--其他-->
+                      <div v-else class="state4"></div>
+
+
+                  </div>
+                </div>
+              </li>
+            </ul>
+	
+          <img v-if="newEmps == true" style="width: 100px;height: 90px;position: absolute;top: 45%;left: 0px;right: 0px;bottom: 0px;
+            margin: 0 auto;" src="../i_hr/ifbp_hr/widget/homePage/homePage_mybill/img/nodata.png"/>
+
+          </div>
+          <div class="footer" >
+            <div class="footer-text" v-if="newEmps == false">
+              <span class="fl" > {{this.size}}/<span class="total">{{this.totalElements}}</span> &nbsp;&nbsp;&nbsp; </span>
+              <a class="hrfont more" v-if="this.more" title="更多" @click="jumpMore">更多</a>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>

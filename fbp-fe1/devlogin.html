@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <style media="screen">
+    html,
+    body {
+      height: 100%;
+    }
+
+    .main {
+      position: relative;
+      left: 50%;
+      top: 50%;
+      width: 300px;
+      height: 200px;
+    }
+
+    table {
+      position: relative;
+      left: -150px;
+      top: -100px;
+    }
+
+    .login_dl,
+    .login_reset {
+      height: 30px;
+      width: 120px;
+      border: none;
+      cursor: pointer;
+      background-repeat: no-repeat;
+      background-position: 0 0;
+      background-color: #DD3730;
+      color: #ffffff;
+    }
+
+    .login_input {
+      border: 1px solid #ccc;
+      background-color: #edf5fa;
+      height: 30px;
+      line-height: 30px;
+      width: 230px;
+      text-align: left;
+      padding-left: 30px;
+      color: #90a2bc;
+      font-size: 14px;
+      background-repeat: no-repeat;
+      background-position: 10px 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main">
+    <div style="background: #fff;position:absolute;" id="msgPanle">
+    <table width="300" border="0" cellspacing="0" cellpadding="0" class="login_table">
+      <tbody>
+        <tr>
+          <td class="login_lable">
+            <div class="login_lable2">语言：</div>
+            <select id="langcode" name="langcode">
+              <option value="cn">简体中文</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="login_lable">
+            <div class="login_lable2">系统：</div>
+            <select id="bccode" name="bccode">
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td class="login_lable">
+            <div class="login_lable2">用户名：</div>
+            <input id="username" name="username" value="yzq" class="required login_input" tabindex="1" accesskey="n" type="text" value="" size="25" autocomplete="off">
+          </td>
+        </tr>
+        <tr>
+          <td class="login_lable">
+            <div class="login_lable2">登录密码：</div>
+            <input id="password" name="password" value="123456a" class="required login_input" tabindex="2" accesskey="p" type="password" value="" size="25" autocomplete="off" onkeydown="return keydown(event)">
+          </td>
+        </tr>
+        <tr>
+          <td class="login_lable">
+            <div class="login_lable2">验证码：</div>
+            <input type="text" id="captcha" name="captcha" value="1" onkeydown="return keydown(event)" placeholder="请输入验证码" class="required login_input" tabindex="1" accesskey="n" type="text" value="" size="25" autocomplete="off">
+            <img src="/baseapp/captcha.jpg" width="150" id="checkcodeImage" title="看不清，点击换一张" />
+          </td>
+        </tr>
+        <tr>
+          <td height="70"><br>
+            <input type="hidden" id="devicetype" name="devicetype" value="1"/>
+            <input type="hidden" name="lt" value="LT-14481-0gU7HQ0T5A7TV5Jxd3BEgVJkHorgJf-CAS-NODE-01">
+            <input type="hidden" name="execution" value="e1s1">
+            <input type="hidden" name="_eventId" value="submit">
+            <input name="submit" type="button" accesskey="l" class="login_dl" value="登录" onclick="login();">
+            <input name="reset" type="button" accesskey="c" class="login_reset" value="重置" onclick="clearForm();">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script src="trd/jquery/jquery-1.11.2.min.js"></script>
+  <script src="trd/knockout/knockout-3.2.0.debug.js"></script>
+  <script src="apworkbench/trd/uui/js/u.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+        getCode();
+        $('#checkcodeImage').click(function() {
+            $(this).attr('src','/baseapp/captcha.jpg?rom=' + Math.floor(Math.random() * 100));
+        });
+    });
+    clearForm = function() {
+      $('#username').val('')
+      $('#password').val('')
+    }
+    keydown = function(e) {
+      var key = e.keyCode;
+      if (key === 13) {
+        login();
+      }
+    }
+
+    function chkForm() {
+        var msg = "",
+            data = {};
+
+        data.usercode = $("#username").val();
+        data.userpwd = $("#password").val();
+        data.langcode = $("#langcode").val();
+        data.bccode = $("#bccode").val();
+        data.devicetype = $("#devicetype").val();
+        data.captcha = $("#captcha").val();
+
+        if (!data.usercode) {
+            msg = "用户名不允许为空，请重新输入!";
+        }else if (!data.userpwd) {
+            msg = "密码不允许为空，请重新输入!";
+        } else if (!data.captcha) {
+            msg = "验证码不允许为空，请重新输入!";
+        }
+
+        if (msg != "") {
+            showErrorMsg(msg);
+            return false;
+        } else {
+            return data;
+        }
+    };
+
+    //显示错误提示信息
+    function showErrorMsg(msg) {
+        if (!msg) return;
+        var html = "<div class='errors' class='errors' id='msg' >" + msg + "</div>";
+        jQuery('#msgPanle').html("");
+        jQuery('#msgPanle').append(html).show();
+    }
+
+    login = function() {
+      var data = chkForm();
+      if (data) {
+        $.ajax({
+            url: '/baseapp/account/login',
+            data: data,
+            dataType: 'json',
+            method: 'POST',
+            success: function(data) {
+                if(data.status === true){
+                    window.location.href = '/wbalone/index.html';
+                }else{
+                    alert(data.data);
+                }
+            },
+            error: function(e) {}
+        })
+      }
+    }
+    function getCode(){
+        $.ajax({
+            url: '/baseapp/account/bcenter',
+            data: {},
+            dataType: 'json',
+            method: 'POST',
+            success: function(res) {
+                if (res.status === false) {
+                    showErrorMsg('系统获取失败，请重试！');
+                }
+                //api调用成功
+                if (res.status === true) {
+                    for (var i = 0; i < res.data.length; i++) {
+                        $("#bccode").append("<option value='" + res.data[i].code + "'>" + res.data[i].name + "</option>");
+                    }
+                }
+            },
+            error: function() {
+                //api调用失败
+                showErrorMsg('系统请求失败，请重试！');
+            }
+        });
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+<div id="gadget-site-content-HR131" class="innerHtml collapse in">
+  	<div>
+		<div id="birthday_body" class="birthday">
+			<div class="b_tittle"><p>本月寿星</p></div>
+			<div class="b_content">
+				<div v-if="birthdayBoys!=''">
+					<li class="clearfix" v-for="(item,index) in birthdayBoys">
+						<p><img id="imgSrc" :src="imgPathdata[index].imgPath" @error="errorLoadImg(index)"/></p>
+						<p>
+							<div class="b_name">{{item.name}}</div>
+							<div class="b_time" v-if="item.timeInterval==0">今日生日</div>
+							<div class="b_time" v-if="item.timeInterval>=1">{{item.timeInterval}}天后生日</div>
+							<div class="b_time" v-if="item.timeInterval<0">{{item.birthdate}}</div>
+						</p>
+						<!--<p class="b_click">送上祝福</p>-->
+					</li>
+				</div>
+				<img v-if="birthdayBoys==''" style="width: 100px;height: 90px;position: absolute;top: 0px;left: 0px;right: 0px;bottom: 0px;margin: auto;" src="../i_hr/ifbp_hr/widget/hrhi/personnelmgt/birthdayBoy/img/nodata.png"/>
+				
+			</div>
+			<div class="b_footer">
+				<p class="birthdaypage"><span v-if="num<3">{{num}}</span><span v-if="num>=3">3</span><span v-if="num!=''">/</span>{{num}}</p>
+				<p class="birthdaymore" v-if="num>=3">更多</p>
+			</div>
+		</div>
+	</div>
+</div>		

@@ -1,0 +1,70 @@
+
+/* 1----START 旧版日期范围选择控件的样式*/
+#rangeDate {
+  margin-top: -8px;
+}
+
+#rangeDate input {
+  /*border: 0;*/
+  color: #5cb0e6;
+}
+
+#rangeDate input::-webkit-input-placeholder {
+  color: #5cb0e6;
+}
+
+#rangeDate .el-icon-date:before {
+  content: '\e905';
+}
+/* 1----END 旧版日期范围选择控件的样式*/
+
+
+/* 2----START 新版日期范围选择控件的样式*/
+.range_date {
+  display: inline-block;
+  vertical-align: top;
+}
+.range_date .el-date-editor--daterange.el-input{
+  width:195px!important;
+}
+.range_date .el-date-editor--year.el-input{
+  width:72px!important;
+}
+.range_date .el-date-editor--month.el-input{
+  width:90px!important;
+}
+.range_date input {
+  border: 0px;
+  background: 0 0;
+  font-size: 14px;
+  color: #2d2d2d;
+  font-weight: 500;
+}
+
+.range_date .el-input__icon+.el-input__inner{
+  padding-right: 0px!important;
+}
+
+.range_date .el-icon-date:before {
+  content: "\e905";
+  color: #2d2d2d;
+}
+
+.range_date input::-webkit-input-placeholder {
+  color: #2d2d2d;
+}
+/* 2----END 新版日期范围选择控件的样式*/
+
+
+/* 3----START 超链接样式*/
+.hr-form-a{
+  color: #5CB0E6;
+  text-decoration: none;
+}
+
+.hr-form-a:hover {
+  color: #5CB0E6;
+  cursor: pointer;
+  text-decoration: underline;
+}
+/* 3----END 超链接样式*/

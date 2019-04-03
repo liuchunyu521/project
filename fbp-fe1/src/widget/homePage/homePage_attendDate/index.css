@@ -1,0 +1,72 @@
+.everyWeekDay .weekday{
+	display: -moz-inline-box;
+	display: inline-block;
+	text-align: center;
+	/*height: 50px;*/
+	line-height: 26px;
+	width: 13.6%;
+	border: 1px solid transparent;
+	/*cursor: pointer;*/
+	box-sizing: border-box;
+	font-size: 14px;
+}
+.everyDay .days {/*解决span不支持width属性*/
+	display: -moz-inline-box;
+	display: inline-block;
+	text-align: center;
+	font-size: 14px;
+	/*height: 50px;*/
+	line-height: 43px;
+	width: 13.6%;
+	border: 1px solid transparent;
+	/*cursor: pointer;*/
+	box-sizing: border-box;
+}
+.wordtoday {
+	width: 44px;
+	height: 24px;
+	border: 1px solid #E6E6EB;
+	padding:4px 8px;
+	cursor: pointer;
+	border-radius: 4px;
+	font-size: 14px;
+	color: #333;
+	margin-left: 44px;
+}
+.wordtoday:hover {
+	color: #5CB0E6;
+	border: 1px solid #5CB0E6;
+}
+.numDay{
+	width: 30px;
+	color: #333;
+	height: 30px;
+	display: inline-block;
+	line-height: 30px;
+	border-radius: 100%;
+}
+.workdayshover {
+	cursor: pointer;
+	background: transparent;
+}
+.workdayshover:hover {
+	cursor: pointer;
+	color: #fff;
+	background: #E6E6EB;
+}
+.otherDate{
+	filter:alpha(opacity:30);
+	opacity:0.3;
+	-moz-opacity:0.3;
+	-khtml-opacity: 0.3;
+}
+.notCurrMonthDate{
+	background: transparent;
+	cursor: default;
+}
+.selDate{
+	/*background-color:#E6E6EB;*/
+	background-color:#2d2d2d;
+	color:#FFFFFF;
+	cursor: default;
+}

@@ -1,0 +1,29 @@
+*{
+	margin:0;
+	padding: 0;
+}
+.ui-grid>div {
+	background: transparent;
+}
+.Qrcode{
+	padding: 16px 16px 16px 16px;
+	height: 84px;
+	border: 1px solid #E6E6EB;
+	border-radius: 4px;
+	background: #fff;
+}
+.Qrcode .Qrcode_img{
+	float: left;
+	margin-right: 10px;
+}
+.Qrcode .Qrcode_img img{
+	width: 86px;
+	height: 86px;
+}
+.Qrcode .Qrcode_text{
+	color: #666666;
+	font-size: 14px;
+}
+.Qrcode .Qrcode_textone{
+	margin-bottom: 5px;
+}

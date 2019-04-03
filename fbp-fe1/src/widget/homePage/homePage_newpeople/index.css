@@ -1,0 +1,54 @@
+
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+.ui-grid>div {
+	background: transparent;
+}
+.newpeople{
+	border: 1px solid #E6E6EB;
+	border-radius: 4px;
+	height: 158px;
+	background: #fff;
+}
+	.newpeople .b_tittle {
+		border-bottom: 1px solid #E6E6EB;
+		color: #333333;
+		line-height: 48px;
+		font-size: 16px;font-weight: 600;
+	}
+	.newpeople .b_tittle p{
+		margin-left: 14px;
+	}
+	.newpeople .b_content {
+		padding: 24px 16px 24px 16px;
+		height: 38px;
+		overflow: hidden;
+		position: relative;
+	}
+	.newpeople .b_content li {
+		width: 70px;
+		float: left;
+		text-align: center;
+		cursor: pointer;
+	}
+	.newpeople .b_content li img{
+		width: 24px;
+		height: 32px;
+	}
+	.newpeople .b_content li .b_name{
+		margin-top: 5px;
+	}
+	.anim{
+	    /*transition: all 0.5s;*/
+	    /*margin-left: -70px;*/
+	}
+	/*动画效果*/
+	.fade-enter-active, .fade-leave-active {
+	  transition: opacity .5s;
+	}
+	.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+	  opacity: 1;
+	}

@@ -1,0 +1,29 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.paywagesum {
+	background: #fff;
+	border-radius: 4px;
+}
+/*.paywagesum #app {
+	margin-left: 14px;
+	margin-top: 20px;
+}*/
+
+.paywagesum .b_title {
+	border-bottom: 1px solid #E6E6EB;
+	font-size: 16px;
+	color: #333333;
+	line-height: 49px;
+}
+
+.paywagesum .b_title p {
+	margin-left: 14px;
+	font-weight: bold;
+}
+#pay_sumapp {
+	width: 120px;
+	margin: 8px 0 0 16px;
+}

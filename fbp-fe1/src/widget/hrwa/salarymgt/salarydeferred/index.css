@@ -1,0 +1,71 @@
+
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+#bonuses_deferred_box:hover {
+    background-color: #e9f7fc;
+    border: 1px solid;
+    border-color: rgb(107, 202, 234);
+}
+#bonuses_deferred_box {
+	position: relative;
+	height: 120px;
+	width: 100%;
+	background: #fff;
+	top: 0px;
+	left: 0px;
+	border-radius: 4px;
+	cursor: pointer;
+	border: 1px solid transparent;
+}
+#bonuses_deferred_wrap {
+	position: absolute;
+	left: 40%;
+	top: 35px;
+	 margin-left: -75px
+}
+.bonuses_deferred_img {
+	width: 48px;
+	height: 48px;
+}
+.bonuses_deferred_left {
+	float: left;
+}
+.bonuses_deferred_right {
+	margin-top: 3px;
+	margin-left: 30px;
+	float: left;
+}
+.bonuses_deferred_top {
+	font-size: 16px;
+	color: #333333;
+	line-height: 20px;
+}
+.bonuses_deferred_middle {
+	font-size: 14px;
+	color: #666666;
+	line-height: 36px;
+	display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.bonuses_deferred_bottom {
+	font-size: 14px;
+	color: #156ECF;
+	line-height: 16px;
+}
+
+@media screen and (max-width: 1240px) {
+    .bonuses_deferred_middle {
+    	max-width: 100px;
+    }
+}
+
+@media screen and (max-width: 989px) {
+    .bonuses_deferred_middle {
+    	max-width: 140px;
+    }
+}

@@ -1,0 +1,102 @@
+li {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+#birthdayhome_body {
+	background: #fff;
+	border-radius: 4px;
+}
+	.birthdayhome .b_tittle {
+		border-bottom: 1px solid #E6E6EB;
+		font-size: 16px;
+		color: #333333;
+		line-height: 49px;
+	}
+	.birthdayhome .b_tittle p{
+		margin-left: 14px;
+		font-size: 16px;font-weight: 600;
+	}
+	.birthdayhome .b_content {
+		/*height: 223px;*/
+		height: 287px;
+		padding: 16px 16px 1px 16px;
+		position: relative;
+	}
+	.birthdayhome .b_content li {
+		height:76px;
+		overflow: hidden;
+		margin-top: 14px;
+	}
+	.birthdayhome .b_content li p {
+		float: left;
+	}
+	.birthdayhome .b_content li .imgover {
+		width: 48px;
+	    height: 48px;
+	    border-radius: 100%;
+	    overflow: hidden;
+	    margin-right: 16px;
+	}
+	.birthdayhome .b_content li .popoverimgover {
+		width: 48px;
+	    height: 48px;
+	    border-radius: 100%;
+	    overflow: hidden;
+	    margin-right: 16px;
+	}
+	.imgSrc {
+		width:50px;
+		height:70px;
+		margin-top: -10px;
+		margin-right: 16px;
+	}
+	.popoverimgSrc {
+		width:50px;
+		height:70px;
+		margin-top: -10px;
+		margin-right: 16px;
+	}
+	.birthdayhome .b_content li .b_click {
+		float: right;
+	}
+	.birthdayhome .b_content li .b_name {
+		font-size: 16px;
+		font-weight: 400;
+		color: #333333;
+		margin-top: 2px;
+	}
+	.birthdayhome .b_content li .b_time {
+		font-size: 14px;
+		color: #666666;
+		margin-top: 10px;
+	}
+	.birthdayhome .b_content li .b_click {
+		background: #FFA900;
+		border-radius: 4px;
+		padding: 5px 10px;
+		margin-top: -30px;
+		cursor: pointer;
+		color: white;
+	}
+	.birthdayhome .b_footer{
+		height: 45px;
+		border-top:1px solid #E6E6EB;
+		font-size: 14px;
+		color: #666666;
+		line-height: 45px;
+	}
+	.birthdayhome .b_footer .birthdayhomepage{
+		float: left;
+		margin-left: 14px;
+	}
+	.birthdayhome .b_footer .birthdayhomemore{
+		float: right;
+		margin-right: 14px;
+		cursor: pointer;
+	}

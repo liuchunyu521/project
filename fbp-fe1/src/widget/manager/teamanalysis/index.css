@@ -1,0 +1,58 @@
+
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+#teamanalysis:hover {
+    background-color: #e9f7fc;
+	border:1px solid rgb(107, 202, 234);
+	border-radius: 4px;
+}
+#teamanalysis {
+	position: relative;
+	height: 120px;
+	width: 100%;
+	background: #fff;
+	top: 0px;
+	left: 0px;
+	border-radius: 4px;
+	cursor: pointer;
+	border:1px solid transparent;
+}
+#teamanalysis_wrap {
+	position: absolute;
+	left: 40%;
+	top: 35px;
+	 margin-left: -75px
+}
+.teamanalysis_img {
+	width: 48px;
+	height: 48px;
+}
+.teamanalysis_left {
+	float: left;
+}
+.teamanalysis_right {
+	margin-top: 14px;
+	margin-left: 30px;
+	float: left;
+}
+.teamanalysis_top {
+	font-size: 16px;
+	color: #333333;
+	line-height: 20px;
+}
+.teamanalysis_middle {
+	font-size: 14px;
+	color: #156ECF;
+	line-height: 36px;
+}
+.teamanalysis_bottom {
+	font-size: 14px;
+	color: #156ECF;
+	line-height: 16px;
+}
+.teamanalysis_middle:hover {
+	color: deepskyblue;
+}

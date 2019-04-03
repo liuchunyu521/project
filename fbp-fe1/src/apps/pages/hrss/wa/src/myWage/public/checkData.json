@@ -1,0 +1,112 @@
+{
+	"des": "请求接口成功",
+	"flag": "0",
+	"myPayslips": [{
+		"perPeriodPayslip": [{
+			"items": [{
+				"itemcontent": "001",
+				"itemtitle": "人员编码"
+			},
+			{
+				"itemcontent": "张三",
+				"itemtitle": "姓名"
+			},
+			{
+				"itemcontent": "2333.00",
+				"itemtitle": "基本工资"
+			},
+			{
+				"itemcontent": "2333.00",
+				"itemtitle": "应发合计"
+			},
+			{
+				"itemcontent": "2333.00",
+				"itemtitle": "实发合计"
+			},
+			{
+				"itemcontent": "2017",
+				"itemtitle": "年度"
+			},
+			{
+				"itemcontent": "10",
+				"itemtitle": "期间"
+			}],
+			"waclassname": "轻量级测试方案（人民币）"
+		}],
+		"yearPeriod": "2017年10月"
+	},
+	{
+		"perPeriodPayslip": [{
+			"items": [{
+				"itemcontent": "2017",
+				"itemtitle": "年度"
+			},
+			{
+				"itemcontent": "11",
+				"itemtitle": "期间"
+			}],
+			"waclassname": "轻量级测试方案（人民币）"
+		}],
+		"yearPeriod": "2017年11月"
+	},
+	{
+		"perPeriodPayslip": [{
+			"items": [{
+				"itemcontent": "2017",
+				"itemtitle": "年度"
+			},
+			{
+				"itemcontent": "12",
+				"itemtitle": "期间"
+			}],
+			"waclassname": "轻量级测试方案-第1次发放（人民币）"
+		},
+		{
+			"items": [{
+				"itemcontent": "2017",
+				"itemtitle": "年度"
+			},
+			{
+				"itemcontent": "12",
+				"itemtitle": "期间"
+			},
+			{
+				"itemcontent": "655.00",
+				"itemtitle": "岗位工资"
+			},
+			{
+				"itemcontent": "1210.00",
+				"itemtitle": "应发合计"
+			},
+			{
+				"itemcontent": "1210.00",
+				"itemtitle": "实发数"
+			},
+			{
+				"itemcontent": "655.00",
+				"itemtitle": "本次扣税基数"
+			}],
+			"waclassname": "轻量级测试方案-第2次发放（人民币）"
+		}],
+		"yearPeriod": "2017年12月"
+	}],
+	"sumItems": [{
+		"items": [{
+			"itemcontent": "655.00",
+			"itemtitle": "岗位工资"
+		},
+		{
+			"itemcontent": "1210.00",
+			"itemtitle": "应发合计"
+		},
+		{
+			"itemcontent": "1210.00",
+			"itemtitle": "实发数"
+		},
+		{
+			"itemcontent": "655.00",
+			"itemtitle": "本次扣税基数"
+		}],
+		"moneyType": "人民币"
+	}]
+}

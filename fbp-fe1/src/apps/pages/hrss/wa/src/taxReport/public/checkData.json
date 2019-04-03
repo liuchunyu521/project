@@ -1,0 +1,25 @@
+{
+	"psndoc": {
+		"comindstry": "综合控股集团",
+		"countryname": "安道尔",
+		"id": "01234567891",
+		"idtype": "身份证",
+		"incndays": 0,
+		"mobile": "18888888888",
+		"postalcode": "dddd",
+		"psnname": "张三",
+		"workcorp": "中国华融资产管理股份有限公司"
+	},
+	"taxReport": {
+		"incomen": "0.00",
+		"incometax": "0.00",
+		"incometotal": "3543.00",
+		"incomew": "3543.00",
+		"taxappend": "0.00",
+		"taxedqut": "0.00",
+		"taxfree": "0.00",
+		"taxhandback": "0.00",
+		"taxkill": "0.00",
+		"taxqut": "0.00"
+	}
+}

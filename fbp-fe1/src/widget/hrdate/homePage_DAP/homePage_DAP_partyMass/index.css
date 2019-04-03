@@ -1,0 +1,60 @@
+
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+#homePage_DAP_partyMass_box:hover {
+    background-color: #e9f7fc;
+}
+#homePage_DAP_partyMass_box {
+	position: relative;
+	height: 120px;
+	width: 100%;
+	background: #fff;
+	top: 0px;
+	left: 0px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+#homePage_DAP_partyMass_wrap {
+	position: absolute;
+	left: 40%;
+	top: 35px;
+	 margin-left: -75px;
+	 width: 100%;
+}
+.homePage_DAP_partyMass_img {
+	width: 48px;
+	height: 48px;
+}
+.homePage_DAP_partyMass_left {
+	float: left;
+}
+.homePage_DAP_partyMass_right {
+	margin-top: 3px;
+	margin-left: 30px;
+	float: left;
+	width: 60%;
+}
+.homePage_DAP_partyMass_top {
+	font-size: 16px;
+	color: #333333;
+	line-height: 20px;
+}
+.homePage_DAP_partyMass_middle {
+	font-size: 14px;
+	color: #333333;
+	line-height: 36px;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.homePage_DAP_partyMass_bottom {
+	font-size: 14px;
+	color: #156ECF;
+	line-height: 16px;
+}
+/*.homePage_DAP_partyMass_middle:hover {
+	color: deepskyblue;
+}*/

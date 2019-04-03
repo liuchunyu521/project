@@ -1,0 +1,62 @@
+.homePage_DAP_fileQuery{
+	background: #FFFFFF;
+	height: 400px;
+	position: relative;
+}
+.homePage_DAP_fileQuery .b_tittle {
+	border-bottom: 1px solid #E6E6EB;
+	font-size: 16px;
+	color: #333333;
+	height: 49px;
+	line-height: 49px;
+}
+.homePage_DAP_fileQuery .b_tittle p{
+	margin-left: 14px;
+	font-weight: bold;
+}
+.homePage_DAP_fileQuery .el-input{
+	width: 40% !important;
+	position: absolute;
+    top: 8px;
+    right: 16px;
+}
+.homePage_DAP_fileQuery .b_content{
+	height: 300px;
+}
+.homePage_DAP_fileQuery .b_content_title{
+	padding: 13px 0px 0px 16px;
+	font-size: 14px;
+	color: #888888;
+}
+.homePage_DAP_fileQuery .b_content_detail{
+	margin: 0px 20px 0px 20px;
+	text-align: center;
+}
+.homePage_DAP_fileQuery .b_content_detail .people_list{
+	margin-top: 16px;
+}
+.homePage_DAP_fileQuery .people_photo img{
+	width: 48px;
+	height: 48px;
+	margin-bottom: 8px;
+}
+.homePage_DAP_fileQuery .people_name{
+	font-size: 14px;
+	color: #000000;
+	margin-bottom: 4px;
+}
+.homePage_DAP_fileQuery .people_org{
+	font-size: 12px;
+	color: #75787B;
+}
+.homePage_DAP_fileQuery .b_footer{
+	border-top: 1px solid #E6E6EB;
+	height: 49px;
+	line-height: 49px;
+}
+.homePage_DAP_fileQuery .b_footer .more{
+	font-size: 14px;
+	color: #666666;
+	float: right;
+	margin-right: 16px;
+}

@@ -1,0 +1,93 @@
+.teampeoplenumber_company{
+	background: #FFFFFF;
+	height: 400px;
+	border-radius:4px ;
+}
+.teampeoplenumber_company .b_tittle {
+	border-bottom: 1px solid #E6E6EB;
+	font-size: 16px;
+	color: #333333;
+	line-height: 49px;
+}
+.teampeoplenumber_company .b_tittle p{
+	margin-left: 14px;
+	font-weight: 600;
+}
+.teampeoplenumber_company .b_content {
+	padding: 16px 16px 0px 16px;
+    line-height: 28px;
+    font-size: 16px;
+    color: #333333;
+    height: 322px;
+    overflow: auto;
+}
+.teampeoplenumber_company .teamtotal{
+    width: 65px;
+    text-align: center;
+    margin: auto;
+    position: relative;
+    bottom: 130px;
+}
+.teampeoplenumber_company .teamtotal .totalnumber{
+    font-family: PingFangSC-Medium;
+    font-size: 36px;
+    color: #2D2D2D;
+    line-height: 36px;
+    margin-bottom: 8px;
+}
+.teampeoplenumber_company .teamtotal .totaltext{
+	font-family: PingFangSCRegular;
+    font-size: 12px;
+    color: #75787B;
+    line-height: 12px;
+}
+.teampeoplenumber_company .gender .man{
+	float: left;
+	margin-left: 40px;
+	margin-top: -30px;
+}
+.teampeoplenumber_company .gender .hr-icon-male{
+	font-size: 45px;
+	color: #6FB4FF;
+}
+.teampeoplenumber_company .gender .hr-icon-female{
+	font-size: 45px;
+	color: #FF6161;
+}
+.teampeoplenumber_company .gender .man .mandetail{
+	display: inline-block;
+	text-align: center;
+}
+.teampeoplenumber_company .gender .man .mandetail .mannumber{
+	font-family: PingFangSC-Medium;
+	font-size: 24px;
+	color: #6FB4FF;
+    line-height: 24px;
+    margin-bottom: 8px;
+}
+.teampeoplenumber_company .gender .woman{
+	float: right;
+	margin-right: 40px;
+	margin-top: -30px;
+}
+.teampeoplenumber_company .gender .woman .womandetail{
+	display: inline-block;
+	text-align: center;
+}
+.teampeoplenumber_company .gender .woman .womandetail .womannumber{
+	font-family: PingFangSC-Medium;
+	font-size: 24px;
+	color: #FF6161;
+    line-height: 24px;
+    margin-bottom: 8px;
+}
+.teampeoplenumber_company .gender .man .mandetail .mantext,.teampeoplenumber_company .gender .woman .womandetail .womantext{
+	font-family: PingFangSC-Regular;
+	font-size: 12px;
+	color: #75787B;
+	line-height: 12px;
+}
+.teampeoplenumber_company .b_content::-webkit-scrollbar{
+	display: none;
+}
+

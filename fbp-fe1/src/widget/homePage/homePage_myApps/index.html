@@ -1,0 +1,149 @@
+<div id="gadget-site-content-HR131" class="innerHtml collapse in">
+  	<div>
+		<div class="myApps">
+			<div class="myApps_tittle"><p>我的应用</p></div>
+			<ul class="myApps_content" style="position: relative;">
+				<el-row>
+					<el-col :span="8">
+						<li class="myApps_list " @click='salaryhref()'>
+							<div class="myApps_ico"><i class="myAppsiconfont icon-xinzi"></i></div>
+							<div class="myApps_name">我的薪资</div>
+						</li>
+					</el-col>
+					<el-col :span="8">
+						<li class="myApps_list" @click='geshuihref()'>
+							<div class="myApps_ico"><i class="myAppsiconfont icon-geshuizihangshenbaoAbiao"></i></div>
+							<div class="myApps_name">个税申报</div>
+						</li>
+					</el-col>
+					<el-col :span="8">
+						<li class="myApps_list">
+							<div class="myApps_ico"><i class="myAppsiconfont icon-jiangbei"></i></div>
+							<div class="myApps_name">我的考核</div>
+						</li>
+					</el-col>
+					<el-col :span="8">
+						<li class="myApps_list">
+							<div class="myApps_ico"><i class="myAppsiconfont icon-jianliguanli"></i></div>
+							<div class="myApps_name">人事申请</div>
+						</li>
+					</el-col>
+					<el-col :span="8">
+						<li class="myApps_list">
+							<div class="myApps_ico"><i class="myAppsiconfont icon-kaizhengming"></i></div>
+							<div class="myApps_name">开具证明</div>
+						</li>
+					</el-col>
+					<el-col :span="8">
+						<li class="myApps_list">
+							<div class="myApps_ico"><i class="myAppsiconfont icon-shenqing-blue-copy"></i></div>
+							<div class="myApps_name">考勤申请</div>
+						</li>
+					</el-col>
+					<el-col :span="8">
+						<li class="myApps_list">
+							<div class="myApps_ico"><i class="myAppsiconfont icon-combinedshape"></i></div>
+							<div class="myApps_name">培训报名</div>
+						</li>
+					</el-col>
+					<el-col :span="8">
+						<li class="myApps_list">
+							<div class="myApps_ico"><i class="myAppsiconfont icon-xuexiaopingfen"></i></div>
+							<div class="myApps_name">考核打分</div>
+						</li>
+					</el-col>
+					<el-col :span="8">
+						<li @click="addmyApp()" style="border: 1px dotted #D8D8D8;border-radius:5px;">
+							<!--<div class="myApps_ico"><i class="myAppsiconfont icon-qingjia"></i></div>-->
+							<div class="myApps_name" style="font-size: 50px;color: #D8D8D8;line-height: 94px;text-align: center;cursor: pointer;">+</div>
+						</li>
+					</el-col>
+					<!--<el-col :span="8">
+						<li class="myApps_list">
+							<div class="myApps_ico"><i class="myAppsiconfont icon-qingjia"></i></div>
+							<div class="myApps_name">假期查询</div>
+						</li>
+					</el-col>-->
+				</el-row>
+			</ul>
+			<!--添加新应用弹框-->
+			<el-dialog 
+			  title="添加应用"
+			  :visible.sync="dialogVisible"
+			  size="full">
+			  	<div style="display: inline-block;width: 100%;">
+				  	<div style="border-bottom: 1px solid #E6E6EB;line-height: 48px;margin-bottom: 16px;font-size: 16px;color: #333333;">
+				  		我的应用
+				  	</div>
+				  	<div style="display: inline-block;">
+				  		<vddl-list
+					    	:horizontal="true">
+					    		<vddl-draggable  :key="3"
+					          		
+					          		effect-allowed="move">
+									  	<li style="border: 1px solid #E6E6EB;height: 78px;width: 86px;text-align: center;float: left;margin-right: 16px;border-radius: 4px;">
+											<div class="myApps_ico"><i class="myAppsiconfont icon-xinzi"></i></div>
+											<div class="myApps_name">我的薪资</div>
+										</li>
+								</vddl-draggable>
+								
+								<vddl-draggable  :key="4"
+					          		
+					          		effect-allowed="move">
+									  	<li style="border: 1px solid #E6E6EB;height: 78px;width: 86px;text-align: center;float: left;margin-right: 16px;border-radius: 4px;">
+											<div class="myApps_ico"><i class="myAppsiconfont icon-xinzi"></i></div>
+											<div class="myApps_name">我的薪资</div>
+										</li>
+								</vddl-draggable>
+								
+								<!--<li style="border: 1px solid #E6E6EB;height: 78px;width: 86px;text-align: center;float: left;margin-right: 16px;border-radius: 4px;">
+									<div class="myApps_ico"><i class="myAppsiconfont icon-geshuizihangshenbaoAbiao"></i></div>
+									<div class="myApps_name">个税申报</div>
+								</li>
+								<li style="border: 1px solid #E6E6EB;height: 78px;width: 86px;text-align: center;float: left;margin-right: 16px;border-radius: 4px;">
+									<div class="myApps_ico"><i class="myAppsiconfont icon-jiangbei"></i></div>
+									<div class="myApps_name">我的考核</div>
+								</li>
+								<li style="border: 1px solid #E6E6EB;height: 78px;width: 86px;text-align: center;float: left;margin-right: 16px;border-radius: 4px;">
+									<div class="myApps_ico"><i class="myAppsiconfont icon-jianliguanli"></i></div>
+									<div class="myApps_name">人事申请</div>
+								</li>
+								<li style="border: 1px solid #E6E6EB;height: 78px;width: 86px;text-align: center;float: left;margin-right: 16px;border-radius: 4px;">
+									<div class="myApps_ico"><i class="myAppsiconfont icon-combinedshape"></i></div>
+									<div class="myApps_name">培训报名</div>
+								</li>
+								<li style="border: 1px solid #E6E6EB;height: 78px;width: 86px;text-align: center;float: left;margin-right: 16px;border-radius: 4px;">
+									<div class="myApps_ico"><i class="myAppsiconfont icon-shenqing-blue-copy"></i></div>
+									<div class="myApps_name">考勤申请</div>
+								</li>
+								<li style="border: 1px solid #E6E6EB;height: 78px;width: 86px;text-align: center;float: left;margin-right: 16px;border-radius: 4px;">
+									<div class="myApps_ico"><i class="myAppsiconfont icon-combinedshape"></i></div>
+									<div class="myApps_name">培训报名</div>
+								</li>
+								<li style="border: 1px solid #E6E6EB;height: 78px;width: 86px;text-align: center;float: left;margin-right: 16px;border-radius: 4px;">
+									<div class="myApps_ico"><i class="myAppsiconfont icon-xuexiaopingfen"></i></div>
+									<div class="myApps_name">考核打分</div>
+								</li>-->
+							<vddl-placeholder>
+				    			<div style="height: 89;width: 78px;" ></div>
+				    		</vddl-placeholder>
+						</vddl-list>
+						
+					</div>
+					
+				  	<div style="border-bottom: 1px solid #E6E6EB;line-height: 48px;margin-bottom: 16px;font-size: 16px;color: #333333;">
+				  		其它应用
+				  	</div>
+				  	<div style="display: inline-block;">
+					  	<li style="border: 1px solid #E6E6EB;height: 78px;width: 86px;text-align: center;float: left;margin-right: 16px;border-radius: 4px;">
+							<div class="myApps_ico"><i class="myAppsiconfont icon-qingjia"></i></div>
+							<div class="myApps_name">假期查询</div>
+						</li>
+					</div>
+				</div>
+			</el-dialog>
+
+		</div>
+	</div>
+</div>
+

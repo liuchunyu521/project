@@ -1,0 +1,49 @@
+.indexTe{
+    font-size:18px;
+    font-weight:bold;
+    padding-left:3%;
+}
+#indexTab2{
+    position: relative;
+    font-size: 14px;
+    margin: 0 auto;
+    background-color: #fff;
+    margin-top:9px;
+    margin-bottom:20px;
+    width: 97% !important;
+    font-size:13px !important;
+    border: 16px solid #fff;
+    height:580px;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+#indexTab2 ::-webkit-scrollbar{
+    display:none;
+}
+#indexTab2 div{
+    border: 1px solid #E6E6EB;
+    /*width: 120px;*/
+    line-height: 48px;
+    text-align: center;
+    /*position: absolute;*/
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+}
+.abso2{
+    position: absolute;
+}
+.zhijiLevel2{/*职级*/
+    left: 100px;
+}
+.zhiwu2{/*职务*/
+    left: 200px;
+}
+.zhiwuD1{
+    top: 48px;
+}
+.zhiji2,.zhijiLevel2,.zhiwu2{
+    background-color: #F5F5F5;
+    line-height: 48px;
+}

@@ -1,0 +1,79 @@
+
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+.ui-grid>div {
+	background: transparent;
+}
+.System_post{
+	height:355px;
+	border-radius: 4px;
+	background: #fff;
+}
+	.System_post .b_tittle {
+		border-bottom: 1px solid #E6E6EB;
+		font-size: 16px;
+		color: #333333;
+		line-height: 48px;
+		font-size: 16px;font-weight: 600;
+	}
+	.System_post .b_tittle p{
+		margin-left: 14px;
+	}
+	.System_post .b_content {
+		height: 305px;
+		overflow: hidden;
+	}
+	.System_post .b_content li {
+		line-height: 52px;
+		padding-left: 14px;
+		padding-right: 14px;
+		border-bottom:1px solid #E6E6EB;
+		cursor: pointer;
+	}
+	.System_post .b_content li:hover {
+		background: #e9f7fc;
+	}
+	.System_post .b_content li p {
+		
+	}
+	.System_post .b_content li .b_name {
+		font-size: 16px;
+		font-weight: 400;
+		color: #333333;
+		float: left;
+		max-width: 120px;
+		overflow: hidden;  
+		text-overflow:ellipsis;
+		white-space: nowrap;   
+	}
+	.System_post .b_content li .b_date {
+		font-size: 14px;
+		color: #666666;
+		float: right;
+	}
+	.System_post .b_footer{
+		border-top: 1px solid #E6E6EB;
+		font-size: 14px;
+		color: #666666;
+		line-height: 45px;
+		height: 45px;
+		background: #fff;
+		border-radius: 0px 0px 4px 4px;
+	}
+	.System_post .b_footer .birthdaypage{
+		float: left;
+		margin-left: 14px;
+	}
+	.System_post .b_footer .birthdaymore{
+		float: right;
+		margin-right: 14px;
+		cursor: pointer;
+	}
+
+	.System_postanim{
+	    transition: all 0.5s;
+	    margin-top: -48px;
+	}

@@ -1,0 +1,63 @@
+<div id="gadget-site-content-HR131" class="innerHtml collapse in">
+  	<div>
+		<div id="birthdayhome_body" class="birthdayhome">
+			<div class="b_tittle"><p>本月寿星</p></div>
+			<div class="b_content">
+				<div v-if="birthdayBoys.length!=0">
+					<li class="clearfix" v-for="(item,index) in birthdayBoys">
+						<p class="imgover">
+							<el-popover
+							  :key="index"
+							  placement="right-start"
+							  title="人员信息"
+							  width="320"
+							  trigger="hover">
+							  <div style="border-bottom: 1px solid  #E6E6EB;position: relative;width: 340px;left: -10px;"></div>
+							  <div style="text-align: center;">
+							  	<p class="popoverimgover" style="width: 48px;height: 48px;border-radius: 100%;overflow: hidden;position: relative;top:16px;left: 50%;margin-left: -24px;margin-bottom: 18px;">
+									<img   class="popoverimgSrc" :src="imgPathdata[index].imgPath" @error="errorLoadImg(index)"/>
+							  	</p>
+							  	<div style="font-size: 18px;color: #333;margin: 6px 0 0 0px;">{{item.name}}</div>
+							  	<div style="font-size:14px;color: #666;">
+							  		<span>{{ item.deptname && item.deptname !=''? item.deptname : '无'}}</span>
+							  		<span>|</span>
+							  		<span>{{item.postname && item.postname !='' ? item.postname : '无'}}</span>
+							  	</div>
+							  </div>
+							  <div style="margin-top: 30px;">
+							  	<div style="margin-bottom: 28px;">
+							  		<span style="color: #AEBCD2;" class="ifbp-icon-business"></span>
+							  		<span style="position: relative;top: -4px;font-size: 14px;color: #2D2D2D;">{{item.orgname && item.orgname !='' ? item.orgname : '无'}}</span>
+							  	</div>
+							  	<div style="margin-bottom: 28px;">
+							  		<span style="color:#FF0000;" class="ifbp-icon-local_phone el-icon-pt-dianhua"></span>
+							  		<span style="position: relative;top: -4px;font-size: 14px;color: #2D2D2D;">{{item.mobile && item.mobile != '' ? item.mobile : '无'}}</span>
+							  	</div>
+							  	<div style="margin-bottom: 28px;">
+							  		<span style="color:#7FD3A9;" class="ifbp-icon-email el-icon-pt-youjian"></span>
+							  		<span style="position: relative;top: -4px;font-size: 14px;color: #2D2D2D;">{{item.email && item.email !='' ? item.email : '无'}}</span>
+							  	</div>
+							  </div>
+							  <p slot="reference" style="height: 48px;width: 48px;">
+								<img  slot="reference"  class="imgSrc" :src="imgPathdata[index].imgPath" @error="errorLoadImg(index)"/>
+							  </p>
+							</el-popover>
+						<p>
+							<div class="b_name">{{item.name}}</div>
+							<div class="b_time" v-if="item.timeInterval==0">今日生日</div>
+							<div class="b_time" v-if="item.timeInterval>=1">{{item.timeInterval}}天后生日</div>
+							<div class="b_time" v-if="item.timeInterval<0">{{item.birthdate}}</div>
+						</p>
+						<!--<p class="b_click">送上祝福</p>-->
+					</li>
+				</div>
+				<img v-if="birthdayBoys.length==0" style="width: 100px;height: 90px;position: absolute;top: 0px;left: 0px;right: 0px;bottom: 0px;margin: auto;" src="../i_hr/ifbp_hr/widget/homePage/homePage_birthdayBoy/img/nodata.png"/>
+				
+			</div>
+			<div class="b_footer">
+				<p class="birthdayhomepage"><span v-if="num<3">{{num}}</span><span v-if="num>=3">3</span><span v-if="num!=''">/</span>{{num}}</p>
+				<p class="birthdayhomemore" v-if="num>=3" >更多</p>
+			</div>
+		</div>
+	</div>
+</div>		

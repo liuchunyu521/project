@@ -1,0 +1,97 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.postcompilestyle_box {
+	background: #fff;
+	border-radius: 4px;
+}
+.postcompilestyle_box .b_tittle{
+	border-bottom: 1px solid #E6E6EB;
+    font-size: 16px;
+    color: #333333;
+    line-height: 49px;
+    padding-left: 16px;
+    font-weight: bold;
+}
+.postcompilestyle_box .b_tittle p{
+	color: #333333;
+	font-size: 16px;
+}
+.postcompilestyle_box .b_content{
+	font-size: 14px;
+	padding: 16px 15px 0px 15px;
+}
+.postcompilestyle_box .b_content table{
+	width: 100%;
+	border-collapse:collapse;
+}
+.postcompilestyle_box .b_content table tr{
+	height: 44px;
+	line-height: 44px;
+}
+.postcompilestyle_box .b_content .table_title{
+	color: #666666;
+	background: #f9f9f9;
+}
+.postcompilestyle_box .b_content .table_content{
+	color:#333333 ;
+	border-top: 1px solid #E6E6EB;
+}
+.postcompilestyle_box .b_content .org_name {
+	padding: 0px 0px 0px 10px;
+}
+.postcompilestyle_box .table_content .org_name{
+	width: 100px;
+	text-overflow: ellipsis; /* for IE */  
+    -moz-text-overflow: ellipsis; /* for Firefox,mozilla */  
+    overflow: hidden;  
+    white-space: nowrap;  
+}
+.postcompilestyle_box .b_content .compile{
+	width: 50px;
+	/*padding-right: 50px;*/
+}
+.postcompilestyle_box .b_content .compile_people{
+	width: 70px;
+	/*padding-right: 50px;*/
+}
+.postcompilestyle_box .b_content .compile_rate{
+	width: 56px;
+	/*padding-right: 50px;*/
+}
+.postcompilestyle_box .b_content .warning{
+	width: 28px;
+	/*padding-right: 20px;*/
+}
+.postcompilestyle_box .b_content .warningimg{
+	width: 14px;
+	height: 14px;
+	background: #F66162;
+	border-radius: 50%;
+}
+.postcompilestyle_box .b_content #add{
+	color: #F66162;
+}
+.postcompilestyle_box .b_content #negative{
+	color: #91DB63;
+}
+.postcompilestyle_box .b_content #warningimg_negative{
+	background: #91DB63;
+}
+.postcompilestyle_box .b_footer{
+	border-top:1px solid #E6E6EB;
+	font-size: 14px;
+	color: #666666;
+	height: 39px;
+	line-height: 39px;
+}
+.postcompilestyle_box .b_footer .postpage{
+	float: left;
+	margin-left: 14px;
+}
+.postcompilestyle_box .b_footer .postmore{
+	float: right;
+	margin-right: 14px;
+	cursor: pointer;
+}

@@ -1,0 +1,91 @@
+<div id="gadget-site-content-HR131" class="innerHtml collapse in">
+  	<div>
+	  	<div id="teamdiligence">
+			<div class="waveWrapper waveAnimation">
+				<!--title-->
+			  <div class="header">团队勤奋榜</div>
+			  <!--wrap-->
+			  <div>
+			  	<!--contenttop-->
+				  <div class="teamcontent">
+				  	  <div class="waveWrapperInner bgTop">
+					    <div class="wave waveTop" style="background-image: url('../i_hr/ifbp_hr/widget/manager/teamdiligence/img/wave-top.png')"></div>
+					  </div>
+					  <div class="waveWrapperInner bgMiddle">
+					    <div class="wave waveMiddle" style="background-image: url('../i_hr/ifbp_hr/widget/manager/teamdiligence/img/wave-mid.png')"></div>
+					  </div>
+					  <div class="waveWrapperInner bgBottom">
+					    <div class="wave waveBottom" style="background-image: url('../i_hr/ifbp_hr/widget/manager/teamdiligence/img/wave-bot.png')"></div>
+					  </div>
+					  <!--头像部分-->
+					  <div class="team_headerimg" v-for="(item,index) in workdata">
+					  	<!--排名第二-->
+					  	<div v-if="item.showorder=='2'" style="position: absolute;left: 10%;top: 40px;text-align: center;">
+					  		<div class="img2">
+					  			<img style="width: 50px;height: 70px;margin-top: -10px;" class="imgSRC" :src="'/hrhi/psndoc/getPhotoByPK?pk_psndoc='+item.pk_psndoc" @error="errorLoadImg(item.showorder-1)" alt="" />
+					  			<div class="mingchi2">2</div>
+					  		</div>
+					  		<div style="margin-top: 10px;color: #fff;">
+					  			<div>{{item.name}}</div>
+					  			<div style="margin-top: 4px;">{{item.worklength}}小时</div>
+					  		</div>
+					  	</div>
+					  	<!--排名第一-->
+					  	<div v-if="item.showorder=='1'" style="position: absolute;left: 50%;margin-left: -35px;top: 10px;text-align: center;">
+					  		<div>
+					  			<img style="width: 28px;margin-bottom: -7px;" src="../i_hr/ifbp_hr/widget/manager/teamdiligence/img/teamimg.png" alt="" />
+					  		</div>
+					  		<div class="img1">
+					  			<img style="width: 70px;height: 100px;margin-top: -10px;" class="imgSRC" :src="'/hrhi/psndoc/getPhotoByPK?pk_psndoc='+item.pk_psndoc" @error="errorLoadImg(item.showorder-1)"/>
+					  			<div class="mingchi1">1</div>
+					  		</div>
+					  		<div style="margin-top: 10px;color: #fff;">
+					  			<div>{{item.name}}</div>
+					  			<div style="margin-top: 4px;">{{item.worklength}}小时</div>
+					  		</div>
+					  	</div>
+					  	<!--排名第三-->
+					  	<div v-if="item.showorder=='3'" style="position: absolute;right: 10%;top: 40px;text-align: center;">
+					  		<div class="img3">
+					  			<img style="width: 50px;height: 70px;margin-top: -10px;" class="imgSRC" :src="'/hrhi/psndoc/getPhotoByPK?pk_psndoc='+item.pk_psndoc" @error="errorLoadImg(item.showorder-1)"/>
+					  			<div class="mingchi3">3</div>
+					  		</div>
+					  		<div style="margin-top: 10px;color: #fff;">
+					  			<div>{{item.name}}</div>
+					  			<div style="margin-top: 4px;">{{item.worklength}}小时</div>
+					  		</div>
+					  	</div>
+					  </div>
+				  </div>
+				  <!--content-->
+				 <div style="height: 119px;" >
+				 	
+				 	<div v-if="item.showorder=='4'" v-for="(item,index) in workdata" style="height: 60px;border-bottom: 1px solid #E6E6EB;position: relative;line-height: 60px;padding-left: 24px;">
+				 		<span style="color: #2D2D2D;font-size: 14px;margin-right: 16px;">4</span>
+				 		<span style="height: 40px;width: 40px;border-radius: 100%;overflow: hidden;display: inline-block;position: relative;top: 10px;">
+				 			<img style="width: 50px;height: 70px;margin-top: -10px;margin-left: -5px;" class="imgSRC" :src="'/hrhi/psndoc/getPhotoByPK?pk_psndoc='+item.pk_psndoc"  @error="errorLoadImg(item.showorder-1)"/>
+				 		</span>
+				 		<span style="color: #2D2D2D;font-size: 14px;margin-left: 8px;">{{item.name}}</span>
+				 		<span style="color: #2D2D2D;font-size: 14px;position: absolute;right: 16px;">{{item.worklength}}小时</span>
+				 	</div>
+				 	
+				 	<div v-if="item.showorder=='5'" v-for="(item,index) in workdata" style="height: 60px;position: relative;line-height: 60px;padding-left: 24px;">
+				 		<span style="color: #2D2D2D;font-size: 14px;margin-right: 16px;">5</span>
+				 		<span style="height: 40px;width: 40px;border-radius: 100%;overflow: hidden;display: inline-block;position: relative;top: 10px;">
+				 			<img style="width: 50px;height: 70px;margin-top: -10px;margin-left: -5px;" class="imgSRC" :src="'/hrhi/psndoc/getPhotoByPK?pk_psndoc='+item.pk_psndoc" @error="errorLoadImg(item.showorder-1)" alt="" />
+				 		</span>
+				 		<span style="color: #2D2D2D;font-size: 14px;margin-left: 8px;">{{item.name}}</span>
+				 		<span style="color: #2D2D2D;font-size: 14px;position: absolute;right: 16px;">{{item.worklength}}小时</span>
+				 	</div>
+				 	
+				 </div>
+			  </div>
+			  <!--footer-->
+			  <div style="border-top: 1px solid  #E6E6EB;position: relative;">
+			  	<span style="position: absolute;left: 16px;top: 12px;color: red;">{{details}}</span>
+			  	<span style="position: absolute;right: 16px;top: 12px;color: #666;font-size: 14px;cursor: pointer;" v-if="workdata.length>5">更多</span>
+			  </div>
+			</div>
+		</div>
+	</div>
+</div>

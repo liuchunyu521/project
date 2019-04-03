@@ -1,0 +1,29 @@
+.homePage_DAP_company{
+	background: #FFFFFF;
+	height: 400px;
+	border-radius:4px ;
+}
+.homePage_DAP_company .b_tittle {
+	border-bottom: 1px solid #E6E6EB;
+	font-size: 16px;
+	color: #333333;
+	line-height: 49px;
+}
+.homePage_DAP_company .b_tittle p{
+	margin-left: 14px;
+	font-size: 16px;font-weight: 600;
+}
+.homePage_DAP_company .b_content {
+	padding: 16px 16px 0px 16px;
+    line-height: 28px;
+    font-size: 16px;
+    color: #333333;
+    height: 322px;
+    overflow: auto;
+}
+.homePage_DAP_company .b_content::-webkit-scrollbar{
+	display: none;
+}
+.homePage_DAP_company .peopleNum,.homePage_DAP_company .peopleDetails,.homePage_DAP_company .peopleTrend{
+	text-indent: 2em;
+}

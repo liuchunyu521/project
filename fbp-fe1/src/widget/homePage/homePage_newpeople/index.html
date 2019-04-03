@@ -1,0 +1,32 @@
+<div id="gadget-site-content-HR131" class="innerHtml collapse in">
+  	<div>
+		<div class="newpeople" id="newpeople">
+			<div class="b_tittle"><p>本月新同事</p></div>
+			<div class="b_content" @mouseenter="stoptimeinterval()" @mouseleave="begintimeinterval()">
+				<!--<div :class="{anim1:animate==true}">-->
+				<div v-if="newEmps!=''">
+					<el-row>
+						<el-col :span="6" v-for="(item,index) in newEmps">
+							<transition-group name="fade" tag="p">
+								<el-tooltip class="item" :key='item' effect="dark"  placement="bottom">
+									<div slot="content">
+										<div v-if="item.name">{{item.name}}</div>
+										<div v-if="item.postname">{{item.postname}}</div>
+										<div v-if="item.email">{{item.email}}</div>
+									</div>
+									<li class="details list-complete-item" v-bind:key='item'>
+										<img id="imgSrc" :src="imgPathdata[index].imgPath" @error="errorLoadImg(index)"/>
+										<p class="b_name">{{item.name}}</p>
+									</li>
+								</el-tooltip>
+							</transition-group>
+						</el-col>
+					</el-row>
+				</div>
+				
+				<img v-if="newEmps==''" style="width: 80px;height: 60px;position: absolute;top: 0px;left: 0px;right: 0px;bottom: 0px;margin:20px auto;" src="../i_hr/ifbp_hr/widget/homePage/homePage_newpeople/img/nodata.png"/>
+				
+			</div>
+		</div>
+	</div>
+</div>

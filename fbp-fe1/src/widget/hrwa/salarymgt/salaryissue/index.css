@@ -1,0 +1,58 @@
+
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+#salaryissue_box:hover {
+    background-color: #e9f7fc;
+    border: 1px solid;
+    border-color: rgb(107, 202, 234);
+}
+#salaryissue_box {
+	position: relative;
+	height: 120px;
+	width: 100%;
+	background: #fff;
+	top: 0px;
+	left: 0px;
+	border-radius: 4px;
+	cursor: pointer;
+	border: 1px solid transparent;
+}
+#salaryissue_wrap {
+	position: absolute;
+	left: 40%;
+	top: 35px;
+	margin-left: -75px
+}
+.salaryissue_img {
+	width: 48px;
+	height: 48px;
+}
+.salaryissue_left {
+	float: left;
+}
+.salaryissue_right {
+	margin-top: 3px;
+	margin-left: 30px;
+	float: left;
+}
+.salaryissue_top {
+	font-size: 16px;
+	color: #333333;
+	line-height: 20px;
+}
+.salaryissue_middle {
+	font-size: 14px;
+	color: #156ECF;
+	line-height: 36px;
+}
+.salaryissue_bottom {
+	font-size: 14px;
+	color: #156ECF;
+	line-height: 16px;
+}
+.salaryissue_middle:hover {
+	color: deepskyblue;
+}

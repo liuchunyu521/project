@@ -1,0 +1,24 @@
+/**
+ * 人员资料完整度样式
+ */
+
+/**
+ * 资料完整度状态 ：a
+ */
+.el-progress.is-a .el-progress-bar__inner {
+	background-color: #F44F50;
+}
+
+/**
+ * 资料完整度状态 ：b
+ */
+.el-progress.is-b .el-progress-bar__inner {
+	background-color: #FAAA00;
+}
+
+/**
+ * 资料完整度状态 ：c
+ */
+.el-progress.is-c .el-progress-bar__inner {
+	background-color: #3ABFA3;
+}

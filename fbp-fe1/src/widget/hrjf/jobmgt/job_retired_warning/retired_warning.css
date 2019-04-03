@@ -1,0 +1,32 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+.retired_warning {
+	background: #fff;
+}
+.retired_warning .b_title {
+	border-bottom: 1px solid #E6E6EB;
+	font-family: "微软雅黑";
+	font-size: 16px;
+	color: #333333;
+	line-height: 32px;
+}
+
+.retired_warning .b_title p {
+	margin-left: 14px;
+	font-weight: bold;
+}
+
+.retired_warning .b_footer {
+	border-top: 1px solid #E6E6EB;
+	font-size: 14px;
+	color: #666666;
+	line-height: 32px;
+}
+
+.retired_warning .b_footer .more {
+	text-align: right;
+	margin-right: 14px;
+	cursor: pointer;
+}

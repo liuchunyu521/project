@@ -1,0 +1,88 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.ui-grid>div {
+	background: transparent;
+}
+.SiLing{
+	padding: 24px 24px 24px 24px;
+	border: 1px solid #E6E6EB;
+	border-radius: 4px;
+	background: #fff;
+}
+.SiLing .SiLing_text{
+	color: #666666;
+	margin-bottom: 19px;
+}
+.SiLing .SiLing_datetext{
+	font-weight: bold;
+	
+}
+.SiLing .SiLing_year{
+	color: #46CD8F;
+	font-size: 25px;
+}
+.SiLing .SiLing_month{
+	color: #46CD8F;
+	font-size: 25px;
+}
+.SiLing .SiLing_month1 {
+	display: inline-block;
+ 	-webkit-transition-property: -webkit-transform;
+    -webkit-transition-duration: 1s;
+    -moz-transition-property: -moz-transform;
+    -moz-transition-duration: 1s;
+    -webkit-animation: rotate 10s linear infinite;
+    -moz-animation: rotate 10s linear infinite;
+    -o-animation: rotate 10s linear infinite;
+    animation: rotate 10s linear infinite;
+}
+@-webkit-keyframes rotate{
+	0%{
+		/*transform: rotate(0deg);*/
+		transform: rotateY(0deg);
+	}
+    50%{
+    	transform: rotateY(365deg);
+    }
+    100%{
+    	transform: rotateY(0deg)
+    }
+}
+@-moz-keyframes rotate{
+	0%{
+		/*transform: rotate(0deg);*/
+		transform: rotateY(0deg);
+	}
+    50%{
+    	transform: rotateY(365deg);
+    }
+    100%{
+    	transform: rotateY(0deg)
+    }
+}
+@-o-keyframes rotate{
+	0%{
+		/*transform: rotate(0deg);*/
+		transform: rotateY(0deg);
+	}
+    50%{
+    	transform: rotateY(365deg);
+    }
+    100%{
+    	transform: rotateY(0deg)
+    }
+}
+@keyframes rotate{
+	0%{
+		/*transform: rotate(0deg);*/
+		transform: rotateY(0deg);
+	}
+    50%{
+    	transform: rotateY(365deg);
+    }
+    100%{
+    	transform: rotateY(0deg)
+    }
+}

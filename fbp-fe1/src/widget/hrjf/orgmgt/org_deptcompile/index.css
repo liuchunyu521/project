@@ -1,0 +1,96 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.orgdeptcompilestyle_box {
+	background: #fff;
+	border-radius: 4px;
+}
+.orgdeptcompilestyle_box .b_tittle{
+	border-bottom: 1px solid #E6E6EB;
+    font-size: 16px;
+    color: #333333;
+    line-height: 49px;
+    padding-left: 16px;
+    font-weight: bold;
+}
+.orgdeptcompilestyle_box .b_tittle p{
+	color: #333333;
+	font-size: 16px;
+}
+.orgdeptcompilestyle_box .b_content{
+	font-size: 14px;
+	padding: 16px 15px 0px 15px;
+}
+.orgdeptcompilestyle_box .b_content table{
+	width: 100%;
+	border-collapse:collapse;
+}
+.orgdeptcompilestyle_box .b_content table tr{
+	height: 44px;
+	line-height: 44px;
+}
+.orgdeptcompilestyle_box .b_content .table_title{
+	color: #666666;
+	background: #f9f9f9;
+}
+.orgdeptcompilestyle_box .b_content .table_content{
+	color:#333333 ;
+	border-bottom: 1px solid #E6E6EB;
+}
+.orgdeptcompilestyle_box .b_content .org_name{
+	padding: 0px 0px 0px 10px;
+	width: 100px;
+}
+.orgdeptcompilestyle_box .table_content .org_name{
+	width: 100px !important; 
+	height: 44px;
+	text-overflow: ellipsis; /* for IE */  
+    -moz-text-overflow: ellipsis; /* for Firefox,mozilla */  
+    overflow: hidden;  
+    white-space: nowrap;  
+}
+.orgdeptcompilestyle_box .b_content .compile{
+	width: 60px;
+}
+.orgdeptcompilestyle_box .b_content .compile_people{
+	width: 70px;
+}
+.orgdeptcompilestyle_box .b_content .compile_rate{
+	width: 56px;
+}
+.orgdeptcompilestyle_box .b_content .warning{
+	width: 28px;
+}
+.orgdeptcompilestyle_box .b_content .warningimg{
+	width: 14px;
+	height: 14px;
+	background: #F66162;
+	border-radius: 50%;
+}
+.orgdeptcompilestyle_box .b_content #add{
+	color: #F66162;
+}
+.orgdeptcompilestyle_box .b_content #negative{
+	color: #91DB63;
+}
+.orgdeptcompilestyle_box .b_content #warningimg_negative{
+	background: #91DB63;
+}
+.orgdeptcompilestyle_box .b_footer{
+	border-top:1px solid #E6E6EB;
+	font-size: 14px;
+	color: #666666;
+	height: 39px;
+	margin-top: -1px;
+	line-height: 39px;
+}
+.orgdeptcompilestyle_box .b_footer .orgdeptcompilestylepage{
+	float: left;
+	margin-left: 14px;
+}
+.orgdeptcompilestyle_box .b_footer .orgdeptcompilestylemore{
+	float: right;
+	margin-right: 14px;
+	cursor: pointer;
+}

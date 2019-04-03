@@ -1,0 +1,62 @@
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+#postSeriesstyle_box:hover {
+    background-color: #e9f7fc;
+    border: 1px solid;
+    border-color: rgb(107, 202, 234);
+}
+#postSeriesstyle_box {
+	position: relative;
+	height: 120px;
+	width: 100%;
+	background: #fff;
+	top: 0px;
+	left: 0px;
+	border-radius: 4px;
+	cursor: pointer;
+	border: 1px solid transparent;
+}
+#postSeriesstyle_wrap {
+	position: absolute;
+	left: 40%;
+	top: 35px;
+	margin-left: -75px
+}
+.postSeriesstyle_img {
+	width: 48px;
+	height: 48px;
+}
+.postSeriesstyle_left {
+	float: left;
+}
+.postSeriesstyle_right {
+	margin-top: 3px;
+	margin-left: 30px;
+	float: left;
+}
+.postSeriesstyle_top {
+	font-size: 16px;
+	color: #333333;
+	/*line-height: 20px;*/
+}
+.postSeriesstyle_middle {
+	font-size: 14px;
+	color: #156ECF;
+	line-height: 36px;
+	margin-right: 16px;
+}
+.postSeriesstyle_bottom {
+	font-size: 14px;
+	color: #156ECF;
+	line-height: 36px;
+}
+
+.postSeriesstyle_middle:hover {
+	color: deepskyblue;
+}
+.postSeriesstyle_bottom:hover {
+	color: deepskyblue;
+}

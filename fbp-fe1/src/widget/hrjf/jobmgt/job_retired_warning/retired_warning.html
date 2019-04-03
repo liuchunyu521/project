@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="retired_warning.css" />
+		<script type="text/javascript" src="echarts.min.js" ></script>
+		
+	</head>
+	<body>
+		<div class="retired_warning">
+			<div class="b_title"><p>退休预警(按职务)</p></div>
+			<div id="main" style="width:100%;height:400px;"></div>
+			<div class="b_footer">
+				<p class="more">更多</p>
+			</div>
+		</div>
+	</body>
+	<script>
+		   
+		  // 基于准备好的dom，初始化echarts实例
+        	var myChart = echarts.init(document.getElementById('main'));
+				option = {
+				    color: ['#9CC980', '#6FB4FF', '#FF876A'],
+				    tooltip: {
+				        trigger: 'axis',
+				        axisPointer: {
+				            type: 'shadow'
+				        }
+				    },
+				    legend: {
+				        data: ['基层', '中层', '高层'],
+				        x: 'right'
+				    },
+				    calculable: true,
+				    xAxis: [
+				        {
+				            type: 'category',
+				            axisTick: {show: false},
+				            splitLine:{  
+						                        　　　　show:false  
+						                        　　 },
+				            data: ['2017年', '2018年', '2019年', '2020年']
+				        }
+				    ],
+				    yAxis: [
+				        {
+				            type: 'value'
+				        }
+				    ],
+				    series: [
+				        {
+				            name: '基层',
+				            type: 'bar',
+				            barGap: 0,
+				           // label: labelOption,   //标签旋转
+				            itemStyle: {
+				                 normal: {
+				                     label: {
+				                         show: true,
+				                         textStyle: {
+				                             color: '#9CC980'
+				                         },
+				                          position: 'top'
+				                     }
+				                 }
+				             },
+				            data: [320, 332, 301, 334]
+				        },
+				        {
+				            name: '中层',
+				            type: 'bar',
+				           // label: labelOption,
+				           itemStyle: {
+				                 normal: {
+				                     label: {
+				                         show: true,
+				                         textStyle: {
+				                             color: '#6FB4FF'
+				                         },
+				                          position: 'top'
+				                     }
+				                 }
+				             },
+				            data: [220, 182, 191, 234]
+				        },
+				        {
+				            name: '高层',
+				            type: 'bar',
+				           // label: labelOption,
+				           itemStyle: {
+				                 normal: {
+				                     label: {
+				                         show: true,
+				                         textStyle: {
+				                             color: '#FF876A'
+				                         },
+				                          position: 'top'
+				                     }
+				                 }
+				             },
+				            data: [150, 232, 201, 154]
+				        }
+				    ]
+				};
+				 // 使用刚指定的配置项和数据显示图表。
+       			 myChart.setOption(option);
+       			 window.onresize = myChart.resize;//自适应屏幕
+	</script>
+</html>

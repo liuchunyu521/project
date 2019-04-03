@@ -1,0 +1,14 @@
+#paydlg{
+	text-align: center;
+	margin-top: 5px;
+}
+#paydlg .el-form--inline .el-form-item__label{
+	display: inline;
+	line-height: 28px;
+}
+#paydlg .el-form--inline .el-form-item__content{
+     vertical-align: middle;
+     float: right;
+     position: relative;
+     right: 38px;
+}

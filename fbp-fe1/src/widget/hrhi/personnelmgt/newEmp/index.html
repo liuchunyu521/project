@@ -1,0 +1,26 @@
+<div id="gadget-site-content-HR131" class="innerHtml collapse in">
+  	<div>
+		<div id="newEmployee_body" class="newEmployee">
+			<div class="b_tittle"><p>本月新员工</p></div>
+			<div class="b_content">
+				
+				<div v-if="newEmps!=''">
+					<li class="clearfix" v-for="(item,index) in newEmps">
+						<p><img id="imgSrc" :src="imgPathdata[index].imgPath" @error="errorLoadImg(index)"/></p>
+						<p>
+							<div class="b_name">{{item.name}} <span v-if="item.postname">—&nbsp;{{item.postname}}</span></div>
+							<div class="b_email">{{item.email}}</div>
+						</p>
+					</li>
+				</div>
+				<img v-if="newEmps==''" style="width: 100px;height: 90px;position: absolute;top: 0px;left: 0px;right: 0px;bottom: 0px;margin: auto;" src="../i_hr/ifbp_hr/widget/hrhi/personnelmgt/newEmp/img/nodata.png"/>
+			</div>
+			<div class="b_footer">
+				<p class="newEmployeepage">
+					<span v-if="num<3">{{num}}</span><span v-if="num>=3">3</span><span v-if="num!=''">/</span>{{num}}
+				</p>
+				<p class="newEmployeemore" v-if="num>=3">更多</p>
+			</div>
+		</div>
+	</div>
+</div>

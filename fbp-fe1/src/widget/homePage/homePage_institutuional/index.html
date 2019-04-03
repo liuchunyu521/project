@@ -1,0 +1,21 @@
+<div id="gadget-site-content-HR131" class="innerHtml collapse in">
+  	<div>
+		<div class="System_post">
+			<div class="b_tittle"><p>制度发文</p></div>
+			<div class="b_content" >
+				<ul>
+					<li class="clearfix" v-for="item in instituData">
+						<!--<el-tooltip class="item" effect="dark" :content="item.tittle" placement="bottom-start">-->
+							<p class="b_name" :title="item.tittle">{{item.tittle}}</p>
+						<!--</el-tooltip>-->
+						<p class="b_date">{{item.date}}</p>
+					</li>
+				</ul>
+			</div>
+			<div class="b_footer">
+				<p class="birthdaypage">5/18</p>
+				<p class="birthdaymore">更多</p>
+			</div>
+		</div>
+	</div>
+</div>

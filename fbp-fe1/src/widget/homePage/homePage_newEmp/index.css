@@ -1,0 +1,90 @@
+li {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+#newEmployeehome_body {
+	background: #fff;
+	border-radius:4px ;
+}
+	.newEmployeehome .b_tittle {
+		border-bottom: 1px solid #E6E6EB;
+		font-size: 16px;
+		color: #333333;
+		line-height: 49px;
+	}
+	.newEmployeehome .b_tittle p{
+		margin-left: 14px;
+		font-size: 16px;font-weight: 600;
+	}
+	.newEmployeehome .b_content {
+		height: 287px;
+		padding: 16px 16px 1px 16px;
+		position: relative;
+	}
+	.newEmployeehome .b_content li {
+		height:76px;
+		overflow: hidden;
+		margin-top: 14px;
+	}
+	.newEmployeehome .b_content li p {
+		float: left;
+	}
+	.newEmployeehome .b_content li .imgover1 {
+		width: 48px;
+	    height: 48px;
+	    border-radius: 100%;
+	    overflow: hidden;
+	    margin-right: 16px;
+	}
+	.newEmployeehome .b_content li .popoverimgover1 {
+		width: 48px;
+	    height: 48px;
+	    border-radius: 100%;
+	    overflow: hidden;
+	    margin-right: 16px;
+	}
+	.imgSrc1 {
+		width:50px;
+		height:70px;
+		margin-top: -10px;
+		margin-right: 16px;
+	}
+	.popoverimgSrc1 {
+		width:50px;
+		height:70px;
+		margin-top: -10px;
+		margin-right: 16px;
+	}
+	.newEmployeehome .b_content li .b_name {
+		font-size: 16px;
+		font-weight: 400;
+		color: #333333;
+		margin-top: 2px;
+	}
+	.newEmployeehome .b_content li .b_email {
+		font-size: 14px;
+		color: #666666;
+		margin-top: 10px;
+	}
+	.newEmployeehome .b_footer{
+		height: 45px;
+		border-top:1px solid #E6E6EB;
+		font-size: 14px;
+		color: #666666;
+		line-height: 39px;
+	}
+	.newEmployeehome .b_footer .newEmployeehomepage{
+		float: left;
+		margin-left: 14px;
+	}
+	.newEmployeehome .b_footer .newEmployeehomemore{
+		float: right;
+		margin-right: 14px;
+		cursor: pointer;
+	}

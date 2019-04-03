@@ -1,0 +1,24 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.paywage {
+	background: #fff;
+	border-radius: 4px;
+}
+.paywage .b_title {
+	border-bottom: 1px solid #E6E6EB;
+	font-size: 16px;
+	color: #333333;
+	line-height: 49px;
+}
+
+.paywage .b_title p {
+	margin-left: 14px;
+	font-weight: bold;
+}
+#pay_structureapp {
+	width: 120px;
+	margin: 8px 0 0 16px;
+}

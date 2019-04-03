@@ -1,0 +1,55 @@
+
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+#employetraining_box:hover {
+    background-color: #e9f7fc;
+}
+#employetraining_box {
+	position: relative;
+	height: 120px;
+	width: 100%;
+	background: #fff;
+	top: 0px;
+	left: 0px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+#employetraining_wrap {
+	position: absolute;
+	left: 40%;
+	top: 35px;
+	 margin-left: -75px
+}
+.employetraining_img {
+	width: 48px;
+	height: 48px;
+}
+.employetraining_left {
+	float: left;
+}
+.employetraining_right {
+	margin-top: 3px;
+	margin-left: 30px;
+	float: left;
+}
+.employetraining_top {
+	font-size: 16px;
+	color: #333333;
+	line-height: 20px;
+}
+.employetraining_middle {
+	font-size: 14px;
+	color: #333333;
+	line-height: 36px;
+}
+.employetraining_bottom {
+	font-size: 14px;
+	color: #156ECF;
+	line-height: 16px;
+}
+/*.employetraining_middle:hover {
+	color: deepskyblue;
+}*/

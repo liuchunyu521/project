@@ -1,0 +1,87 @@
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+th,
+td,
+form,
+textarea,
+input,
+select,
+textarea,
+button {
+	margin:0;padding:0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: normal;
+}
+
+a {
+	text-decoration:none
+}
+i {
+	font-style: normal;
+}
+a:active, a:hover {
+	text-decoration:none;
+}
+img{
+	vertical-align:top;
+	border: 0;
+}
+dl,ul,ol,li {
+	list-style:none
+} 
+.position_age {
+	background: #fff;
+	border-radius: 4px;
+}
+.position_age .b_title {
+	border-bottom: 1px solid #E6E6EB;
+	font-size: 16px;
+	color: #333333;
+	line-height: 49px;
+}
+
+.position_age .b_title p {
+	margin-left: 14px;
+	font-weight: bold;
+}
+
+.position_age .b_footer {
+	font-size: 14px;
+	color: #666666;
+	line-height: 39px;
+	border-top: 1px solid #E6E6EB;
+	height: 39px;
+}
+.position_age  .b_footer .position_agepage {
+	margin-left: 14px;
+	font-size: 14px;
+	color: #666666;
+	float: left;
+}
+.position_age .b_footer .position_agemore {
+	margin-right: 14px;
+	font-size: 14px;
+	float: right;
+	cursor: pointer;
+	font-size: 14px;
+	color: #666666;
+}

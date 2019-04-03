@@ -1,0 +1,118 @@
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+th,
+td,
+form,
+textarea,
+input,
+select,
+textarea,
+button {
+	margin:0;padding:0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-weight: normal;
+}
+body {
+	/*font: 12px/1.5 "microsoft yahei",arial;*/
+}
+a {
+	text-decoration:none
+}
+i {
+	font-style: normal;
+}
+a:active, a:hover {
+	text-decoration:none;
+}
+img{
+	vertical-align:top;
+	border: 0;
+}
+dl,ul,ol,li {
+	list-style:none
+} 
+/*下面是移动端默认样式*/
+input,
+button{
+	border-radius: 0;
+	outline: none;
+	/*-webkit-appearance:none;*/
+}
+input,
+button,
+a{
+	-webkit-tap-highlight-color: rgba(0,0,0,0); 
+}
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+}
+#employeleave_box:hover {
+    background-color: #e9f7fc;
+}
+#employeleave_box {
+	position: relative;
+	height: 120px;
+	width: 100%;
+	background: #fff;
+	top: 0px;
+	left: 0px;
+	border-radius: 4px;
+	cursor: pointer;
+}
+#employeleave_wrap {
+	position: absolute;
+	left: 40%;
+	top: 35px;
+	 margin-left: -75px
+}
+.employeleave_img {
+	width: 48px;
+	height: 48px;
+}
+.employeleave_left {
+	float: left;
+}
+.employeleave_right {
+	margin-top: 3px;
+	margin-left: 30px;
+	float: left;
+}
+.employeleave_top {
+	font-size: 16px;
+	color: #333333;
+	line-height: 20px;
+}
+.employeleave_middle {
+	font-size: 14px;
+	color: #156ECF;
+	line-height: 36px;
+}
+.employeleave_bottom {
+	font-size: 14px;
+	color: #156ECF;
+	line-height: 16px;
+}
+.employeleave_middle:hover {
+	color: deepskyblue;
+}
