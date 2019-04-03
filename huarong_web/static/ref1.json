@@ -1,0 +1,13 @@
+{
+	"flag":"0",  
+	"data": [{
+        "code": "01", 
+        "name": "薪酬ref1", 
+        "pk_defdoc": "mz001" 
+    },
+    {
+        "code": "02", 
+        "name": "人事ref1", 
+        "pk_defdoc": "mz002"
+    }]
+}

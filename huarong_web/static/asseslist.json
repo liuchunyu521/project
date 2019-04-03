@@ -1,0 +1,18 @@
+{
+	"flag":"0",
+	"data":[{
+      "date": "1",
+      "name": "2017",
+      "kaohebiao": "王辉",
+      "fen":"100",
+      "pingfen":""
+    },{
+      "date": "2",
+      "name": "2356",
+      "kaohebiao": "焦阳",
+      "status":"未评分",
+      "fen":"100",
+      "pingfen":""
+    }]
+
+}

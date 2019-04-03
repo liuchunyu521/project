@@ -1,0 +1,63 @@
+{
+	"totalcount": "6",
+	"des": "",
+	"flag": "0",
+	"msglist": [
+		{
+			"content": "你好： 近期有员工过生日，详细信息见附件。",
+			"attach": [
+				{
+					"filesrc": "http:\/\/10.4.122.38:8090\/fs\/service\/default\/ufiles\/b2779c3c-54ce-4ebf-bed4-647f1e963989?isView=false",
+					"filename": "sr-2017-05-18-14-02-14.html"
+				}
+			],
+			"subject": "员工生日预警",
+			"msgpk": "1001A31000000000EX0M",
+			"sendtime": "2017-05-18 14:02:14"
+		}, {
+			"content": "你好： 近期有员工过生日，详细信息见附件。",
+			"attach": [
+				{
+					"filesrc": "http:\/\/10.4.122.38:8090\/fs\/service\/default\/ufiles\/10d0bd59-10dd-459f-91f1-fc8d26cc471b?isView=false",
+					"filename": "sr-2017-05-17-09-30-19.html"
+				}
+			],
+			"subject": "员工生日预警",
+			"msgpk": "1001A31000000000EOX6",
+			"sendtime": "2017-05-17 09:30:19"
+		}, {
+			"content": "你好： 近期有员工过生日，详细信息见附件。",
+			"attach": [
+				{
+					"filesrc": "http:\/\/10.4.122.38:8090\/fs\/service\/default\/ufiles\/6690f81a-61f8-431c-8ccb-5053f4da5ce0?isView=false",
+					"filename": "sr-2017-05-16-15-14-01.html"
+				}
+			],
+			"subject": "员工生日预警",
+			"msgpk": "1001A31000000000EJAQ",
+			"sendtime": "2017-05-16 15:14:01"
+		}, {
+			"content": "你好： 近期有员工过生日，详细信息见附件。",
+			"attach": [
+				{
+					"filesrc": "http:\/\/10.4.122.38:8090\/fs\/service\/default\/ufiles\/4860fd00-3b1a-407d-bd4b-4ecace324f8c?isView=false",
+					"filename": "sr-2017-05-12-09-27-20.html"
+				}
+			],
+			"subject": "员工生日预警",
+			"msgpk": "1001A31000000000EACR",
+			"sendtime": "2017-05-12 09:27:20"
+		}, {
+			"content": "你好： 近期有员工过生日，详细信息见附件。",
+			"attach": [
+				{
+					"filesrc": "http:\/\/10.4.122.38:8090\/fs\/service\/default\/ufiles\/bfdde135-0b11-42dd-b2c5-b25611591c25?isView=false",
+					"filename": "sr-2017-05-08-10-11-32.html"
+				}
+			],
+			"subject": "员工生日预警",
+			"msgpk": "1001A31000000000E2AI",
+			"sendtime": "2017-05-08 10:11:32"
+		}
+	]
+}

@@ -1,0 +1,321 @@
+// assessScore  component
+.assessScore .el-table th{
+	text-align: center;
+}
+.assessScore a:-webkit-any-link{
+	font-family: "MicrosoftYaHei";
+	font-size: 14px;
+	color: #CC2123;
+}
+.assessScore .el-button span{
+	font-family: "PingFangSC-Regular";
+	font-size: 16px;
+	color: #FFFFFF;
+}
+.assessScore .el-table th{
+	background-color: white;
+}
+.assessScore .el-table td, .el-table th.is-leaf{
+	border: none;
+	text-align: center;
+}
+.assessScore .el-table .is-leaf .cell{
+	background-color: white;
+	font-family: "MicrosoftYaHei";
+	font-size: 16px;
+	font-weight: normal;
+	color: #333333;
+}
+.assessScore .el-table tr{
+	height: 50px;
+}
+.assessScore .el-table {
+	border: none;
+}
+.assessScore .el-table tr:nth-child(odd){
+	background: #FBFBFB;
+}
+.assessScore .el-select{
+	margin-right: 20px;
+}
+
+
+// submit component
+.submit .assesscriterion .content{
+	margin-top: 14px;
+}
+.submit .el-table th{
+	background-color: white;
+}
+.submit .el-table td, .el-table th.is-leaf{
+	text-align: center;
+}
+.submit .el-table .is-leaf .cell{
+	background-color: white;
+	color: #333333;
+}
+.submit .el-table tr{
+	height: 56px;
+}
+.submit .el-table tbody tr .el-table_1_column_2{
+	font-family: "MicrosoftYaHei";
+	font-size: 14px;
+	color: #CC2123;
+}
+.submit .el-table tbody tr .el-table_1_column_3{
+	width: 20px;
+}
+.submit .el-textarea__inner{
+	height: 90px;
+	font-family: "PingFangSC-Regular";
+	font-size: 14px;
+	color: #333333;
+	line-height: 24px;
+}
+
+.el-tooltip__popper {
+    color: #CC2123;
+}
+
+
+// lookup  component
+.lookup .el-table thead  tr .table_1_column_1 {
+	border-right: 1px solid #ccc;
+}
+.lookup .tab .el-table{
+	text-align: center;
+}
+.lookup .tab thead tr th.el-table_1_column_3{
+	text-align: center;
+}
+
+.lookup .assesscriterion .content{
+	margin-top: 14px;
+
+}
+.lookup .tab .inputcontent{
+	display: inline-block;
+	width: 100px;
+	height: 36px;
+	background: #FFFFFF;
+	border: 1px solid #CCCCCC; 
+	border-radius: 4px;
+	text-align: center;
+}
+.lookup .el-table th{
+	background-color: white;
+}
+.lookup .el-table td, .el-table th.is-leaf{
+	border: none;
+	text-align: center;
+}
+.lookup .el-table .is-leaf .cell{
+	background-color: white;
+	color: #333333;
+}
+.lookup .el-table tr{
+	height: 56px;
+}
+.lookup .el-table tbody tr .el-table_1_column_2{
+	font-family: "MicrosoftYaHei";
+	font-size: 14px;
+	color: #CC2123;
+}
+.lookup .el-table tbody tr .el-table_1_column_3{
+	width: 20px;
+}
+.lookup .el-textarea__inner{
+	height: 110px;
+	font-family: "PingFangSC-Regular";
+	font-size: 14px;
+	color: #333333;
+	line-height: 24px;
+}
+
+
+
+
+//assessRank component
+.assessRank .el-table th{
+	text-align: center;
+}
+.assessRank a:-webkit-any-link{
+	font-family: "MicrosoftYaHei";
+	font-size: 14px;
+	color: #CC2123;
+}
+.assessRank .el-button span{
+	font-family: "PingFangSC-Regular";
+	font-size: 16px;
+	color: #FFFFFF;
+}
+.assessRank .el-table th{
+	background-color: white;
+}
+.assessRank .el-table td, .el-table th.is-leaf{
+	border: none;
+	text-align: center;
+}
+.assessRank .el-table .is-leaf .cell{
+	background-color: white;
+	font-family: "MicrosoftYaHei";
+	font-size: 16px;
+	font-weight: normal;
+	color: #333333;
+}
+.assessRank .el-table tr{
+	height: 50px;
+}
+.assessRank .el-table {
+	border: none;
+}
+.assessRank .el-table tr:nth-child(odd){
+	background: #FBFBFB;
+}
+.assessRank .el-select{
+	margin-right: 20px;
+}
+
+//rank component
+
+.rank .assesscriterion .content{
+	margin-top: 14px;
+
+}
+.rank .tab .inputcontent{
+	display: inline-block;
+	width: 100px;
+	height: 36px;
+	background: #FFFFFF;
+	border: 1px solid #CCCCCC;
+	border-radius: 4px;
+}
+.rank .el-table th{
+	background-color: white;
+}
+.rank .el-table td, .el-table th.is-leaf{
+	border: none;
+	text-align: center;
+}
+.rank .el-table .is-leaf .cell{
+	background-color: white;
+	color: #333333;
+}
+.rank .el-table tr{
+	height: 56px;
+}
+.rank .el-table tbody tr .el-table_1_column_2{
+	font-family: "MicrosoftYaHei";
+	font-size: 14px;
+}
+.rank .el-table tbody tr .el-table_1_column_3{
+	width: 20px;
+}
+.rank .el-table td, .el-table th.is-leaf{
+	border-bottom: 1px solid #eee;
+}
+
+.rank .el-input{
+	width: 100px;
+	height: 36px;
+}
+.rank .el-table .cell, .el-table th>div{
+	padding-right: 0px;
+}
+.rank .el-dialog  .el-table thead tr  th>div{
+	padding-right: 20px;
+}
+.rank .el-dialog .el-table tbody  tr .cell {
+	padding-right: 40px;
+}
+.rank .el-dialog__header{
+	height: 50px;
+	padding: 0 20px;
+	line-height: 50px;
+	background-color: #D80110;
+}	
+.rank .el-dialog__header .el-dialog__title{
+	color: white;
+}
+.rank .el-dialog__header .el-dialog__headerbtn .el-dialog__close{
+	color: white;
+}.rank .el-dialog__header .el-dialog__headerbtn .el-dialog__close:hover{
+	color: blue;
+}
+.rank .el-dialog__body{
+	padding: 40px;
+}
+.rank .el-dialog .el-table tr{
+	height: 40px;
+}
+.rank .el-dialog .el-table tr th:first-child{
+	text-align: left;
+}
+.rank .el-dialog .el-table tr th:nth-child(2){
+	text-align: right;
+}
+.rank .el-dialog .el-table{
+	border: none;
+}
+.rank .el-dialog .el-table  td, .rank .el-dialog .el-table th.is-leaf{
+	border: none;
+	text-align: right;
+}
+.rank .el-dialog .el-table tr td:first-child{
+	text-align: left;
+}
+.rank .el-button--primary img{
+	vertical-align: bottom;
+	margin-right: 5px;
+}
+
+
+
+//check component
+.check .assesscriterion .content{
+	margin-top: 14px;
+}
+.check .tab .inputcontent{
+	display: inline-block;
+	width: 100px;
+	height: 36px;
+	background: #FFFFFF;
+	border: 1px solid #CCCCCC;
+	border-radius: 4px;
+}
+.check .el-table th{
+	background-color: white;
+}
+.check .el-table td, .el-table th.is-leaf{
+	border: none;
+	text-align: center;
+}
+.check .el-table .is-leaf .cell{
+	background-color: white;
+	color: #333333;
+}
+.check .el-table tr{
+	height: 56px;
+}
+.check .el-table tbody tr .el-table_1_column_2{
+	font-family: "MicrosoftYaHei";
+	font-size: 14px;
+}
+.check .el-table tbody tr .el-table_1_column_3{
+	width: 20px;
+}
+.check .el-table td, .el-table th.is-leaf{
+	border-bottom: 1px solid #eee;
+}
+.check .el-table th.is-leaf{
+	width: 20%;
+}
+.check .el-input{
+	width: 100px;
+	height: 36px;
+}
+.check .el-table .cell, .el-table th>div{
+	padding-right: 0px;
+}
+
+
