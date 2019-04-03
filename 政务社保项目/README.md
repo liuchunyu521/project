@@ -23,7 +23,7 @@
 ## 安装
 克隆项目到本地:
 ```
-$ git clone git@git.yonyou.com:yygov/S/sifc/sifc-portal/sifc-portal-8.1.git
+$ git clone 
 ```
 安装依赖：taobao 镜像
 ```
