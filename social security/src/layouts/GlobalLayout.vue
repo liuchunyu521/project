@@ -17,7 +17,7 @@ liuchym@yonyou.com
     </drawer>
     <a-layout>
       <global-header :menuData="menuData" :collapsed="collapsed" @toggleCollapse="toggleCollapse"/>
-      <a-layout-content :style="{minHeight: minHeight, marginTop: '16px',background:'#fff',padding:'16px',paddingTop:'8px'}">
+      <a-layout-content :style="{minHeight: minHeight, marginTop: '6px',background:'#fff',padding:'16px',paddingTop:'8px'}">
         <slot></slot>
       </a-layout-content>
       <a-layout-footer style="padding: 0px">
@@ -34,7 +34,7 @@ import Drawer from '../components/tool/Drawer'
 import SiderMenu from '../components/menu/SiderMenu'
 import Setting from '../components/setting/Setting'
 import { ajaxData } from '../pages/components/mixins/ajaxdata.js';
-const minHeight = window.innerHeight - 64 - 24 - 122
+const minHeight = window.innerHeight 
 
 let menuData = []
 
@@ -133,7 +133,7 @@ export default {
     menuData = this.$router.options.routes.find((item) => item.path === '/').children
     console.log(menuData)
 
-   /* var array=[];
+    /*var array=[];
     // 发送请求获取菜单数据
     var _url='appmodule/api/appfunction?appModule.id=41&fetchProperties=order,id,url,code,name,enabled,parent[id,code,name,url,order,enabled]&size=99999999';
     ajaxData("get",_url,'', (res) => {

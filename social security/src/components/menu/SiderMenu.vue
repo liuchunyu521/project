@@ -1,5 +1,5 @@
 <template>
-  <a-layout-sider :class="[theme, 'sider', isMobile ? null : 'shadow']" width="256px" :collapsible="collapsible" v-model="collapsed" :trigger="null">
+  <a-layout-sider v-if="isShowMenu" :class="[theme, 'sider', isMobile ? null : 'shadow']" width="256px" :collapsible="collapsible" v-model="collapsed" :trigger="null">
     <div :class="['logo', theme]">
       <router-link to="/dashboard/workplace">
         <img src="static/img/vue-antd-logo.png">
@@ -37,6 +37,9 @@ export default {
     }
   },
   computed: {
+    isShowMenu () {
+      return this.$store.state.setting.isShowMenu
+    },
     isMobile () {
       return this.$store.state.setting.isMobile
     },

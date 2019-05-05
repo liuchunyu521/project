@@ -99,6 +99,11 @@ export default {
       modifyData:''
     }
   },
+  computed:{
+    service_sms () {
+      return this.$store.state.setting.service_sms
+    }
+  },
   methods: {
     
     handleCancel1(e) {
@@ -138,7 +143,7 @@ export default {
         if (!err) {
            console.log('Received values of form: ', values);
           // 判断是新增或修改
-          var _url='sifc-sms/api/bankInfo';
+          var _url=this.service_sms+'/api/bankInfo';
           var params={}
           if(this.flag==true){//走新增接口
             params.bankCode=values.formData.bankCode

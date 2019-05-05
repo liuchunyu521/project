@@ -46,16 +46,19 @@ export default {
     }
   }
 
-  .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
-    padding: 5px 5px;
+  #app .ant-table-thead > tr > th, .ant-table-tbody > tr > td {
+    padding:10px 10px;
   }
-  .ant-table-thead > tr > th {//表头居中
+  #app .ant-table-thead > tr > th {//表头居中
     text-align: center;
   }
-  .adjustGOldconfigDetails .ant-table-tbody > tr > td {//调剂金配置页面全局样式
+   #app  .ant-table-tbody > tr > td {//调剂金配置页面全局样式
+    padding: 5px;
+  }
+  #app .adjustGOldconfigDetails .ant-table-tbody > tr > td {//调剂金配置页面全局样式
     padding: 0px;
   }
-  .ant-table-tbody {
+  #app .ant-table-tbody {
     text-align: center;
   }
 </style>

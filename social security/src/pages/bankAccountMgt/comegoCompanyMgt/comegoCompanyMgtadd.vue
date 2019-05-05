@@ -127,7 +127,9 @@
               <a-input
                 v-decorator="[
                   'formData.contactPhone',
-                  {rules: [{ required: false}],
+                  {rules: [
+                    { pattern:/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$|^0\d{2,3}-?\d{7,8}$/, message: '请输入正确手机号或电话号' },
+                    { required: false}],
                     initialValue: formData.contactPhone
                   }
                 ]"
@@ -186,6 +188,11 @@ export default {
       organizationData:''
     }
   },
+  computed:{
+    service_sms () {
+      return this.$store.state.setting.service_sms
+    }
+  },
   created(){
     // console.log(this.dialogvisible)
     console.log(this.dialogData)
@@ -235,7 +242,7 @@ export default {
           console.log('Received values of form: ', values);
            console.log('Received values of form: ', values);
           // 判断是新增或修改
-          var _url='sifc-sms/api/ContanctOrg';
+          var _url=this.service_sms+'/api/ContanctOrg';
           var params='';
           if(this.flag==true){//走新增接口
             params=values.formData;

@@ -34,6 +34,7 @@ export default {
     layout () {
       return this.$store.state.setting.layout
     }
+    
   },
   mounted () {
     this.getBreadcrumb()

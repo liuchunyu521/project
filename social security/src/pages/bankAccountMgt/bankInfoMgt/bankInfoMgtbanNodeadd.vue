@@ -189,11 +189,15 @@ export default {
       options:'',//行政区划数据参数
     }
   },
-  
+  computed:{
+    service_sms () {
+      return this.$store.state.setting.service_sms
+    }
+  },
   created(){
     
       // 获取银行数据
-      // var _url='sifc-sms/api/bankInfo';
+      // var _url=this.service_sms+'/api/bankInfo';
       // ajaxData("get",_url,'', (res) => {
       //     console.log(res);
       //     this.bankNameData=res.data;
@@ -231,7 +235,7 @@ export default {
     },
     onChange(value,selectedOptions) {//行政区划选择的值
       console.log(value,selectedOptions);
-      var _url='sifc-sms/api/region/'+selectedOptions[selectedOptions.length-1].code;
+      var _url=this.service_sms+'/api/region/'+selectedOptions[selectedOptions.length-1].code;
       ajaxData("get",_url,'', (res) => {
         console.log(res.data)
         this.formData.province=res.data.provinc
@@ -253,7 +257,7 @@ export default {
         if (!err) {
            console.log('Received values of form: ', values);
           // 判断是新增或修改
-          var _url='sifc-sms/api/bankNode';
+          var _url=this.service_sms+'/api/bankNode';
           var params={}
           if(this.flag==true){//走新增接口
             params=values.formData;

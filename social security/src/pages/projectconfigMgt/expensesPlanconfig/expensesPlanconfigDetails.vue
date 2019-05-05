@@ -134,7 +134,7 @@
 
                         <div>
                             <span class="style"></span>
-                            <span>调剂金列表展示项设置</span>
+                            <span>用款计划列表展示项设置</span>
                             <div>
                                 <a-form-item
                                     label="是否允许上传附件"
@@ -185,17 +185,17 @@
                                 <template slot="dockingSys" slot-scope="text, record">
                                     <!-- <div class="rowIdbc" v-if="record.rowId =='ZD1' || record.rowId =='ZD2'"></div> -->
                                     <div class="rowIdbc01" v-if="record.dataIntoWay =='01'"></div>
-                                    <div  v-else-if="record.dataIntoWay =='03'"></div>
+                                    <div class="rowIdbc01" v-else-if="record.dataIntoWay =='03'"></div>
 
                                     <a-select v-else  v-model="record.dockingSys" class="inputstyle" @change="onCellChange(record, 'dockingSys',record.dockingSys)">
-                                        <a-select-option :key="item.id" :value="item.id+'-'+item.lastModifiedVersion" v-for="(item,index) in tableData.dockingSysdata">{{item.sysName}}</a-select-option>
+                                        <a-select-option :key="item.id" :value="item.id+'-'+item.lastModifiedVersion" v-for="(item) in tableData.dockingSysdata">{{item.sysName}}</a-select-option>
                                     </a-select>
                                 </template>
                                 <!-- 接口选择 -->
-                                <template slot="dockingInterface" slot-scope="text, record, index">
+                                <template slot="dockingInterface" slot-scope="text, record">
                                     <!-- <div class="rowIdbc" v-if="record.rowId =='ZD1' || record.rowId =='ZD2'"></div> -->
                                     <div class="rowIdbc01" v-if="record.dataIntoWay =='01'"></div>
-                                    <div  v-else-if="record.dataIntoWay =='03'"></div>
+                                    <div class="rowIdbc01" v-else-if="record.dataIntoWay =='03'"></div>
                                     <a-select v-else ref="test" v-model="record.dockingInterface" class="inputstyle" @change="onCellChange(record, 'dockingInterface',record.dockingInterface)">
                                         <a-select-option :key="item.id" :value="item.id+'-'+item.lastModifiedVersion" v-for="item in record.dockingInterfacedata">{{item.interfaceName}}</a-select-option>
                                     </a-select>
@@ -204,41 +204,35 @@
                                 <template slot="interfaceField" slot-scope="text, record">
                                     <!-- <div class="rowIdbc" v-if="record.rowId =='ZD1' || record.rowId =='ZD2'"></div> -->
                                     <div class="rowIdbc01" v-if="record.dataIntoWay =='01'"></div>
-                                    <div  v-else-if="record.dataIntoWay =='03'"></div>
+                                    <div class="rowIdbc01" v-else-if="record.dataIntoWay =='03'"></div>
                                     <a-select v-else   v-model="record.interfaceField" class="inputstyle" @change="onCellChange(record, 'interfaceField',record.interfaceField)">
-                                        <a-select-option :key="item.id" :value="item.id+'-'+item.lastModifiedVersion" v-for="(item,index) in record.interfaceFielddata">{{item.fieldName}}</a-select-option>
+                                        <a-select-option :key="item.id" :value="item.id+'-'+item.lastModifiedVersion" v-for="(item) in record.interfaceFielddata">{{item.fieldName}}</a-select-option>
                                     </a-select>
                                 </template>
                                 <!-- 参数配置params -->
                                  <template slot="params" slot-scope="text, record">
                                     <!-- <div class="rowIdbc" v-if="record.rowId =='ZD1' || record.rowId =='ZD2'"></div> -->
                                     <div class="rowIdbc01" v-if="record.dataIntoWay =='01'"></div>
-                                    <div  v-else-if="record.dataIntoWay =='03'"></div>
+                                    <div class="rowIdbc01" v-else-if="record.dataIntoWay =='03'"></div>
                                     <a v-else  href="javascript:;" @click="onParams(record)" >{{record.paramsShowdata}}</a>
                                 </template>
                                 <!-- 是否展示 -->
                                 <template slot="isShow" slot-scope="text, record">
-                                    <!-- <div class="rowIdbc" v-if="record.rowId =='ZD1' || record.rowId =='ZD2'"></div> -->
-                                    <div class="rowIdbc01" v-if="record.dataIntoWay =='01'"></div>
-                                    <div  v-else-if="record.dataIntoWay =='03'"></div>
-                                    <a-radio-group  v-else  v-model="record.isShow" class="inputstyle" @change="onCellChange(record, 'isNewline',record.isNewline)">
+                                    <a-radio-group  v-model="record.isShow" class="inputstyle" @change="onCellChange(record, 'isNewline',record.isNewline)">
                                         <a-radio :value="item.value" :key='index' v-for="(item,index) in flagData">{{item.name}}</a-radio>
                                     </a-radio-group>
                                 </template>
                                 <!-- 是否换行 -->
                                 <template slot="isNewline" slot-scope="text, record">
-                                    <!-- <div class="rowIdbc" v-if="record.rowId =='ZD1' || record.rowId =='ZD2'"></div> -->
-                                    <div class="rowIdbc01" v-if="record.dataIntoWay =='01'"></div>
-                                    <div  v-else-if="record.dataIntoWay =='03'"></div>
-                                    <a-radio-group  v-else  v-model="record.isNewline" class="inputstyle" @change="onCellChange(record, 'isNewline',record.isNewline)">
+                                   
+                                    <a-radio-group  v-model="record.isNewline" class="inputstyle" @change="onCellChange(record, 'isNewline',record.isNewline)">
                                         <a-radio :value="item.value" :key='index' v-for="(item,index) in flagData">{{item.name}}</a-radio>
                                     </a-radio-group>
                                 </template>
                                 <!-- 运算项 -->
                                 <template slot="rowId" slot-scope="text, record">
-                                    <!-- <div class="rowIdbc" v-if="record.rowId =='ZD1' || record.rowId =='ZD2'">{{record.rowId}}</div> -->
-                                    <div class="rowIdbc01" v-if="record.dataIntoWay =='01'">{{record.rowId}}</div>
-                                    <div style="text-align:center;" class="inputstyle" v-else-if="record.dataIntoWay =='03'">
+                                    
+                                    <div style="text-align:center;" class="inputstyle" v-if="record.dataIntoWay =='03'">
                                         <a-input  v-model="record.rowId"></a-input>
                                     </div>
                                     <div style="text-align:center;" v-else>{{record.rowId}}</div>
@@ -249,7 +243,7 @@
                                     <div style="padding-left:8px">
                                         <a style="margin-right:4px" v-if="index!=0" href="javascript:;" @click='upData(record,index)'>上移</a>
                                         <a style="margin-right:4px" v-if="index!=dataSource.length-1" href="javascript:;" @click='downData(record,index)'>下移</a>
-                                        <a style="margin-right:4px"  href="javascript:;" @click="testMethod(record)">测试</a>
+                                        <a style="margin-right:4px" v-if="record.dataIntoWay=='02'"  href="javascript:;" @click="testMethod(record)">测试</a>
                                         <a-popconfirm
                                             
                                             title="确定删除吗?"
@@ -483,12 +477,15 @@ export default {
         resData:'',
         rowId:'',//弹框所需要的点击的是第几个rowId
         // 修改所需要数据处理
-        initcontainsRisk:[]
+        initcontainsRisk:[],
+        planId:null,//修改时候要传方案ID
 
     }
   },
   computed: {
-    
+    service_sms () {
+      return this.$store.state.setting.service_sms
+    }
   },
   created(){
       var data=this.$route.query
@@ -541,11 +538,12 @@ export default {
     },
     modifyData(id){
         var params= {}
-        var _url='sifc-sms/api/plan/'+id+'?fetchProperties=*,planItems[*,dockingSys[id,lastModifiedVersion],dockingInterface[id,lastModifiedVersion],interfaceField[id,lastModifiedVersion],params[*]]';
+        var _url=this.service_sms+'/api/plan/'+id+'?fetchProperties=*,planItems[*,dockingSys[id,lastModifiedVersion],dockingInterface[id,lastModifiedVersion],interfaceField[id,lastModifiedVersion],params[*]]';
         ajaxData("get",_url,params, (res) => {
             // 从新获取列表
             console.log(res.data)
             let _data= JSON.parse(JSON.stringify(res.data))
+            this.planId=id;
             // 表单区域所涉及的修改数据
             this.initcontainsRisk=_data.containsRisk.split(',')//险种默认值
             this.formData.planName=_data.planName
@@ -645,7 +643,7 @@ export default {
     },
     containsRiskrequest(){//险种请求
       var params= {}
-      var _url='sifc-sms/api/asVal?valType.typeCode=riskCode&fetchProperties=id,asCode,asValue';
+      var _url=this.service_sms+'/api/asVal?valType.typeCode=riskCode&fetchProperties=id,asCode,asValue';
       ajaxData("get",_url,params, (res) => {
         // 从新获取列表
         // console.log(res)
@@ -654,7 +652,7 @@ export default {
     },
     dockingSysrequest(id){//系统数据请求
         var params= {}
-      var _url='sifc-sms/api/dockingSys?fetchProperties=*,interfaces[*,fields[*],params[*]]';
+      var _url=this.service_sms+'/api/dockingSys?fetchProperties=*,interfaces[*,fields[*],params[*]]';
       ajaxData("get",_url,params, (res) => {
         // 从新获取列表
         // console.log(res)
@@ -679,7 +677,8 @@ export default {
             console.log('Received values of form: ', subdata);
 
             var params= subdata.formData;
-            var _url='sifc-sms/api/plan';
+                 params.id=this.planId;
+            var _url=this.service_sms+'/api/plan';
             ajaxData("post",_url,params, (res) => {
                 // 页面保存
                 console.log(res)
@@ -735,12 +734,17 @@ export default {
 
     },
     testMethod(res){
-        console.log(res)
-        this.paramsTestdataSource=res.paramsdata;
 
-        this.testfieldId=res.interfaceField.split("-")[0];
-        this.testinterfaceId=res.dockingInterface.split("-")[0];
-        this.testvisible =true;
+        console.log(res)
+        if( this.testfieldId && this.testinterfaceId){
+            this.paramsTestdataSource=res.paramsdata;
+
+            this.testfieldId=res.interfaceField.split("-")[0];
+            this.testinterfaceId=res.dockingInterface.split("-")[0];
+            this.testvisible =true;
+        }else {
+            this.$message.warning("字段或参数不能为空哦！！！")
+        }
     },
     testhandleOk() {//测试弹框确定
         // 发送请求
@@ -764,7 +768,7 @@ export default {
            
         }
         console.log(_Data)
-        var _url='sifc-sms/api/fundUsage/connectivityTest';
+        var _url=this.service_sms+'/api/fundUsage/connectivityTest';
         ajaxData("post",_url,_Data, (res) => {
             if(res.data.code==0){
                 this.$message.success(res.data.msg)
@@ -949,6 +953,9 @@ export default {
 
         }
         console.log(_data);
+        for(let i=0;i<_data.length;i++){
+            _data[i].orderIndex=i;
+        }
         this.handleSubmit(e,_data);
     },
   }

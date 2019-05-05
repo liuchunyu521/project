@@ -85,8 +85,8 @@
       <div style="height:40px;">
         <div style="float:left;margin:8px 0 0 16px;">
           <a-button type="primary" @click="check">查询</a-button>
-          <a-button type="primary" v-if="auditState==0" >审批通过</a-button>
-          <a-button type="primary" v-if="auditState==0">审批驳回</a-button>
+          <!-- <a-button type="primary" v-if="auditState==0" >审批通过</a-button>
+          <a-button type="primary" v-if="auditState==0">审批驳回</a-button> -->
         </div>
       </div>
       <!-- table area -->
@@ -177,6 +177,17 @@ const columns = [{
 export default {
   name: 'expensesbills',
    mixins:[deleteEmptyProperty,filters], 
+   filters:{//状态过滤器
+    statesfilters:function(res){
+      if(res==0){
+        return "未审核"
+      }else if(res==1){
+        return "已审核"
+      }else if(res==2){
+        return "驳回"
+      }
+    }
+  },
   data () {
     return {
       loading:true,
@@ -222,12 +233,14 @@ export default {
     }
   },
   computed: {
-    
+    service_sms () {
+      return this.$store.state.setting.service_sms
+    }
   },
   mounted () {
       // 获取险种
       var params= {}
-      var _url='sifc-sms/api/asVal?valType.typeCode=riskCode&fetchProperties=id,asCode,asValue';
+      var _url=this.service_sms+'/api/asVal?valType.typeCode=riskCode&fetchProperties=id,asCode,asValue';
       ajaxData("get",_url,params, (res) => {
         console.log(res)
         this.risksdata=res.data;
@@ -269,6 +282,7 @@ export default {
       this.$router.push({//你需要接受路由的参数再跳转
           path: "/expensesPlanMgt/expensesPlanMgtApproveDetails",
             query: { 
+                data:JSON.stringify(item),
                 id: item.id,
                 flag:1,
                 planId:item.planId,
@@ -300,20 +314,19 @@ export default {
       this.request(this.current-1,this.pageSize);
     },
     request(p,s){
-          var _url;
+          var _url=this.service_sms+'/api/fundUsage/findAudit';
           var Data=this.paramsdata;
           if(Data.createDate){
-             Data.createDate= [Data.createDate[0].format('YYYY-MM-DD') , Data.createDate[1].format('YYYY-MM-DD')]
-             _url='sifc-sms/api/fundUsage?fetchProperties=*,organization[id,name]&createDate >'+Data.createDate[0]+'&createDate <'+Data.createDate[1];
+            Data.createDate= [Data.createDate[0].format('YYYY-MM-DD') , Data.createDate[1].format('YYYY-MM-DD')]
+            Data.startDate=Data.createDate[0];
+            Data.endDate=Data.createDate[1];
             delete Data.createDate;
-          }else {
-            _url='sifc-sms/api/fundUsage?fetchProperties=*,organization[id,name]';
           }
-          Data.auditState=this.auditState;
+          Data.tabFlag=this.auditState;
           Data.page=p;
           Data.size=s;
           Data=this.deleteEmptyProperty(Data)
-      ajaxData("get",_url,Data, (res) => {
+      ajaxData("post",_url,Data, (res) => {
           console.log(res);
           this.total=Number(res.headers['x-page-totalelements'])
           this.selectedRowKeys=[];

@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/': {
-				target: 'https://dev81.yonyougov.top/', //开发服务器
+				target: '', //开发服务器
 				changeOrigin: true,//允许跨域
 				pathRewrite:{
 					// '^/api':''

@@ -13,11 +13,11 @@
     <div style="height:40px">
       <div style="float:left">
         <a-button v-if="makebillid!=''" type="primary">
-          <a :href="httpurl+'sifc-sms/api/adjustFund/exportExcel?adjustFundId='+makebillid" download="ddd">导出</a>
+          <a :href="httpurl+service_sms+'/api/adjustFund/exportExcel?adjustFundId='+makebillid" download="ddd">导出</a>
         </a-button>
         <a-button type="primary" @click="doPrint()">打印</a-button>
-        <a-button type="primary" v-if="seeState !=1">审批通过</a-button>
-        <a-button type="primary" v-if="seeState !=1" >审批驳回</a-button>
+        <a-button type="primary" @click="approve" v-if="seeState !=1">审批通过</a-button>
+        <a-button type="primary" @click="reject" v-if="seeState !=1" >审批驳回</a-button>
       </div>
     </div>
     <div id="printBox" class="adjustbillswrap">
@@ -164,7 +164,7 @@
               <div style="margin-bottom: 8px;" :key="index" v-for="(item,index) in fileListData">
                 <span style="display:inline-block;width:360px;">{{item.fileName.replace(item.uuid,'')}}</span>
                   <a-button  style="margin-right:8px"  type="primary">
-                   <a :href="httpurl+'sifc-sms/api/storage/download?fileName='+item.fileName+'&filePath='+item.filePath+'&serviceType=SMS_ADJUST'" download="ddd">下载</a>
+                   <a :href="httpurl+service_sms+'/api/storage/download?fileName='+item.fileName+'&filePath='+item.filePath+'&serviceType=SMS_ADJUST'" download="ddd">下载</a>
                   </a-button>
               </div>
               
@@ -179,7 +179,7 @@
             <div style="padding:16px">
               <a-tabs defaultActiveKey="1" @change="callback">
                 <a-tab-pane tab="流程跟踪" key="1">
-                  
+                  <workflow-flow v-if="workflow" direction="horizontal" :options='options' />
                 </a-tab-pane>
                 <a-tab-pane tab="审批历史" key="2" forceRender>
                    <a-table bordered :dataSource="dataSource" :columns="columns" ></a-table>
@@ -194,15 +194,35 @@
       </div>
      
     </div>
-    
+    <!-- 审批驳回 -->
+
+    <workflow-approve
+      :visible="isApprove"
+      :options="options"
+      @cancel="approveonCancel"
+      @complete="approveonComplete"
+    />
+    <workflow-reject
+      title="驳回"
+      :visible="isReject"
+      :options="options"
+      @cancel="rejectonCancel"
+      @complete="rejectonComplete"
+    />
   </div>
 </template>
 
 <script>
-
+import Vue from 'vue';
 import deleteEmptyProperty from '../../components/mixins/json.js';
 import { ajaxData } from '../../components/mixins/ajaxdata.js';
+import workflow, {
+  canTaskRevoke,
+  revoke,
+  startWorkflow
+} from "../../components/libs";
 
+Vue.use(workflow);
 export default {
   name: 'adjustbillsdetails',
   mixins:[deleteEmptyProperty], 
@@ -280,9 +300,9 @@ export default {
       myHeader:{
             // "Content-Type":'multipart/form-data',
             // Accept:"*/*",
-            'Authorization': 'Bearer '+localStorage.getItem("author")
+            'Authorization': 'Bearer '+localStorage.getItem("uptoken")
       },//请求头设置
-      action:'https://dev81.yonyougov.top/sifc-sms/api/storage/upload?serviceType=SMS_ADJUST',
+      action:'',
       upmyData:{
         // serviceType:'SMS_ADJUST'
       },
@@ -313,21 +333,76 @@ export default {
       seeId:'',//查看传的id
       seeState:'',//查看的状态
       modifyData:'',//修改保存提交数据
-      isEnableUpload:''//是否显示上传
+      isEnableUpload:'',//是否显示上传
+
+       // 审核   所需要的参数
+      workflow:false,
+      isApprove:false,
+      options:{
+        taskId: null,
+        procDefId: null,  
+        nodeId: null,
+        procInstId: null
+      },
+      //驳回
+      isReject:false,
     }
   },
   computed: {
     applyAmount(){//申请总金额
       return Number(this.fixedReward)+Number(this.onceReward)
+    },
+    service_sms () {
+      return this.$store.state.setting.service_sms
     }
   },
   created () {
-    this.httpurl=window.location.host; //上线
-    //this.httpurl='https://dev81.yonyougov.top/sifc-sms/'//测试
-      
+    // 工作流所需要的code 上线要干掉
+    var _url=this.service_sms+'/api/adjustFund/getUserCode';
+    ajaxData("get",_url,Data, (res) => {
+      console.log(res)
+      sessionStorage.setItem('code', res.data);
+    });
+
+    this.httpurl=localStorage.getItem("IP"); //上线
+    this.action=localStorage.getItem("IP")+this.service_sms+'/api/storage/upload?serviceType=SMS_ADJUST';
+    
+     // 上线记得干掉获取token的请求 测试使用上传功能
+    var paramstoken={
+      username:'88888888',
+      password:'qqq123',
+      grant_type:'password'
+    }
+    var _urltoken=this.httpurl+'auth/oauth/token?';
+    this.$axios.post(_urltoken,paramstoken ,{
+      transformRequest: [
+          function(paramstoken) {
+              let ret = '';
+              for (let it in paramstoken) {
+                  ret += encodeURIComponent(it) + '=' + encodeURIComponent(paramstoken[it]) + '&';
+              }
+              return ret;
+          }
+      ],
+      headers: {
+        "Authorization": 'Basic bXlpZDpteXNlY3JldA=='
+      }
+    }).then((res) => {
+        localStorage.setItem("uptoken",res.data.access_token)
+     })
+    
+    
+    
     //制单新增时操作
     var data=this.$route.query//通过数据来判断跳转过来的是从方案跳，还是从制单页面跳
-    
+      console.log(JSON.parse(data.data))
+      let _DATA=JSON.parse(data.data)
+      // 审批 驳回所需数据
+      this.options.taskId=_DATA.taskId
+      this.options.procDefId=_DATA.procDefId  
+      this.options.nodeId=_DATA.nodeId
+      this.options.procInstId=_DATA.procInstId
+      this.workflow=true;
     //查看
       this.planId=data.planId;
       this.seeId=data.id;
@@ -338,7 +413,7 @@ export default {
      
 
     var Data='';
-    var _url='sifc-sms/api/adjustFund/getHeadData/'+this.planId;
+    var _url=this.service_sms+'/api/adjustFund/getHeadData/'+this.planId;
     ajaxData("get",_url,Data, (res) => {
       console.log(res)
         this.yeardata=res.data.years;//年获取值
@@ -350,6 +425,41 @@ export default {
   },
   
   methods: {
+      reject() {
+      this.isReject=true;
+      },
+      approve() {
+        console.log('审批')
+        this.isApprove=true;
+      },
+      approveonCancel(){this.isApprove = false},
+      approveonComplete(ret){
+        console.log("onComplete", ret);
+        if (ret.error) {
+          let message = {
+            message: "错误",
+            description: ret.message
+          };
+          Vue.$notification.open(message);
+          return;
+        }
+        this.isApprove = false;
+        this.$router.push("/expensesPlanMgt/expensesPlanMgtApprove");
+      },
+      rejectonCancel(){this.isReject = false},
+      rejectonComplete(ret){
+        console.log("workflow-reject complete", ret);
+        if (ret.error) {
+          let message = {
+            message: "错误",
+            description: ret.message
+          };
+          Vue.$notification.open(message);
+          return;
+        }
+        this.isReject = false;
+        this.$router.push("/expensesPlanMgt/expensesPlanMgtApprove");
+      },
       doPrint(){
         var printBox = document.getElementById('printBox');
         //拿到打印的区域的html内容
@@ -372,7 +482,7 @@ export default {
 
     requestmodify(order){//查看请求数据
       var Data='';
-      var _url='sifc-sms/api/fundUsage/'+order+'?fetchProperties=*,fundUsageItems[*],organization[id,name]';
+      var _url=this.service_sms+'/api/fundUsage/'+order+'?fetchProperties=*,fundUsageItems[*],organization[id,name]';
       ajaxData("get",_url,Data, (res) => {
 
         console.log(res)
@@ -452,9 +562,9 @@ export default {
     font-weight: 600;
   }
   .adjustFundItemswrap {
-    border-top: 1px solid #000;
-    border-right: 1px solid #000;
-    border-bottom: 1px solid #000;
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
     position: relative;
     .line {
         position: absolute;
@@ -468,9 +578,9 @@ export default {
 
   }
   .dataItemstyle {
-    border-left:1px solid #000;
-    border-bottom:1px solid #000;
-    background: #c0e2f3;
+    border-left:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+    background: #efefef;
     padding: 4px;
     height: 46px;
     display: flex;
@@ -478,8 +588,8 @@ export default {
     justify-content: center;    /* 水平居中 */
   }
   .dataValuestyle {
-    border-left:1px solid #000;
-    border-bottom:1px solid #000;
+    border-left:1px solid #ddd;
+    border-bottom:1px solid #ddd;
     padding: 4px;
     height: 46px;
     display: flex;

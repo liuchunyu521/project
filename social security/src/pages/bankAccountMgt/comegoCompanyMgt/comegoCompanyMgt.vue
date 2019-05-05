@@ -29,7 +29,7 @@
         </div> -->
       </div>
       <!-- table area -->
-      <a-table bordered :loading='loading'  :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"  :columns="columns" :dataSource="tabledata" :pagination="false" :scroll="{ x: 1800 }">
+      <a-table bordered :loading='loading'  :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"  :columns="columns" :dataSource="tabledata" :pagination="false" :scroll="{ x: 1300 }">
        
         <template slot="orgType" slot-scope="text, record">
          <span v-if="record.orgType">{{record.orgType.asValue}}</span>
@@ -47,7 +47,7 @@
       <div style="margin-top:8px">
           <div style="float:left">
             <a-button @click="ondelete">删除</a-button>
-            <a-button>导出excel</a-button>
+            <a-button @click="onExpore()">导出excel</a-button>
           </div>
           <div style="float:right">
             <a-pagination 
@@ -129,11 +129,13 @@ export default {
     }
   },
   computed: {
-    
+    service_sms () {
+      return this.$store.state.setting.service_sms
+    }
   },
   mounted () {
     // 获取当前用户单位信息
-    var _url='sifc-sms/api/region/getByuser';
+    var _url=this.service_sms+'/api/region/getByuser';
     ajaxData("get",_url,'', (res) => {
         if(res.data.organization){
           this.orgname=res.data.organization.code+' '+res.data.organization.name;
@@ -141,12 +143,12 @@ export default {
         }
         this.request(this.current-1,this.pageSize);
     });
-    var l_url='sifc-sms/api/organization';
+    var l_url=this.service_sms+'/api/organization';
     ajaxData("get",l_url,'', (res) => {
           this.options=res.data;
     });
     // 单位类型
-    var b_url='sifc-sms/api/AsVal?fetchProperties=*,asVals[*]&valType=3';
+    var b_url=this.service_sms+'/api/AsVal?fetchProperties=*,asVals[*]&valType=3';
     ajaxData("get",b_url,'', (res) => {
           this.orgTypeData=res.data;
     });
@@ -165,6 +167,9 @@ export default {
     onesc(){
       this.dialogvisible=false;
     },
+    onExpore(){
+      this.$message.warning('建华后期实现该功能')
+    },
     refreshrequest(){//弹框返回刷新列表操作
       // 新增网点或编辑回调刷新列表
       this.request(this.current-1,this.pageSize)
@@ -172,7 +177,7 @@ export default {
     request(p,s){//列表数据请求
       this.loading=true;
      
-      var _url='sifc-sms/api/ContanctOrg?fetchProperties=orgType[*],*,organization[code,name,id],regoin[*]'
+      var _url=this.service_sms+'/api/ContanctOrg?fetchProperties=orgType[*],*,organization[code,name,id],regoin[*]'
       var Data={
         // organization:this.organization,//建华说后期加上2019/04/02
         regoin:this.regoin
@@ -216,7 +221,7 @@ export default {
       console.log(this.selectedRowKeys)
       var _data=this.deletedata;
       console.log(_data)
-      var _url='sifc-sms/api/contanctorg/batchRemove?ids='+_data;
+      var _url=this.service_sms+'/api/contanctorg/batchRemove?ids='+_data;
       ajaxData("get",_url,"", (res) => {
          console.log(res)
          this.request(this.current-1,this.pageSize);

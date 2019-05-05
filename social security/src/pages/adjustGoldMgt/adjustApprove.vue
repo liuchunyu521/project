@@ -114,8 +114,8 @@
       <div style="height:40px;">
         <div style="float:left;margin:8px 0 0 16px;">
           <a-button type="primary" @click="check">查询</a-button>
-          <a-button type="primary" v-if="auditState==0" >审批通过</a-button>
-          <a-button type="primary" v-if="auditState==0" >审批驳回</a-button>
+          <!-- <a-button type="primary" v-if="auditState==0" >审批通过</a-button>
+          <a-button type="primary" v-if="auditState==0" >审批驳回</a-button> -->
         </div>
       </div>
       <!-- table area -->
@@ -154,6 +154,7 @@
           </div>
       </div>
     </div>
+    
   </div>
 </template>
 
@@ -164,6 +165,7 @@ import filters from '../components/mixins/filters.js';
 import moment from 'moment';
 import 'moment/locale/zh-cn';
 moment.locale('zh-cn');
+
 // table 数据
 const columns = [{
   title: '调剂金单号',
@@ -258,16 +260,18 @@ export default {
       yeardata:'',
       auditState:0,//页签切换状态
       paramsdata:{},//传参数
-      deletedata:[]//审核数据
+      deletedata:[],//审核数据
     }
   },
   computed: {
-    
+    service_sms () {
+      return this.$store.state.setting.service_sms
+    }
   },
   mounted () {
       // 获取年度
       var Data='';
-      var _url='sifc-sms/api/adjustFund/getYears';
+      var _url=this.service_sms+'/api/adjustFund/getYears';
       ajaxData("get",_url,Data, (res) => {
          this.yeardata=res.data.years;
       });
@@ -286,7 +290,8 @@ export default {
     }
   },
   methods: {
-     moment,
+    moment,
+    
     onSelectChange (selectedRowKeys,value) {//table 选择行
       console.log('selectedRowKeys changed: ', selectedRowKeys,value);
       this.selectedRowKeys = selectedRowKeys;
@@ -307,6 +312,7 @@ export default {
       this.$router.push({//你需要接受路由的参数再跳转
           path: "/adjustGoldMgt/adjustApproveDetails",
             query: { 
+                data:JSON.stringify(item),
                 id: item.id,
                 flag:1,
                 planId:item.planId,
@@ -337,20 +343,20 @@ export default {
       this.request(this.current-1,this.pageSize);
     },
     request(p,s){
-          var _url;
+          var _url=this.service_sms+'/api/adjustFund/findAudit';
           var Data=this.paramsdata;
           if(Data.createDate){
-             Data.createDate= [Data.createDate[0].format('YYYY-MM-DD') , Data.createDate[1].format('YYYY-MM-DD')]
-             _url='sifc-sms/api/adjustFund?fetchProperties=*,organization[id,name]&createDate >'+Data.createDate[0]+'&createDate <'+Data.createDate[1];
+
+            Data.createDate= [Data.createDate[0].format('YYYY-MM-DD') , Data.createDate[1].format('YYYY-MM-DD')]
+            Data.startDate=Data.createDate[0];
+            Data.endDate=Data.createDate[1];
             delete Data.createDate;
-          }else {
-            _url='sifc-sms/api/adjustFund?fetchProperties=*,organization[id,name]';
           }
-          Data.auditState=this.auditState;
+          Data.tabFlag=this.auditState;
           Data.page=p;
           Data.size=s;
           Data=this.deleteEmptyProperty(Data)
-      ajaxData("get",_url,Data, (res) => {
+      ajaxData("post",_url,Data, (res) => {
           console.log(res);
           this.total=Number(res.headers['x-page-totalelements'])
           this.selectedRowKeys=[];

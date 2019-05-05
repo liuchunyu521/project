@@ -20,10 +20,11 @@
                 label="单位代码"
               >
                 <a-input
-                  v-decorator="['userName1',
+                  disabled
+                  v-decorator="['formData.organization',
                   {
                     rules: [{ required:false}],
-                    initialValue: ''
+                    initialValue: formData.organization
                   }]"
                   
                 >
@@ -37,7 +38,11 @@
                 label="单位名称"
               >
                 <a-input
-                  v-decorator="['userName2']"
+                  disabled
+                  v-decorator="[
+                  'organizationName',
+                    {initialValue:organizationName}
+                  ]"
                 >
                 </a-input>
               </a-form-item>
@@ -48,22 +53,15 @@
                 :wrapper-col="wrapperCol"
                 label="行政区划"
               >
-                <a-select
-                  v-decorator="[
-                    'bankNode.regoinId',
-                    {
-                      rules:[{required:false}],
-                      initialValue:updaterequest =='' ? initformData.bankNode.regoinId : formData.bankNode.regoinId
-                    }
-                  ]"
-                >
-                  <a-select-option value="1000">
-                    China1
-                  </a-select-option>
-                  <a-select-option value="usa">
-                    U.S.A1
-                  </a-select-option>
-                </a-select>
+              <a-cascader
+                v-decorator="[
+                  'formData.region',
+                  {rules: [{ required: true, message: '请输入行政区划' }],
+                  initialValue:formData.region
+                  }
+                ]"
+               :options="options" @change="onChange" changeOnSelect />
+               
               </a-form-item>
             </a-col>
             <a-col :lg="8" :md="12" :sm="24">
@@ -72,20 +70,16 @@
                 :wrapper-col="wrapperCol"
                 label="开户银行 "
               >
-                <a-select
+                 <a-select
+                  @change="bankInfohandleChange"
                   v-decorator="[
-                    'bankName',
-                    {rules: [{ required: true, message: '请输入开户银行' }],
-                    initialValue: updaterequest =='' ? initformData.bankName : formData.bankName
+                    'formData.bankInfo',
+                    {rules: [{ required: true, message: '请输入银行' }],
+                    initialValue: formData.bankInfo
                     }
                   ]"
                 >
-                  <a-select-option value="china">
-                    China
-                  </a-select-option>
-                  <a-select-option value="usa">
-                    U.S.A
-                  </a-select-option>
+                <a-select-option :key="item.id" :value="item.id+'-'+item.lastModifiedVersion" v-for="item in bankNameData">{{item.bankName}}</a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>  
@@ -96,9 +90,9 @@
                 label="账号名称"
               >
                 <a-input
-                  v-decorator="['accountName',
+                  v-decorator="['formData.accountName',
                     {rules: [{ required: false }],
-                    initialValue: updaterequest =='' ? initformData.accountName : formData.accountName}
+                    initialValue: formData.accountName}
                   ]"
                 >
                 </a-input>
@@ -111,8 +105,13 @@
                 label="银行账号"
               >
                 <a-input
-                  v-decorator="['bankAccount',{rules: [{ required: true, message: '请输入银行账号' }],
-                    initialValue: updaterequest =='' ? initformData.bankAccount : formData.bankAccount
+                  v-decorator="[
+                    'formData.bankAccount',
+                    {rules: [
+                      { pattern:/([\d]{4})([\d]{4})([\d]{4})([\d]{4})([\d]{0,})?/, message: '请输入正确银行账号' },
+                      { required: true, message: '请输入银行账号' }
+                      ],
+                    initialValue:formData.bankAccount
                   }]"
                 >
                 </a-input>
@@ -126,17 +125,13 @@
               >
                 <a-select
                   v-decorator="[
-                    'accountType',
-                    {rules: [{ required: true, message: '请输入账户类型' }], 
-                    initialValue: updaterequest =='' ? initformData.accountType : formData.accountType}
+                    'formData.accountType',
+                    {rules: [{ required: false }],
+                    initialValue: formData.accountType
+                    }
                   ]"
                 >
-                  <a-select-option value="china">
-                    China
-                  </a-select-option>
-                  <a-select-option value="usa">
-                    U.S.A
-                  </a-select-option>
+                  <a-select-option :key="item.id" :value="item.id+'-'+item.lastModifiedVersion" v-for="item in accountTypeData">{{item.asValue}}</a-select-option>
                 </a-select>
               </a-form-item>
             </a-col> 
@@ -148,15 +143,15 @@
               >
                
                 <a-radio-group buttonStyle="solid"
-                  v-decorator="['state',
+                  v-decorator="['formData.state',
                     {
                       rules: [{ required: false }],
-                      initialValue: updaterequest =='' ? initformData.state : formData.state
+                      initialValue:formData.state
                     }
                   ]"
                 >
-                  <a-radio-button :value="0">启用</a-radio-button>
-                  <a-radio-button :value="1">停用</a-radio-button>
+                  <a-radio-button :value="1">启用</a-radio-button>
+                  <a-radio-button :value="0">停用</a-radio-button>
                   <a-radio-button :value="2">待处理</a-radio-button>
                 </a-radio-group>
               </a-form-item>
@@ -169,15 +164,15 @@
               >
                 <a-radio-group  buttonStyle="solid"
                   v-decorator="[
-                    'isSubAccount',
+                    'formData.isSubAccount',
                     {
                       rules: [{ required: false }],
-                      initialValue: updaterequest =='' ? initformData.isSubAccount : formData.isSubAccount
+                      initialValue: formData.isSubAccount
                     }
                   ]"
                 >
-                  <a-radio-button :value="0">是</a-radio-button>
-                  <a-radio-button :value="1">否</a-radio-button>
+                  <a-radio-button :value="1">是</a-radio-button>
+                  <a-radio-button :value="0">否</a-radio-button>
                 </a-radio-group>
               </a-form-item>
             </a-col> 
@@ -189,9 +184,9 @@
               >
                 <a-date-picker
                   placeholder="选择开户日期"
-                   v-decorator="['enableDate', {
+                   v-decorator="['formData.enableDate', {
                       rules: [{ required: false }],
-                      initialValue: updaterequest =='' ? null : moment(formData.enableDate, dateFormat)
+                      initialValue:formData.enableDate==null? formData.enableDate : moment(formData.enableDate, dateFormat) 
                     }]" :format="dateFormat"/>
               </a-form-item>
             </a-col> 
@@ -203,16 +198,16 @@
               >
                 <a-date-picker
                   placeholder="选择停用日期"
-                 v-decorator="['disableDate', {
+                 v-decorator="['formData.disableDate', {
                       rules: [{ required: false }],
-                      initialValue:updaterequest =='' ? null : moment(formData.disableDate, dateFormat)
+                      initialValue:formData.disableDate==null? formData.disableDate : moment(formData.disableDate, dateFormat) 
                     }]" :format="dateFormat"/>
               </a-form-item>
             </a-col> 
           </a-row>
         </div>
       </div>
-
+    <!-- 网点区域 -->
       <div class="L_list" style="margin-top:8px">
         <div class="title">银行网点</div>
         <div class="content">
@@ -227,9 +222,9 @@
                    @search="bankNodeCodeFuc"
                    disabled
                   v-decorator="[
-                  'bankNode.bankNodeCode',
+                  'formData.bankNode',
                   {rules: [{ required: true, message: '请输入网点代码' }],
-                  initialValue: updaterequest =='' ? initformData.bankNode.bankNodeCode : formData.bankNode.bankNodeCode
+                  initialValue: bankNodeData.bankNodeSeq
                   }]"
                 >
                  <a-button slot="enterButton" >...</a-button>
@@ -244,9 +239,9 @@
               >
                 <a-input
                   disabled
-                  v-decorator="['bankNode.bankNodeName',
+                  v-decorator="['bankNodeData.bankNodeName',
                   {rules: [{ required: false, message: '请输入账户类型' }],
-                  initialValue: updaterequest =='' ? initformData.bankNode.bankNodeName : formData.bankNode.bankNodeName
+                  initialValue: bankNodeData.bankNodeName
                   }]"
                 >
                 </a-input>
@@ -260,9 +255,9 @@
               >
                 <a-input
                   disabled
-                  v-decorator="['bankNode.bankNodeAddress',
+                  v-decorator="['bankNodeData.bankNodeAddress',
                   {rules: [{ required: false, message: '请输入账户类型' }],
-                  initialValue: updaterequest =='' ? initformData.bankNode.bankNodeAddress : formData.bankNode.bankNodeAddress
+                  initialValue:bankNodeData.bankNodeAddress
                   }]"
                 >
                 </a-input>
@@ -276,7 +271,9 @@
               >
                 <a-input
                   disabled
-                  v-decorator="['userName15']"
+                  v-decorator="['bankNodeData.bankNodeSeq',{
+                  initialValue:bankNodeData.bankNodeSeq
+                  }]"
                 >
                 </a-input>
               </a-form-item>
@@ -289,7 +286,9 @@
               >
                 <a-input
                   disabled
-                  v-decorator="['userName16']"
+                  v-decorator="['bankNodeData.province',{
+                  initialValue:bankNodeData.province
+                  }]"
                 >
                 </a-input>
               </a-form-item>
@@ -302,7 +301,9 @@
               >
                 <a-input
                   disabled
-                  v-decorator="['userName17']"
+                  v-decorator="['bankNodeData.city',{
+                  initialValue:bankNodeData.city
+                  }]"
                 >
                 </a-input>
               </a-form-item>
@@ -310,35 +311,38 @@
           </a-row>
         </div>
       </div>
-      <add-details></add-details>
+      <add-details ref="adddetails" v-if="adddetailsvisible" :subAccountListdata='subAccountListdata'></add-details>
 
      </a-form>
      <footer-tool-bar>
-      <a-button type="primary" >流水记录</a-button>
-      <a-button type="primary" >更新余额</a-button>
+      <a-button type="primary" @click="Flowingwater()">流水记录</a-button>
+      <a-button type="primary" @click="updatarequestbalance()">更新余额</a-button>
       <a-button type="primary" @click="check">保存</a-button>
-      <a-button type="primary" >打印</a-button>
+      <!-- <a-button type="primary" >打印</a-button> -->
     </footer-tool-bar>
-    <dotCodealert ref="dotCodealertshow"></dotCodealert>
+    <dotCodealert :dotCodealertvisible="dotCodealertvisible" :bankNodeListData='bankNodeListData' @onEsc="onEsc" v-if="dotCodealertvisible==true"></dotCodealert>
+    <streamRecordalert :streamRecordalert="streamRecordalert"  @onEscstream="onEscstream" v-if="streamRecordalert==true"></streamRecordalert>
   </div>
 </template>
 
 <script>
 import addDetails from './components/addCpt/adddetails';
 import dotCodealert from './components/addCpt/dotCodealert';
+import streamRecordalert from './components/addCpt/streamRecordalert';
 import FooterToolBar from '../../../components/tool/FooterToolBar';
 import deleteEmptyProperty from '../../components/mixins/json.js';
 import { ajaxData } from '../../components/mixins/ajaxdata.js';
 import moment from 'moment';
-
+import 'moment/locale/zh-cn';
+moment.locale('zh-cn');
 export default {
   name: 'unitaccountadd',
-  components: { addDetails,FooterToolBar,dotCodealert },
+  components: { addDetails,FooterToolBar,dotCodealert ,streamRecordalert},
   mixins:[deleteEmptyProperty], 
-  props:["updaterequest"],
+  props:["updaterequest",'unitdata','accountTypeData','options','bankNameData'],
   data() {
     return {
-      dateFormat: 'YYYY/MM/DD',//日期类型
+      dateFormat: 'YYYY-MM-DD',//日期类型
       labelCol: {
         xs: { span: 24 },
         sm: { span: 8 },
@@ -348,146 +352,182 @@ export default {
         sm: { span: 16 },
       },
       form: this.$form.createForm(this),
+      options:this.options,//行政区划数据参数
+      bankNameData:this.bankNameData,//银行数据参数
+      accountTypeData:this.accountTypeData,//账户类型数据参数
       // 表单字段
-      initformData:{
-        id: '',
-        regoin: {
-          code: "",
-          name: "",
-          enabled: true,
-          faspCode: "",
-          isTopLevel: '',
-          levelNum:'' ,
-          leafNode: false
-        },
-        bankNode: {
-          regoinId: '',
-          bankNodeName: "",
-          bankNodeCode: '',
-          bankNodeAddress: "",
-          bankNodeSeq: '',
-          contacts: "",
-          state: 1,
-        },
-        bankInfo: {
-         
-          bankCode: '',
-          bankName: "",
-          remarks: "",
-          icon: "",
-          state: 1,
-        },
-        accountName: "",
-        bankAccount: "",
-        accountType: 1,
-        isSubAccount: 1,
-        enableDate: "",
-        disableDate: "",
-        state: 0,
-      },
+      
       // 表单字段
       formData:{
-        id: 10,
-        createBy: 5000,
-        createDate: "2019-03-06T01:30:53.665+0000",
-        lastModifiedBy: 5000,
-        lastModifiedDate: "2019-03-06T01:30:53.665+0000",
-        lastModifiedVersion: 0,
-        regoin: {
-          id: 3,
-          createBy: null,
-          createDate: null,
-          lastModifiedBy: 1,
-          lastModifiedDate: "2018-11-27T07:11:05.865+0000",
-          lastModifiedVersion: 3,
-          code: "360102000",
-          name: "南昌市东湖区",
-          enabled: true,
-          faspCode: "360102",
-          isTopLevel: false,
-          levelNum: null,
-          leafNode: false
-        },
-        bankNode: {
-          id: 1,
-          createBy: 5000,
-          createDate: "2019-03-05T02:00:54.849+0000",
-          lastModifiedBy: 5000,
-          lastModifiedDate: "2019-03-05T02:00:54.849+0000",
-          lastModifiedVersion: 0,
-          regoinId: 1000,
-          bankNodeName: "华夏银行2222育知路支行",
-          bankNodeCode: 102221,
-          bankNodeAddress: "育知路138号",
-          bankNodeSeq: 22,
-          contacts: "张三",
-          state: 1,
-          resField1: null,
-          resField2: null
-        },
-        bankInfo: {
-          id: 1,
-          createBy: 5000,
-          createDate: "2019-03-05T01:59:17.314+0000",
-          lastModifiedBy: 5000,
-          lastModifiedDate: "2019-03-05T01:59:17.314+0000",
-          lastModifiedVersion: 0,
-          bankCode: 101,
-          bankName: "华夏银行",
-          remarks: "测试数据",
-          icon: "asd/sas/csasd",
-          state: 1,
-          resField1: null,
-          resField2: null
-        },
-        accountName: "测试数据",
-        bankAccount: 622217789331,
-        accountType: 1,
-        isSubAccount: 1,
-        enableDate: "2019-02-22",
-        disableDate: "2012-02-22",
-        state: 1,
-        resField1: null,
-        resField2: null
-      }
+        organization:null,//单位代码，单位名称 只传id 就行
+        regoin: null,//ID+版本
+        bankNode: null,//网点传id
+        bankInfo: null,//id+版本
+        accountName: null,//账户名称
+        bankAccount:null,//银行账号
+        accountType: null,//账户类型 id+版本
+        isSubAccount: 1,//是否存在子级账号
+        enableDate: null,//开户日期
+        disableDate: null,//停用日期
+        state: 1,//账户状态
+      },
+      organizationName:'',//单位名称
+      dotCodealertvisible:false,//是否显示网点弹框
+      streamRecordalert:false,//是否显示流水弹框
+      bankNodeData:'',//网点展示数据
+      bankNodeListData:'',//网点列表数据
+      subAccountListdata:'',//修改时候子账户数据;
+      adddetailsvisible:false,//详细显示隐藏
+      modifyoldData:'',//修改前的老数据
+      updaterequestvisible:false,//判断是否是修改；
+    }
+  },
+  computed:{
+    service_sms () {
+      return this.$store.state.setting.service_sms
     }
   },
   mounted(){
+
     console.log(this.updaterequest)
-    if(this.updaterequest==""){
-      // 新增
+    console.log(this.unitdata)
+    if(this.updaterequest){//修改数据处理；
+      this.updaterequestvisible=true;
+      let _Data=this.updaterequest;
+      let _Datalist=this.updaterequest.subAccountLists;
+
+      this.formData.organization=JSON.parse(JSON.stringify(_Data.organization.id));//单位代码赋值；
+      this.organizationName=_Data.organization.name;//单位名称赋值；
+      // 网点赋值
+      this.formData.bankNode=_Data.bankNode.id;
+      this.bankNodeData=_Data.bankNode;
+
+      //数据处理
+      if(_Data.bankNode){
+         _Data.bankNode=_Data.bankNode.id+'-'+_Data.bankNode.lastModifiedVersion;
+      }
+      if(_Data.bankInfo){
+         _Data.bankInfo=_Data.bankInfo.id+'-'+_Data.bankInfo.lastModifiedVersion;
+      }
+      if(_Data.accountType){
+         _Data.accountType=_Data.accountType.id+'-'+_Data.accountType.lastModifiedVersion;
+      }
+      if(_Data.createDate){
+         _Data.createDate=this.date(_Data.createDate)
+      }
+      if(_Data.disableDate){
+         _Data.disableDate=this.date(_Data.disableDate)
+      }
+      if(_Data.organization){
+         _Data.organization=_Data.organization.id;
+      }
+      
+      for(let i=0;i<_Datalist.length;i++){
+        if(_Datalist[i].insType){
+          _Datalist[i].insType=_Datalist[i].insType.id+'-'+_Datalist[i].insType.lastModifiedVersion;
+        }
+      }
+      
+      this.bankInfohandleChange(_Data.bankInfo);
+      this.formData=_Data;
+      this.modifyoldData=_Data;
+      this.subAccountListdata=_Datalist;
+      this.adddetailsvisible=true;
     }else {
-      //取ID 发送请求
-      this.request();
+      debugger
+      this.formData.organization=this.unitdata.id;//单位代码赋值；
+      this.organizationName=this.unitdata.label;//单位名称赋值；
+      this.adddetailsvisible=true;
     }
   },
   methods: {
     moment,
-    bankNodeCodeFuc(res){
-      console.log(res)
-      this.$refs.dotCodealertshow.showModal()
-      // this.initformData.bankNode.bankNodeCode="777"
-      // console.log(this.initformData.bankNode.bankNodeCode)
+    Flowingwater(){//流水记录
+    console.log('liushui')
+      this.streamRecordalert=true;
     },
-    request(){
-      var params= {
-            id:this.updaterequest
-          }
-      var data=this.deleteEmptyProperty(params)
-      var _url='api/unitAccount?fetchProperties=*,regoin[*],bankInfo[*],bankNode[*],subAccountLists[*]';
-      ajaxData("get",_url,params, (res) => {
-        console.log('新增'+res.data);
-         
+    onEscstream(){
+      this.streamRecordalert=false;
+    },
+    updatarequestbalance(){//更新余额
+      this.$refs.adddetails.updatarequestbalance();
+    },
+    bankNodeCodeFuc(res){//显示网点信息
+      if(this.bankNodeListData){
+        this.dotCodealertvisible=true;
+      }else {
+        this.$message.warning('请选择开户银行');
+      }
+      
+    },
+    onEsc(res){
+      if(res){//网点数据赋值
+        this.bankNodeData=res;
+        
+      }
+      this.dotCodealertvisible=false;
+    },
+    bankInfohandleChange(val){//通过银行获取网点
+      console.log(val)
+      var id=val.split("-")[0];
+      var e_url=this.service_sms+'/api/bankNode?bankInfo.id='+id;
+      ajaxData("get",e_url,'', (res) => {
+          this.bankNodeListData=res.data;
       });
     },
+   
      check  (e) {
         e.preventDefault();
         this.form.validateFieldsAndScroll((err, values) => {
           if (!err) {
-            values.disableDate=values['disableDate'].format('YYYY-MM-DD'),
-            values.enableDate=values['enableDate'].format('YYYY-MM-DD'),
+             // 处理数据
+            if(values.formData.disableDate){
+              values.formData.disableDate=values.formData['disableDate'].format('YYYY-MM-DD')
+            }
+            if(values.formData.enableDate){
+              values.formData.enableDate=values.formData['enableDate'].format('YYYY-MM-DD')
+            }
+            if(values.formData.region){
+              values.formData.region=values.formData.region[0]
+            }
+            if(values.formData.accountType){
+              var array=values.formData.accountType.split("-");
+              values.formData.accountType={
+                  "id":array[0],
+                  "lastModifiedVersion":array[1]
+              }
+            }
+            if(values.formData.bankInfo){
+              var array=values.formData.bankInfo.split("-");
+              values.formData.bankInfo={
+                  "id":array[0],
+                  "lastModifiedVersion":array[1]
+              }
+            }
+            if(values.formData.bankNode){
+              values.formData.bankNode={
+                id:this.bankNodeData.id,
+                lastModifiedVersion:this.bankNodeData.lastModifiedVersion
+              };
+            }
             console.log('Received values of form: ', values);
-            // 处理数据
+            var Data=values.formData;
+            var calbackdata=this.$refs.adddetails.handle();
+            Data.subAccountLists=calbackdata;
+            console.log(Data)
+
+            if(this.updaterequestvisible==true){
+               Data.id=this.modifyoldData.id;
+               Data.lastModifiedVersion=this.modifyoldData.lastModifiedVersion;
+            }
+          //  新增保存
+            var l_url=this.service_sms+'/api/unitAccount';
+            ajaxData("post",l_url,Data, (res) => {
+              console.log(res)
+               this.$message.success('保存成功');
+              // 提交 保存成功跳回列表页
+              this.$emit('addisShow');
+            });
 
           }
         });
@@ -500,7 +540,35 @@ export default {
         }
       });
     },
-    
+    date(time){
+        let oldDate = new Date(time)
+        let newDate = new Date()
+        var dayNum = "";
+        var getTime = (newDate.getTime() - oldDate.getTime())/1000;
+
+        if(getTime < 60*5){
+            dayNum = "刚刚";
+        }else if(getTime >= 60*5 && getTime < 60*60){
+            dayNum = parseInt(getTime / 60) + "分钟前";
+        }else if(getTime >= 3600 && getTime < 3600*24){
+            dayNum = parseInt(getTime / 3600) + "小时前";
+        }else if(getTime >= 3600 * 24 && getTime < 3600 * 24 * 30){
+            dayNum = parseInt(getTime / 3600 / 24 ) + "天前";
+        }else if(getTime >= 3600 * 24 * 30 && getTime < 3600 * 24 * 30 * 12){
+            dayNum = parseInt(getTime / 3600 / 24 / 30 ) + "个月前";  
+        }else if(time >= 3600 * 24 * 30 * 12){
+            dayNum = parseInt(getTime / 3600 / 24 / 30 / 12 ) + "年前";  
+        }
+
+        let year   = oldDate.getFullYear();
+        let month  = oldDate.getMonth()+1;
+        let day    = oldDate.getDate();
+        let hour   = oldDate.getHours(); 
+        let minute = oldDate.getMinutes(); 
+        let second = oldDate.getSeconds(); 
+        // return dayNum+" "+year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+        return year+"-"+month+"-"+day
+    }
   }
 }
 </script>

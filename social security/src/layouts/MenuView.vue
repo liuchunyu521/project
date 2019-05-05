@@ -1,9 +1,10 @@
 <template>
   <global-layout>
     <contextmenu :itemList="menuItemList" :visible.sync="menuVisible" @select="onMenuSelect" />
+    <!-- v-if="multipage" -->
     <a-tabs
       @contextmenu.native="e => onContextmenu(e)"
-      v-if="multipage"
+      v-if="isShowMenu"
       :active-key="activePage"
       style="margin-top: -8px;"
       :hide-add="true"
@@ -45,6 +46,9 @@ export default {
   computed: {
     multipage () {
       return this.$store.state.setting.multipage
+    },
+    isShowMenu () {
+      return this.$store.state.setting.isShowMenu
     }
   },
   created () {

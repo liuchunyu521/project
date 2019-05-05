@@ -27,8 +27,8 @@
                                 </div>
                             </a-col>
                             <a-col :span="17">
-                                <div style="margin-top:20px">{{item.planName}}</div>
-                                <div style="margin-top:10px">{{item.description}}</div>
+                                <div style="margin-top:20px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;" :title="item.planName">{{item.planName}}</div>
+                                <div style="margin-top:10px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;" :title="item.description">{{item.description}}</div>
                                 <div style="margin-top:10px">更新时间：{{item.lastModifiedDate | date}}</div>
                             </a-col>
                         </a-row>
@@ -45,8 +45,11 @@
                                 <span @click.stop="onSet(item)"><a href="javascript:;">设置</a></span>
                             </span>
                             <span class="rg">
-                                <a-icon type="delete" />
-                                <span @click.stop="onDelet(item)"><a href="javascript:;">删除</a></span>
+                                <a-popconfirm title="确定删除吗？删除后记得菜单也要删除掉" okText="是" cancelText="否" @confirm="confirm(item)">
+                                    <a-icon type="delete" />
+                                    <span ><a href="javascript:;">删除</a></span>
+                                </a-popconfirm>
+                                
                             </span>
 
                         </div>
@@ -60,7 +63,7 @@
     <!-- 分页区域 -->
     <template>
         <div v-if="isFlag==true" style="text-align:center">
-            <a-pagination  @change="onChange" :current="current" :total="total" />
+            <a-pagination  @change="onChange" :current="current"  :total="total" />
         </div>
     </template>
   </div>
@@ -72,14 +75,6 @@ import filter from '../../components/mixins/filters.js'
 import deleteEmptyProperty from '../../components/mixins/json.js';
 import { ajaxData } from '../../components/mixins/ajaxdata.js';
 
-// 静态数据
-// [{
-//     "id": 5,
-//     "lastModifiedDate": "2019-03-05T10:49:11.552+0000",
-//     "planName": "人社社保方案一",
-//     "description": "人社社保养老金方案一",
-//     "state": 1
-// }]
 export default {
   name: 'adjustGoldconfigMgt',
   components: {},
@@ -87,14 +82,16 @@ export default {
   data () {
     return {
         current: 1,//当前显示第几页
-        pageSize:10,
+        pageSize:12,
         total:0,
         dataSource:[],
         isFlag:false
     }
   },
   computed: {
-    
+    service_sms () {
+      return this.$store.state.setting.service_sms
+    }
   },
   watch:{
     pageSize(val) {
@@ -117,7 +114,7 @@ export default {
             size:s,
             businessType:"TJJ"
           }
-        var _url='sifc-sms/api/plan?fetchProperties=id,planName,description,state,lastModifiedVersion,lastModifiedDate,adjustFundPlanItems[*,dockingSys[*],dockingInterface[*],interfaceField[*]]';
+        var _url=this.service_sms+'/api/plan?fetchProperties=id,planName,description,state,lastModifiedVersion,lastModifiedDate,adjustFundPlanItems[*,dockingSys[*],dockingInterface[*],interfaceField[*]]&state<2&sort=createDate,desc';
         ajaxData("get",_url,params, (res) => {
             console.log(res);
             if(res.data.length==0){
@@ -127,16 +124,16 @@ export default {
                 this.dataSource=res.data;
                 this.isFlag=true;
                 var T=res.headers['x-page-totalelements']
-                this.total=Number(T)
+                this.total=Number(T)-2;
             }
             
         });
     },
     makebill(res){
-        this.$router.push({//你需要接受路由的参数再跳转
-            path: "/adjustGoldMgt/adjustMakeDetails",
-             query: { id: res.id }
-        });
+        // this.$router.push({//你需要接受路由的参数再跳转
+        //     path: "/adjustGoldMgt/adjustMakeDetails",
+        //      query: { id: res.id }
+        // });
     },
     onAdd(){
         //新增
@@ -155,12 +152,12 @@ export default {
             lastModifiedVersion:item.lastModifiedVersion,
             state:state
           }
-      var _url='sifc-sms/api/plan';
+      var _url=this.service_sms+'/api/plan';
       ajaxData("post",_url,params, (res) => {
         // 从新获取列表
         console.log(res)
         this.current=1;
-        this.pageSize=10;
+        this.pageSize=12;
         this.request(this.current-1,this.pageSize)
       });
     },
@@ -173,19 +170,22 @@ export default {
             query: { id: item.id }
         });
     },
+    confirm(item){
+        this.onDelet(item);
+    },
     onDelet(item){
         //删除操作
         console.log(item)
         
       var params= {}
-      var _url='sifc-sms/api/plan/delete/'+item.id;
+      var _url=this.service_sms+'/api/plan/delete/'+item.id;
       ajaxData("get",_url,params, (res) => {
         // 从新获取列表
         console.log(res)
         if(res.data.code==0){
             this.$message.success('删除成功');
             this.current=1;
-            this.pageSize=10;
+            this.pageSize=12;
             this.request(this.current-1,this.pageSize)
         }else {
             this.$message.error(res.data.msg);

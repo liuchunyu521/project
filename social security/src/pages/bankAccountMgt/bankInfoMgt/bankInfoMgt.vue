@@ -22,7 +22,7 @@
               @expand="onExpand"
               :expandedKeys="expandedKeys"
               @select="onSelect"
-              :defaultExpandAll="defaultExpandAll"
+              
               :autoExpandParent="autoExpandParent"
               :treeData="gData"
             >
@@ -185,13 +185,15 @@ export default {
     }
   },
   computed: {
-   
+   service_sms () {
+      return this.$store.state.setting.service_sms
+    }
   },
   created(){
     // 请求银行信息列表
     this.bankrequest();
     // 获取行政区划数据
-      var r_url='sifc-sms/api/organization';
+      var r_url=this.service_sms+'/api/organization';
       ajaxData("get",r_url,'', (res) => {
           this.organizationoptionsData=res.data;
       });
@@ -224,7 +226,7 @@ export default {
       }else {
         string=''
       }
-      var _url='sifc-sms/api/bankNode?fetchProperties=*,bankInfo[id,lastModifiedVersion]'+string;
+      var _url=this.service_sms+'/api/bankNode?fetchProperties=*,bankInfo[id,lastModifiedVersion]'+string;
       var Data={}
        
      
@@ -246,7 +248,7 @@ export default {
       this.request(this.current-1,this.pageSize)
     },
     bankrequest(){//银行列表数据请求
-      var _url='sifc-sms/api/bankInfo';
+      var _url=this.service_sms+'/api/bankInfo';
       ajaxData("get",_url,'', (res) => {
         console.log(res)
         this.bankNameData=res.data;
@@ -268,7 +270,7 @@ export default {
         this.$message.warning('请选择要删除的银行');
       }else {
         var id=this.selectedKeys[0];
-        var _url='sifc-sms/api/bankInfo/delete/'+id;
+        var _url=this.service_sms+'/api/bankInfo/delete/'+id;
         ajaxData("get",_url,'', (res) => {
           this.bankrequest();
           this.$message.success('删除银行成功');
@@ -295,7 +297,7 @@ export default {
         this.$message.warning('请选择要修改的银行');
       }else {
         var id=this.selectedKeys[0];
-        var _url='sifc-sms/api/bankInfo/'+id;
+        var _url=this.service_sms+'/api/bankInfo/'+id;
         ajaxData("get",_url,'', (res) => {
           console.log(res.data)
          this.$refs.bankInfoMgtadd.showModal(false,res.data);
@@ -315,7 +317,7 @@ export default {
     ondelete(){//删除网点
       var _data=this.deletedata;
       console.log(_data)
-      var _url='sifc-sms/api/bankNode/batchRemove?ids='+_data;
+      var _url=this.service_sms+'/api/bankNode/batchRemove?ids='+_data;
       ajaxData("get",_url,"", (res) => {
          console.log(res)
          this.request(this.current-1,this.pageSize);
@@ -337,6 +339,7 @@ export default {
      
     },
     onChange (e) {
+      
       const value = e.target.value
       const expandedKeys = dataList.map(function(item){
         if (item.title.indexOf(value) > -1) {

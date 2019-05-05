@@ -13,9 +13,9 @@
     <div style="height:40px">
       <div style="float:left">
         <a-button v-if="makebillid!=''" type="primary">
-          <a :href="httpurl+'sifc-sms/api/adjustFund/exportExcel?adjustFundId='+makebillid" download="ddd">导出</a>
+          <a :href="httpurl+service_sms+'/api/fundUsage/exportExcel?fundUsageId='+makebillid" download="ddd">导出</a>
         </a-button>
-        <a-button type="primary" @click="doPrint()">打印</a-button>
+        <a-button type="primary" v-if="flag !=1" @click="doPrint()">打印</a-button>
         <a-button type="primary" v-if="seeState !=1" @click="onSubmit()">提交</a-button>
         <a-button type="primary" v-if="flag !=1" @click="onSave()">保存</a-button>
         <!-- <a-button type="primary">关闭</a-button> -->
@@ -33,31 +33,34 @@
               </a-select-option>
             </a-select>
             <span>年</span>
-            <a-select :allowClear="true" :disabled='disabled' v-model="month" style="width: 120px" @change="handleChangemonth">
-              <a-select-option :value="item.value" :key="index" v-for="(item,index) in monthdata">{{item.key}}</a-select-option>
-            </a-select>
-            <span>月</span>
+            <span v-if="quarterOrMonth==1">
+              <a-select :allowClear="true" :disabled='disabled' v-model="month" style="width: 120px" @change="handleChangemonth">
+                <a-select-option :value="item.value" :key="index" v-for="(item,index) in monthdata">{{item.key}}</a-select-option>
+              </a-select>
+              <span>月</span>
+            </span>
+            <span v-else>
+              <a-select :allowClear="true" :disabled='disabled' v-model="quarter" style="width: 120px" @change="handleChangequarter">
+                <a-select-option :value="item.value" :key="index" v-for="(item,index) in quarterdata">{{item.key}}</a-select-option>
+              </a-select>
+            </span>
+              <span>季度</span>
 
-            <a-select :allowClear="true" :disabled='disabled' v-model="quarter" style="width: 120px" @change="handleChangequarter">
-               <a-select-option :value="item.value" :key="index" v-for="(item,index) in quarterdata">{{item.key}}</a-select-option>
-                    
-            </a-select>
-            <span>季度</span>
-
-            <a-select v-model="riskCode" :disabled='disabled' style="width: 120px" @change="handleChangecold">
-              <a-select-option :value="item.asCode" :key="index" v-for="(item,index) in risks">{{item.asValue}}</a-select-option>
-              
-            </a-select>
+              <a-select v-model="riskCode" :disabled='disabled' style="width: 120px" @change="handleChangecold">
+                <a-select-option :value="item.asCode" :key="index" v-for="(item,index) in risks">{{item.asValue}}</a-select-option>
+                
+              </a-select>
+            
             <span>用款计划审批表</span>
 
           </a-col>
           <a-col :span="4">
-            <a-button :disabled='disabled' @click="oncheck()">查询</a-button>
+            <a-button :disabled='disabled' v-if="flag !=1" @click="oncheck()">查询</a-button>
           </a-col>
         </a-row>
         <div style="margin-top:18px;margin-bottom:8px">
           <a-row >
-            <a-col :span="8">调剂金单号：<a href="javascript:;">{{adjustFundNo}}</a></a-col>
+            <a-col :span="8">用款计划单号：<a href="javascript:;">{{adjustFundNo}}</a></a-col>
             <a-col :span="12"></a-col>
             <a-col :span="4">单位：万元、人</a-col>
           </a-row>
@@ -154,6 +157,8 @@
 
           </div>
         </div>
+      </div>
+    </div>
         <!--endprint-->  
 
         <!-- 附件信息区域 -->
@@ -170,7 +175,7 @@
               <div style="margin-bottom: 8px;" :key="index" v-for="(item,index) in fileListData">
                 <span style="display:inline-block;width:360px;">{{item.fileName.replace(item.uuid,'')}}</span>
                   <a-button  style="margin-right:8px"  type="primary">
-                   <a :href="httpurl+'sifc-sms/api/storage/download?fileName='+item.fileName+'&filePath='+item.filePath+'&serviceType=SMS_ADJUST'" download="ddd">下载</a>
+                   <a :href="httpurl+service_sms+'/api/storage/download?fileName='+item.fileName+'&filePath='+item.filePath+'&serviceType=SMS_ADJUST'" download="ddd">下载</a>
                   </a-button>
                  <a-button type="primary" :disabled='disabled' @click="ondeletefile(item,index)">删除</a-button></div>
               
@@ -185,7 +190,7 @@
             <div style="padding:16px">
               <a-tabs defaultActiveKey="1" @change="callback">
                 <a-tab-pane tab="流程跟踪" key="1">
-                  
+                  <workflow-flow v-if="workflow" direction="horizontal" :options='options' />
                 </a-tab-pane>
                 <a-tab-pane tab="审批历史" key="2" forceRender>
                    <a-table bordered :dataSource="dataSource" :columns="columns" ></a-table>
@@ -195,9 +200,8 @@
             </div>
           <div>
 
-          </div>
         </div>
-      </div>
+        
      
     </div>
     <!-- 选择账户弹框 -->
@@ -236,6 +240,14 @@
 
 import deleteEmptyProperty from '../../components/mixins/json.js';
 import { ajaxData } from '../../components/mixins/ajaxdata.js';
+import { Component, Prop, Vue } from "vue-property-decorator";
+import workflow, {
+  canTaskRevoke,
+  revoke,
+  startWorkflow
+} from "../../components/libs";
+
+Vue.use(workflow);
 
 export default {
   name: 'adjustbillsdetails',
@@ -314,9 +326,9 @@ export default {
       myHeader:{
             // "Content-Type":'multipart/form-data',
             // Accept:"*/*",
-            'Authorization': 'Bearer '+localStorage.getItem("author")
+            // 'Authorization': 'Bearer '+localStorage.getItem("author")
       },//请求头设置
-      action:'https://dev81.yonyougov.top/sifc-sms/api/storage/upload?serviceType=SMS_ADJUST',
+      action:'',
       upmyData:{
         // serviceType:'SMS_ADJUST'
       },
@@ -326,7 +338,7 @@ export default {
       month:'',
       quarter:'',
       riskCode:'',
-      adjustFundNo:"", //调剂金单号
+      adjustFundNo:"", //用款计划单号
       risks:'',//调剂金拨款表数据
       organization:'',
       organizationName:'',//申请单位
@@ -343,34 +355,46 @@ export default {
       fileListData:[],
       httpurl:'',//获取ip
       disabled:false,
-      flag:2,//2 查询按钮代表是新增 0,1 代表是走修改接口
+      flag:2,//2 查询按钮代表是新增 0, 代表是走修改接口 1 代表查看
       seeId:'',//查看传的id
       seeState:'',//查看的状态
       modifyData:'',//修改保存提交数据
-      isEnableUpload:''//是否显示上传
+      isEnableUpload:'',//是否显示上传
+      quarterOrMonth:'',//显示月份还是季度
+
+      options:{//流程所需要的参数
+        procInstId:null
+      },
+      workflow:false,//流程显示
     }
   },
   computed: {
     applyAmount(){//申请总金额
       return Number(this.fixedReward)+Number(this.onceReward)
+    },
+    service_sms () {
+      return this.$store.state.setting.service_sms
     }
   },
   created () {
-    this.httpurl=window.location.host; //上线
-    //this.httpurl='https://dev81.yonyougov.top/sifc-sms/'//测试
-      
+    this.httpurl=localStorage.getItem("IP"); //上线
+    this.action=localStorage.getItem("IP")+this.service_sms+'/api/storage/upload?serviceType=SMS_ADJUST';
     //制单新增时操作
     var data=this.$route.query//通过数据来判断跳转过来的是从方案跳，还是从制单页面跳
     
     if(data.flag==0){//修改
       this.planId=data.planId;
       this.requestmodify(data.id);
+      this.options.procInstId=data.procInstId;
+      this.workflow=true;
       this.flag=0;
       console.log("走修改请求接口")
     }else if(data.flag==1){//查看
       this.planId=data.planId;
       this.seeId=data.id;
       this.requestmodify(data.id);
+      this.options.procInstId=data.procInstId;
+      this.workflow=true;
       this.flag=1;
       this.disabled=true;
        this.seeState=data.key;
@@ -383,17 +407,18 @@ export default {
     
 
     var Data='';
-    var _url='sifc-sms/api/adjustFund/getHeadData/'+this.planId;
+    var _url=this.service_sms+'/api/fundUsage/getHeadData/'+this.planId;
     ajaxData("get",_url,Data, (res) => {
       console.log(res)
         this.yeardata=res.data.years;//年获取值
         this.risks=res.data.risks;//调剂金拨款表
+        this.quarterOrMonth=res.data.quarterOrMonth;//
         this.isEnableUpload=res.data.isEnableUpload;
     });
     // 选择账户数据请求
-    var _accounturl='sifc-sms/api/UnitAccount?fetchProperties=id,createBy,createDate,regoin[name],accountName,bankAccount,isSubAccount&state=1';
+    var _accounturl=this.service_sms+'/api/UnitAccount?fetchProperties=id,createBy,createDate,regoin[name],accountName,bankAccount,isSubAccount&state=1';
     ajaxData("get",_accounturl,'', (res) => {
-    this.tableData=res.data;
+      this.tableData=res.data;
     })
 
   },
@@ -420,13 +445,13 @@ export default {
     request(order){//新增请求数据
       // 获取方案项
       var Data='';
-      var _url='sifc-sms/api/fundUsage/apply/'+order;
+      var _url=this.service_sms+'/api/fundUsage/apply/'+order;
       ajaxData("get",_url,Data, (res) => {
         var a=res.data.showFundUsageItems;//显示项目
         var b=res.data.hideFundUsageItems;//显示项目
         a.concat(b)
          this.adjustFundItems=a;//项目
-         this.adjustFundNo=res.data.sn;//调剂金号
+         this.adjustFundNo=res.data.sn;//用款计划单号
          this.organization=res.data.org.id;//单位id
          this.organizationName=res.data.org.name;//单位id
       });
@@ -434,7 +459,7 @@ export default {
 
     requestmodify(order){//修改请求数据
       var Data='';
-      var _url='sifc-sms/api/fundUsage/'+order+'?fetchProperties=*,fundUsageItems[*],organization[id,name]';
+      var _url=this.service_sms+'/api/fundUsage/'+order+'?fetchProperties=*,fundUsageItems[*],organization[id,name]';
       ajaxData("get",_url,Data, (res) => {
 
         console.log(res)
@@ -480,10 +505,10 @@ export default {
     onchangefun(e){//判断输入是否正确进行校验
       var b=e.target.value
       if(isNaN(b)){
-        e.target.parentElement.classList.add("has-error");
+        // e.target.parentElement.classList.add("has-error");
         return false
       }else{
-        e.target.parentElement.classList.remove("has-error");
+        // e.target.parentElement.classList.remove("has-error");
         this.onblur();//输入正确执行计算操作
       }
     },
@@ -493,11 +518,7 @@ export default {
       this.adjustFundItems=this.calculate(res);
 
     },
-    ondownload(item){//下载附件
-        var URl='https://dev81.yonyougov.top/sifc-sms';
-
-        // window.location.href=URL+'/api/storage/download?fileName=new%201.txt&filePath=%2Fftp%2F2019%2F03%2F22&serviceType=SMS_ADJUST'
-    },
+    
     ondeletefile(item,index){//删除附件
       console.log(item)
       var Data={
@@ -505,7 +526,7 @@ export default {
         filePath:item.filePath,
         serviceType:'SMS_ADJUST'
       }
-      var _url='/api/storage/delete'
+      var _url=this.service_sms+'/api/storage/delete'
        ajaxData("get",_url,Data, (res) => {
          this.fileListData.splice(index,1)
           this.$message.success(res.data.msg)
@@ -532,7 +553,7 @@ export default {
       
       if(this.flag==2){//新增  接口不一致 返回数据格式也不一致只能分开写
         this.makebillid='';
-        var _url='sifc-sms/api/fundUsage/prepareData';
+        var _url=this.service_sms+'/api/fundUsage/prepareData';
         var Data={
             planId:this.planId,
             year:this.year,
@@ -550,7 +571,7 @@ export default {
           this.adjustFundItems=_Data;
         });
       }else {//修改
-        var _url='sifc-sms/api/adjustFund/prepareModifiedData';
+        var _url=this.service_sms+'/api/fundUsage/prepareModifiedData';
         var Data={
             planId:this.planId,
             id:this.makebillid,
@@ -615,7 +636,7 @@ export default {
     requestseeing(res){
       // 查看时候的提交
       console.log(this.flag)
-      var _url='sifc-sms/api/fundUsage/batchCommitData';
+      var _url=this.service_sms+'/api/fundUsage/batchCommitData';
       var Data=[this.seeId]
       ajaxData("post",_url,Data, (res) => {
           if(res.data.code==0){
@@ -635,9 +656,9 @@ export default {
 
       var _url='';
       if(state==1){//提交
-          _url='sifc-sms/api/fundUsage/commitDataToSave';
+          _url=this.service_sms+'/api/fundUsage/commitDataToSave';
         }else {
-          _url='sifc-sms/api/fundUsage';
+          _url=this.service_sms+'/api/fundUsage';
         }
       if(this.flag==2){//新增时候的提交保存
         var Data={
@@ -683,7 +704,7 @@ export default {
           this.makebillid=res.data.id;
           // 提交 保存成功跳回列表页
           this.$router.push({//跳回列表页
-              path: "/expensesPlanMgt/expensesPlanMgtBills"
+              path: "/expensesPlanMgt/expensesPlanMgtBills?id="+this.planId
           });
         }else {
           console.log(res)
@@ -708,9 +729,9 @@ export default {
     font-weight: 600;
   }
   .adjustFundItemswrap {
-    border-top: 1px solid #000;
-    border-right: 1px solid #000;
-    border-bottom: 1px solid #000;
+    border-top: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
     position: relative;
     .line {
         position: absolute;
@@ -724,18 +745,18 @@ export default {
 
   }
   .dataItemstyle {
-    border-left:1px solid #000;
-    border-bottom:1px solid #000;
-    background: #c0e2f3;
+    border-left:1px solid #ddd;
+    border-bottom:1px solid #ddd;
+    background: #efefef;
     padding: 4px;
     height: 46px;
     display: flex;
     align-items: center;        /* 垂直居中 */
-    justify-content: center;    /* 水平居中 */
+    // justify-content: center;    /* 水平居中 */
   }
   .dataValuestyle {
-    border-left:1px solid #000;
-    border-bottom:1px solid #000;
+    border-left:1px solid #ddd;
+    border-bottom:1px solid #ddd;
     padding: 4px;
     height: 46px;
     display: flex;

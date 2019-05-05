@@ -1,5 +1,5 @@
 <template>
-  <a-layout-header :class="[theme, 'global-header']">
+  <a-layout-header v-if="isShowMenu" :class="[theme, 'global-header']">
     <div :class="['global-header-wide', layout]">
       <router-link v-if="isMobile || layout === 'head'" to="/" :class="['logo', isMobile ? null : 'pc', theme]">
         <img width="32" src="static/img/vue-antd-logo.png" />
@@ -35,6 +35,9 @@ export default {
   components: {IMenu, HeaderAvatar, HeaderNotice, HeaderSearch},
   props: ['collapsed', 'menuData'],
   computed: {
+    isShowMenu () {
+      return this.$store.state.setting.isShowMenu
+    },
     isMobile () {
       return this.$store.state.setting.isMobile
     },
@@ -97,8 +100,7 @@ export default {
         max-width: 1400px;
         margin: auto;
       }
-      &.side{
-      }
+      
       .logo {
         height: 64px;
         line-height: 58px;
@@ -124,6 +126,7 @@ export default {
       }
       .global-header-menu{
         display: inline-block;
+      
       }
       .global-header-right{
         float: right;

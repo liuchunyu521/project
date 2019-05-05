@@ -8,133 +8,178 @@
         <div class="title">账户明细</div>
         <div class="content" style="padding:0;">
           
-          <a-table  :dataSource="dataSource" :columns="columns" :scroll="{ x: 1500, y: 300 }"  :pagination="false">
-            <template slot="address" slot-scope="text, record">
-               <a-input
-                v-if="record.editable"
-                style="margin: -5px 0"
-                :value="text"
-                @change="e => handleChange(e.target.value, record.key, 'address')"
-              />
-
-              <template v-else>{{record.address}}</template>
+          <a-table  
+            
+            :dataSource="dataSource" 
+            :columns="columns" 
+            :scroll="{ x: 1600, y: 300 }"  
+            :pagination="false"
+            :rowSelection="{
+              type:'radio',
+              selectedRowKeys: selectedRowKeys, 
+              onChange: onSelectChange
+            }"
+          >
+            <!-- 银行账号(子账号) -->
+            <template slot="subAccountNo" slot-scope="text, record">
+                <a-input  v-model="record.subAccountNo"  />
+            </template>
+            <!--账户名称 -->
+            <template slot="subAccountName" slot-scope="text, record">
+                <a-input  v-model="record.subAccountName"  />
+            </template>
+            <!-- 账户类型 -->
+            <template slot="subAccountType" slot-scope="text, record">
+                <a-select  v-model="record.subAccountType"  >
+                    <a-select-option :value="1" >死期</a-select-option>
+                    <a-select-option :value="2" >活期</a-select-option>
+                </a-select>
+            </template>
+            <!-- 基金险种 -->
+            <template slot="insType" slot-scope="text, record">
+                <a-select  v-model="record.insType"  >
+                    <a-select-option :key="item.id" :value="item.id+'-'+item.lastModifiedVersion" v-for="(item) in risksdata">{{item.asValue}}</a-select-option>
+                </a-select>
             </template>
             
-            
-            <template slot="name" slot-scope="text, record">
-              <a-select v-if="record.editable" v-model="record.name" style="width: 120px" @change="onCellChange(record.key, 'name',record.name)">
-                <a-select-option value="jack">Jack</a-select-option>
-                <a-select-option value="lucy">Lucy</a-select-option>
-              </a-select>
-
-              <template v-else>{{record.name}}</template>
-              <!-- <editable-cell :text="text" @change="onCellChange(record.key, 'name',text)"  /> -->
+             <!-- 账户类型 -->
+            <template slot="isSubAccount" slot-scope="text, record">
+                <a-select  v-model="record.isSubAccount"  >
+                    <a-select-option :value="1" >是</a-select-option>
+                    <a-select-option :value="0" >否</a-select-option>
+                </a-select>
             </template>
-
-
-
             <template slot="operation" slot-scope="text, record,index">
-              
-              <span v-if="record.editable">
-                <a @click="() => save(record.key)">保存</a>
-                <a-popconfirm title='确定取消?' @confirm="() => cancel(record.key)">
-                  <a>取消</a>
-                </a-popconfirm>
-              </span>
-              <span v-else>
-                <a href="javascript:;" style="margin-left:4px" @click="onedit(record.key)">编辑</a>
-              </span>
-              
               <a-popconfirm
                 v-if="dataSource.length"
                 title="确定删除?"
-                @confirm="() => onDelete(record.key)">
+                @confirm="() => onDelete(index)">
                 <a href="javascript:;">删除</a>
               </a-popconfirm>
             </template>
           </a-table>
            <div style="padding:5px">
              <a-button class="editable-add-btn" @click="handleAdd">+</a-button>
-             <a-button class="editable-add-btn" @click="handle">获取</a-button>
+             <!-- <a-button class="editable-add-btn" @click="handle">获取</a-button> -->
            </div>
         </div>
       </div>
-      <span>余额合计：XXXXXX</span>元
+      <span>余额合计：{{balance}}</span>元
+
+      <!-- 流水记录 -->
+
+      <a-modal
+          title="账户明细流水查询"
+        :visible="visible"
+          @ok="handleOk"
+          width="800px"
+          okText="确认"
+          cancelText="取消"
+          @cancel="handleCancel"
+        >
+
+        <a-table 
+          bordered  
+         
+          :columns="columnsdetails" 
+          :dataSource="dataSourcedetails" 
+          :scroll="{ x: 1000 }" 
+          :pagination="true"
+        />
+    </a-modal>
   </div>
 </template>
 
 <script>
-import EditableCell from './EditableCell'
+import { ajaxData } from '../../../../components/mixins/ajaxdata.js';
 export default {
   name: 'unitaccountadddetails',
-  components: {
-    EditableCell,
-  },
+  props:['subAccountListdata'],
   data() {
     return {
-      cacheData:[{
-        key: '0',
-        name: '北京',
-        age: '32',
-        address: '北京银行',
-        address1: '用友政务',
-        address2: '2019-09-09',
-        address3: '2019-09-09',
-        address4: 'A',
-        address5: '海淀区',
-        address6: '北京市',
+      // 流水记录相关配置
+      visible:false,
+      columnsdetails:[{
+        title: '银行交易流水号',
+        dataIndex: 'bankSeqNo', 
+      },
+      {
+        title: '交易时间',
+        dataIndex: 'arrivalAccountDate', 
+      },{
+        title: '业务类型',
+        dataIndex: 'businessType', 
+      },{
+        title: '摘要',
+        dataIndex: '', 
+      },{
+        title: '用途',
+        dataIndex: '', 
+      },{
+        title: '收款单位',
+        dataIndex: '', 
+      },{
+        title: '收款账户',
+        dataIndex: '', 
+      },{
+        title: '借贷标识',
+        dataIndex: '', 
+      },{
+        title: '借方发生',
+        dataIndex: '', 
+      },{
+        title: '贷方发生',
+        dataIndex: '', 
+      },{
+        title: '余额',
+        dataIndex: '', 
       }],
-      dataSource: [{
-        key: '0',
-        name: '北京',
-        age: '32',
-        address: '北京银行',
-        address1: '用友政务',
-        address2: '2019-09-09',
-        address3: '2019-09-09',
-        address4: 'A',
-        address5: '海淀区',
-        address6: '北京市',
-      }],
+      dataSourcedetails:[],
+      // 明细相关配置
+      selectedRowKeys:[],
+      dataSource: this.subAccountListdata,
       count: 2,
       columns: [{
         title: '银行账号(子账号)',
-        dataIndex: 'name',
-        width: 200,
+        dataIndex: 'subAccountNo',
+        width: 150,
         fixed: 'left',
-        scopedSlots: { customRender: 'name' }
+        scopedSlots: { customRender: 'subAccountNo' }
       }, {
         title: '账户名称',
-        dataIndex: 'age', 
-        width: 150
+        dataIndex: 'subAccountName', 
+        width: 200,
+        scopedSlots: { customRender: 'subAccountName' }
       }, {
         title: '账户类型',
-        dataIndex: 'address',
-        width: 150
+        dataIndex: 'subAccountType',
+        width: 150,
+        scopedSlots: { customRender: 'subAccountType' }
       }, {
         title: '余额',
-        dataIndex: 'address1',
+        dataIndex: 'subAccountBalance',
         width: 150
       }, {
         title: '余额更新日期',
-        dataIndex: 'address2',
+        dataIndex: 'balanceDate',
         width: 150
       }, {
         title: '基金险种',
-        dataIndex: 'address3',
+        dataIndex: 'insType',
+        scopedSlots: { customRender: 'insType' },
         width: 150
       }, {
         title: '账套',
-        dataIndex: 'address4',
+        dataIndex: 'accSysId',
         width: 150
       }, {
         title: '科目名称',
-        dataIndex: 'address5',
+        dataIndex: 'subjectId',
         width: 150
       }, {
         title: '是否子账户',
-        dataIndex: 'address6',
-        width: 150
+        dataIndex: 'isSubAccount',
+        scopedSlots: { customRender: 'isSubAccount' }
       }, {
         title: '操作',
         dataIndex: 'operation',
@@ -142,74 +187,97 @@ export default {
         fixed: 'right',
         scopedSlots: { customRender: 'operation' },
       }],
+      risksdata:'',//基金险种数据
+      balance:0,//余额
+      updatadata:'',//所要更新的数据
     }
+  },
+  computed:{
+    service_sms () {
+      return this.$store.state.setting.service_sms
+    }
+  },
+  mounted(){
+    // // 获取险种
+      var _url=this.service_sms+'/api/asVal?valType.typeCode=riskCode';
+      ajaxData("get",_url,'', (res) => {
+        console.log(res)
+        this.risksdata=res.data;
+      })
+      // this.dataSource=this.subAccountListdata;
+      console.log(this.subAccountListdata)
+      this.calData();
   },
   methods: {
     handle(){
-      console.log(this.dataSource)
-    },
-    onChange(...args) {
-      console.log(args)
-    },
-    handleChange (value, key, column) {
-      const newData = [...this.dataSource]
-      const target = newData.filter(item => key === item.key)[0]
-      if (target) {
-        target[column] = value
-        this.dataSource = newData
-      }
-    },
-    onCellChange (key,dataIndex,value) {  
-     
-      console.log(key,dataIndex,value)
-     
-        const dataSource = [...this.dataSource]
-        const target = dataSource.find(item => item.key === key)
-        if (target) {
-          target[dataIndex] = value
-          this.dataSource = dataSource
+      // console.log(this.dataSource)
+      var _data=JSON.parse(JSON.stringify(this.dataSource));
 
-          console.log( this.dataSource)
-        
+      for(var i=0;i<_data.length;i++){
+        if(_data[i].insType){//左下拉数据处理
+            var array=_data[i].insType.split("-");
+            _data[i].insType={
+                "id":array[0],
+                "lastModifiedVersion":array[1]
+            }
+        }
+      }
+      return _data;
+    },
+    onSelectChange (selectedRowKeys, value) {//获取table 选中的数据
+  
+     this.selectedRowKeys = selectedRowKeys;
+     var _data=[];
+      for(var i=0;i<value.length;i++){
+        _data.push(value[i].id)
+      }
+      this.updatadata=_data;
+    },
+    updatarequestbalance(){
+      var id=this.updatadata[0]
+      if(id){
+        var _url=this.service_sms+'/api/unitAccount/getBlance/'+id;
+        ajaxData("get",_url,'', (res) => {
+          var id=res.data.data.id;
+          for(let i=0;i<this.dataSource.length;i++){
+            if(this.dataSource[i].id==id){
+              this.dataSource[i].subAccountBalance=res.data.data.subAccountBalance;
+              this.dataSource[i].balanceDate=res.data.data.balanceDate;
+              this.dataSource[i].lastModifiedVersion=res.data.data.lastModifiedVersion;
+            }
+          }
+          this.$message.success('余额更新成功');
+          this.calData();//更新
+        })
+      }else {
+        this.$message.warning('请选择要更新明细');
       }
     },
-    onedit (key) {
-      const newData = [...this.dataSource]
-      const target = newData.filter(item => key === item.key)[0]
-      if (target) {
-        target.editable = true
-        this.dataSource = newData
-      }
+    onDelete (index) {
+      this.dataSource.splice(index,1)
     },
-    save (key) {
-      const newData = [...this.dataSource]
-      const target = newData.filter(item => key === item.key)[0]
-      if (target) {
-        delete target.editable
-        this.dataSource = newData
-        this.cacheData = newData.map(item => ({ ...item }))
+    calData(){//计算总金额
+      var sum=0;
+      if(this.dataSource.length>0){
+        for(let i=0;i<this.dataSource.length;i++){
+          sum=sum+Number(this.dataSource[i].subAccountBalance);
+        }
       }
-    },
-    cancel (key) {
-      const newData = [...this.dataSource]
-      const target = newData.filter(item => key === item.key)[0]
-      if (target) {
-        Object.assign(target, this.cacheData.filter(item => key === item.key)[0])
-        delete target.editable
-        this.dataSource = newData
-      }
-    },
-    onDelete (key) {
-      const dataSource = [...this.dataSource]
-      this.dataSource = dataSource.filter(item => item.key !== key)
+      this.balance=sum;
+
     },
     handleAdd () {
       const { count, dataSource } = this
       const newData = {
-        key: count,
-        name: `Edward King ${count}`,
-        age: 32,
-        address: `London, Park Lane no. ${count}`,
+        subAccountNo:null,
+        subAccountName:null,
+        subAccountType:2,
+        subAccountBalance:0,
+        balanceDate:null,
+        insType:null,
+        accSysId:null,
+        subjectId:null,
+        isSubAccount:1,
       }
       this.dataSource = [...dataSource, newData]
       this.count = count + 1

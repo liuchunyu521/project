@@ -2,15 +2,17 @@ export default {
   namespaced: true,
   state: {
     isMobile: false,
+    isShowMenu:true,//是否显示菜单、导航等操作
+    // 全局配置不同服务名称例如：sifc-sms sifc-bdmp sifc-dep
+    service_sms:'sifc-sms1',
+    service_bdmp:'sifc-bdmp',
+    service_dep:'sifc-dep123',
+    // over
     theme: 'dark',
     layout: 'side',
     systemName: '人社社保',
-    copyright: '2018 ICZER 工作室出品',
-    footerLinks: [
-      {link: 'https://pro.ant.design', name: 'Pro首页'},
-      {link: 'https://github.com/iczer/vue-antd-admin', icon: 'github'},
-      {link: 'https://ant.design', name: 'Ant Design'}
-    ],
+    copyright: '',
+    footerLinks: [],
     multipage: true
   },
   mutations: {

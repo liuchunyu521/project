@@ -127,7 +127,9 @@
           <a-tab-pane tab="驳回" key="2"></a-tab-pane>
         </a-tabs>
         <a-table :loading="loading" bordered :rowSelection="{selectedRowKeys: selectedRowKeys, onChange: onSelectChange}"  :columns="columns" :dataSource="dataSource" :pagination="false">
-          
+          <template slot="createBy" slot-scope="text, record">
+            <span>{{record.createBy.name}}</span>
+          </template>
           <template slot="createDate" slot-scope="text, record">
             <span>{{record.createDate | date}}</span>
           </template>
@@ -188,6 +190,7 @@ const columns = [{
 },{
   title: '制单人',
   dataIndex: 'createBy',
+  scopedSlots: { customRender: 'createBy' },
 },{
   title: '制单提交日期',
   dataIndex: 'createDate',
@@ -267,18 +270,20 @@ export default {
     }
   },
   computed: {
-    
+    service_sms () {
+      return this.$store.state.setting.service_sms
+    }
   },
   mounted () {
       // 获取年度
       var Data='';
-      var _url='sifc-sms/api/adjustFund/getYears';
+      var _url=this.service_sms+'/api/adjustFund/getYears';
       ajaxData("get",_url,Data, (res) => {
          this.yeardata=res.data.years;
       });
 
       this.request(this.current-1,this.pageSize);//初始获取列表数据
-
+     
   },
    watch:{
     pageSize(val) {
@@ -309,7 +314,7 @@ export default {
     onSubmit(){//提交
       var _data=this.deletedata;
       var params=_data;
-      var _url='sifc-sms/api/adjustFund/batchCommitData';
+      var _url=this.service_sms+'/api/adjustFund/batchCommitData';
       ajaxData("post",_url,params, (res) => {
          console.log(res)
          if(res.data.code==0){
@@ -326,24 +331,33 @@ export default {
       var params={
        
       }
-      var _url='/api/adjustFund/batchRemove?ids='+_data;
+      var _url=this.service_sms+'/api/adjustFund/batchRemove?ids='+_data;
       ajaxData("get",_url,params, (res) => {
          console.log(res)
+         this.$message.success('删除成功');
          this.request(this.current-1,this.pageSize);
       });
     },
     onadd(){
+      
       var data=this.$route.query//通过数据来判断跳转过来的是从方案跳，还是从制单页面跳
-    
+      var _url=this.service_sms+'/api/adjustFund/checkPlan/'+data.id;
     if(data.id){
-      this.$router.push({//你需要接受路由的参数再跳转
-          path: "/adjustGoldMgt/adjustMakeDetails",
-            query: { 
-                id: data.id,
-             }
+      ajaxData("get",_url,'', (res) => {
+       if(res.data.code==0){
+         this.$router.push({//你需要接受路由的参数再跳转
+              path: "/adjustGoldMgt/adjustMakeDetails",
+                query: { 
+                    id: data.id,
+                }
+          });
+       }else if(res.data.code==1){
+        this.$message.error("该方案已经停用不能进行新增")
+       }
       });
+      
     }else {
-      this.$message.error('未配置方案id,不能新增');
+      this.$message.error('地址未配置方案id,不能新增');
     }
       
     },
@@ -351,6 +365,7 @@ export default {
       this.$router.push({//你需要接受路由的参数再跳转
           path: "/adjustGoldMgt/adjustMakeDetails",
             query: { 
+                procInstId:item.procInstId,
                 id: item.id,
                 flag:1,
                 planId:item.planId,
@@ -362,6 +377,7 @@ export default {
       this.$router.push({//你需要接受路由的参数再跳转
           path: "/adjustGoldMgt/adjustMakeDetails",
             query: { 
+                procInstId:item.procInstId,
                 id: item.id,
                 flag:0,
                 planId:item.planId
@@ -388,16 +404,18 @@ export default {
       this.current=1,
       this.pageSize=10;
       this.request(this.current-1,this.pageSize);
+      
     },
-    request(p,s){
+    request(p,s){//列表数据请求
       var _url;
       var Data=this.paramsdata;
+      var dataquery=this.$route.query
       if(Data.createDate){
           Data.createDate= [Data.createDate[0].format('YYYY-MM-DD') , Data.createDate[1].format('YYYY-MM-DD')]
-          _url='sifc-sms/api/adjustFund?fetchProperties=*,organization[id,name]&createDate >'+Data.createDate[0]+'&createDate <'+Data.createDate[1];
+          _url=this.service_sms+'/api/adjustFund?fetchProperties=*,organization[id,name],createBy[name]&createDate >'+Data.createDate[0]+'&createDate <'+Data.createDate[1]+'&planId='+dataquery.id;
         delete Data.createDate;
       }else {
-        _url='sifc-sms/api/adjustFund?fetchProperties=*,organization[id,name]';
+        _url=this.service_sms+'/api/adjustFund?fetchProperties=*,organization[id,name],createBy[name]&planId='+dataquery.id;
       }
       Data.auditState=this.auditState;
       Data.page=p;

@@ -15,7 +15,7 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    
+
     {
       path: '/',
       name: '首页',
@@ -31,7 +31,59 @@ export default new Router({
           component: () => import('@/pages/workSpace/homePage'),
           invisible: true,
         },
-
+        {
+          path: '/systemManage',
+          name: '系统管理',
+          component: RouteView,
+          icon: 'dashboard',
+          invisible: true,
+          children:[
+            {
+              path: '/systemManage/fileServerConfig',
+              name: '文件服务器配置',
+              component: () => import('@/pages/systemManage/fileServerConfig'),
+              icon: 'none',
+              invisible: true,
+            },
+            {
+              path: '/systemManage/dataDictionary',
+              name: '数据字典',
+              component: () => import('@/pages/systemManage/dataDictionary'),
+              icon: 'none',
+              invisible: true,
+            }
+          ]
+        },
+        {
+          path: '/dataExchange',
+          name: '数据交换平台',
+          component: RouteView,
+          icon: 'dashboard',
+          invisible: true,
+          children: [
+            {
+              path: '/dataExchange/dataExchangeConfig',
+              name: '数据交换方案配置',
+              component: () => import('@/pages/dataExchange/dataExchangeConfig'),
+              icon: 'none',
+              invisible: true,
+            },
+            {
+              path: '/dataExchange/dataExchangeConfigDetails',
+              name: '数据交换方案详细',
+              component: () => import('@/pages/dataExchange/dataExchangeConfigDetails'),
+              icon: 'none',
+              invisible: true,
+            },
+            {
+              path: '/dataExchange/dataExchangeLog',
+              name: '数据交换执行日志',
+              component: () => import('@/pages/dataExchange/dataExchangeLog'),
+              icon: 'none',
+              invisible: true,
+            }
+          ]
+        },
         {
           path: '/bankAccountMgt',
           name: '银行账户管理',
@@ -61,13 +113,6 @@ export default new Router({
               invisible: true,
             },
             {
-              path: '/bankAccountMgt/accountGoldcontrol',
-              name: '账户资金监控信息',
-              component: () => import('@/pages/bankAccountMgt/accountGoldcontrol/accountGoldcontrol'),
-              icon: 'none',
-              invisible: true,
-            },
-            {
               path: '/bankAccountMgt/comegoCompanyMgt',
               name: '往来单位管理',
               component: () => import('@/pages/bankAccountMgt/comegoCompanyMgt/comegoCompanyMgt'),
@@ -76,6 +121,7 @@ export default new Router({
             }
           ]
         },
+
         {
           path: '/adjustGoldMgt',
           name: '调剂金管理',
@@ -138,8 +184,63 @@ export default new Router({
           children: [
             {
               path: '/balanceAccount/balanceAccountDataMgt',
-              name: '对账数据源管理',
+              name: '对账管理',
               component: () => import('@/pages/balanceAccountMgt/balanceAccountDataMgt'),
+              icon: 'none',
+              invisible: true,
+            },
+            {
+              path: '/balanceAccount/balanceAccountConfigMgt',
+              name: '对账方案配置管理',
+              component:RouteView,
+              icon: 'none',
+              invisible: true,
+              children: [
+                {
+                  path: '/balanceAccount/balanceAccountConfigMgt',
+                  name: '对账方案配置',
+                  component: () => import('@/pages/balanceAccountMgt/balanceConfigMgt/balanceConfigMgt'),
+                  icon: 'none',
+                  invisible: true,
+                },
+                {
+                  path: '/balanceAccount/balanceAccountConfigMgtDetails',
+                  name: '对账方案详细页面',
+                  component: () => import('@/pages/balanceAccountMgt/balanceConfigMgt/balanceConfigMgtDetails'),
+                  icon: 'none',
+                  invisible: true,
+                }
+              ]
+            }
+
+          ]
+        },
+
+        {
+          path: '/fundRiskWarning',
+          name: '基金风险预警',
+          component: RouteView,
+          icon: 'dashboard',
+          invisible: true,
+          children: [
+            {
+              path: '/fundRiskWarning/warnRuleSet',
+              name: '预警规则设置',
+              component: () => import('@/pages/fundRiskWarning/warnRuleSet'),
+              icon: 'none',
+              invisible: true,
+            },
+            {
+              path: '/fundRiskWarning/pointManage',
+              name: '疑点管理',
+              component: () => import('@/pages/fundRiskWarning/pointManage'),
+              icon: 'none',
+              invisible: true,
+            },
+            {
+              path: '/fundRiskWarning/checkDaily',
+              name: '查看日志',
+              component: () => import('@/pages/fundRiskWarning/checkDaily'),
               icon: 'none',
               invisible: true,
             }
@@ -175,23 +276,23 @@ export default new Router({
                 }
               ]
             },{
-              path: '/expensesPlanMgtapprovelist',
+              path: '/expensesPlanMgtApprovelist',
               name: '用款计划审批',
               component: RouteView,
               icon: 'none',
               invisible: true,
               children: [
                 {
-                  path: '/expensesPlanMgt/expensesPlanMgtapprove',
+                  path: '/expensesPlanMgt/expensesPlanMgtApprove',
                   name: '用款计划审批单',
-                  component: () => import('@/pages/expensesPlanMgt/expensesPlanMgtapprove/expensesPlanMgtapprove'),
+                  component: () => import('@/pages/expensesPlanMgt/expensesPlanMgtApprove/expensesPlanMgtApprove'),
                   icon: 'none',
                   invisible: true,
                 },
                 {
                   path: '/expensesPlanMgt/expensesPlanMgtApproveDetails',
                   name: '用款计划审批详细页面',
-                  component: () => import('@/pages/expensesPlanMgt/expensesPlanMgtapprove/expensesPlanMgtapproveDetails'),
+                  component: () => import('@/pages/expensesPlanMgt/expensesPlanMgtApprove/expensesPlanMgtApproveDetails'),
                   icon: 'none',
                   invisible: true,
                 }
@@ -206,28 +307,60 @@ export default new Router({
           invisible: true,
           children: [
             {
-              path: '/payMgt',
+              path: '/fundPayMgt/payMgt',
               name: '支付管理',
               component: RouteView,
               icon: 'none',
               invisible: true,
               children: [
                 {
-                  path: '/payMgt/batchPay',
+                  path: '/fundPayMgt/payMgt/batchPay',
                   name: '批量支付',
                   component: () => import('@/pages/fundPayMgt/payMgt/batchPay'),
                   icon: 'none',
                   invisible: true,
                 },
                 {
-                  path: '/payMgt/singlePay',
+                  path: '/fundPayMgt/payMgt/singlePay',
                   name: '单笔支付',
                   component: () => import('@/pages/fundPayMgt/payMgt/singlePay'),
                   icon: 'none',
                   invisible: true,
                 }
               ]
-            } 
+            },
+            {
+              path: '/treatManage',
+              name: '待遇支付计划管理',
+              component: RouteView,
+              icon: 'none',
+              invisible: true,
+              children: [
+                {
+                  path: '/treatManage/treatManage',
+                  name: '待遇支付计划管理',
+                  component: () => import('@/pages/fundPayMgt/treatManage/treatManage'),
+                  icon: 'none',
+                  invisible: true,
+                }
+              ]
+            },
+            {
+              path: '/outStanding',
+              name: '收支台账查询',
+              component: RouteView,
+              icon: 'none',
+              invisible: true,
+              children: [
+                {
+                  path: '/outStanding/outStanding',
+                  name: '基金支出台账查询',
+                  component: () => import('@/pages/fundPayMgt/outStanding/outStanding'),
+                  icon: 'none',
+                  invisible: true,
+                }
+              ]
+            }
           ]
         },{
           path: '/projectconfigMgt',
@@ -280,32 +413,25 @@ export default new Router({
                   invisible: true,
                 }
               ]
-            },
-            {
-              path: '/projectconfigMgt/accountGoldcontrolConfig',
-              name: '资金账户监控配置',
-              component:RouteView,
-              icon: 'none',
-              invisible: true,
-              children: [
-                {
-                  path: '/projectconfigMgt/accountGoldcontrolConfig',
-                  name: '资金账户监控配置',
-                  component: () => import('@/pages/projectconfigMgt/accountGoldcontrolConfig/accountGoldcontrolConfig'),
-                  icon: 'none',
-                  invisible: true,
-                },
-                {
-                  path: '/projectconfigMgt/accountGoldcontrolDetails',
-                  name: '资金监护详细',
-                  component: () => import('@/pages/projectconfigMgt/accountGoldcontrolConfig/accountGoldcontrolDetails'),
-                  icon: 'none',
-                  invisible: true,
-                }
-              ]
             }
           ]
         },
+        {
+          path: '/socialBankPlat',
+          name: '社银平台',
+          component: RouteView,
+          icon: 'dashboard',
+          invisible: true,
+          children: [
+            {
+              path: '/socialBankPlat/accessBankConfig',
+              name: '接入银行配置',
+              component: () => import('@/pages/socialBankPlat/accessBankConfig'),
+              icon: 'none',
+              invisible: true,
+            }
+          ]
+        }
       ]
     }
   ]
