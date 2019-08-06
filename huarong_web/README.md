@@ -4,10 +4,12 @@
 .
 ├── build                                       // webpack配置文件
 ├── config                                      // 项目打包路径
-├── elm                                         // 上线项目文件，放在服务器即可正常访问
-├── screenshots                                 // 项目截图
 ├── src                                         // 源码目录
-│   ├── components                              // 组件
+│   ├── assets                                  // 静态资源
+│   │   ├── img                                 //公共图片
+│   │   ├── js                                  //常用的js方法
+│   │   ├── css                                 //css
+│   ├── components                              // 组件
 │   │   ├── common                              // 公共组件
 │   │   │   ├── alertTip.vue                    // 弹出框组件
 │   │   │   ├── buyCart.vue                     // 购物车组件
@@ -20,14 +22,8 @@
 │   │   │   └── footGuide.vue                   // 底部公共组件
 │   │   └── header
 │   │       └── head.vue                        // 头部公共组件
-│   ├── config                                  // 基本配置
-│   │   ├── env.js                              // 环境切换配置
-│   │   ├── fetch.js                            // 获取数据
-│   │   ├── mUtils.js                           // 常用的js方法
-│   │   └── rem.js                              // px转换rem
-│   ├── images                                  // 公共图片
-│   ├── page
-│   │   ├── balance
+│   ├── page                                    //功能页面
+│   │   ├── balance
 │   │   │   ├── balance.vue                     // 余额页
 │   │   │   └── children
 │   │   │       └── detail.vue                  // 余额说明
