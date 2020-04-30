@@ -76,7 +76,7 @@
     "happypack": "^4.0.1",
     "http-proxy-middleware": "0.17.4",
     "inject-loader": "2.0.1",
-    "jquery": "3.2.1",
+    "jquery": "3.5.0",
     "lolex": "1.6.0",
     "mockjs": "^1.0.1-beta3",
     "opn": "4.0.2",
