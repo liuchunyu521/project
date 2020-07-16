@@ -16,7 +16,7 @@
     "css": "^2.2.3",
     "ifbp-business": "git+https://gitee.com/ifbp/ifbp-business.git#3.0.1-r3",
     "ifbp-element": "^1.1.46",
-    "lodash": "4.17.4",
+    "lodash": "4.17.19",
     "lodash.debounce": "4.0.8",
     "vue": "2.2.6",
     "vue-echarts": "2.3.7",
